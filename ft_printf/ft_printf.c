@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:01:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/04/26 20:28:52 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/04/26 20:36:02 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ int ft_printf(const char *st, ...)
 	}
 	return len;
 }
+/* 
 int main()
 {
 
@@ -226,4 +227,4 @@ int main()
 	j = printf("%c\n%s\n%p\n%d\n%i\n%u\n%x\n%X\n%%", 'c', "abc", &a, 1324, -1234, 242121211, 2147483647, 2147483647);
 	printf("%zu\n", j);
 	return 0;
-}
+} */
