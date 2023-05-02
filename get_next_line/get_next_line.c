@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:11:47 by dongseo           #+#    #+#             */
-/*   Updated: 2023/04/29 21:39:19 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/05/02 16:22:10 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ char	*get_next_line(int fd)
 #include <fcntl.h>
 int main ()
 {
-	int f1,f2,f3,f4;
+	int f1;
 	f1 = open("test.txt", O_RDONLY);
 	printf("%s", get_next_line(f1));
 	printf("%s", get_next_line(f1));
