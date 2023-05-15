@@ -1,19 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   testmain.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:41:50 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/15 23:42:46 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/05/15 23:35:18 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "./get_next_line/get_next_line.h"
-#include "./libft/libft.h"
+#include <stdlib.h>
 #include "checker.h"
+
+
+int	ft_atoi(const char *str)
+{
+	int			i;
+	long long	res;
+	int			sign;
+
+	sign = 1;
+	res = 0;
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res *= 10;
+		res += str[i] - '0';
+		i++;
+	}
+	return (sign * res);
+}
+
 
 int	is_int(int argc, char *argv[])
 {
@@ -131,7 +158,6 @@ void print_all(t_stack *ft_stack)
 
 int main(int argc, char *argv[])
 {
-	char *test;
 	t_stack *stack_a;
 	t_stack *stack_b;
 
@@ -139,12 +165,5 @@ int main(int argc, char *argv[])
 	stack_b = (t_stack *)malloc(sizeof(t_stack));
 	stack_init(argc, argv, stack_a, stack_b);
 	print_all(stack_a);
-	test = get_next_line(0);
-	while (test)
-	{
-		printf("%s", test);
-		free(test);
-		test = get_next_line(1);
-	}
 	return 0;
 }
