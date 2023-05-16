@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:41:50 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/15 23:42:46 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/05/16 16:50:26 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,67 @@ void print_all(t_stack *ft_stack)
 		printf("%d  ", p->data);
 		p = p->next;
 	}
-	printf("%d", p->data);
+	printf("%d\n", p->data);
+}
+
+void swap(t_stack *stack)
+{
+	t_node *top;
+	t_node *temp;
+
+	if (stack->size <= 1)
+		return ;
+	top = stack->tail->pre;
+	temp = top->pre;
+	temp->pre->next = top;
+	temp->next = top->next;
+	top->pre = temp->pre;
+	temp->next->pre = temp;
+	top->next = temp;
+	temp->pre = top;
+}
+
+int is_empty(t_stack *stack)
+{
+	if (stack->size == 0)
+		return 1;
+	return 0;
+}
+int delete_last(t_stack *stack)
+{
+	t_node *temp;
+	int result;
+
+	temp = stack->tail->pre;
+	result = temp->data;
+	temp->pre->next = temp->next;
+	temp->next->pre = temp->pre;
+	free(temp);
+	temp = 0;
+	stack->size--;
+	return result;
+}
+
+void push_stack(t_stack *dest, t_stack *src)
+{
+	push_back(dest, delete_last(src));
+	
+}
+void rotate(t_stack *stack)
+{
+	int data;
+	t_node *temp;
+
+	if (stack->size < 2)
+		return ;
+	temp = stack->head->next;
+	data = temp->data;
+	stack->head->next = temp->next;
+	temp->next->pre = stack->head;
+	free(temp);
+	temp = 0;
+	stack->size--;
+	push_back(stack, data);
 }
 
 int main(int argc, char *argv[])
@@ -137,12 +197,44 @@ int main(int argc, char *argv[])
 
 	stack_a = (t_stack *)malloc(sizeof(t_stack));
 	stack_b = (t_stack *)malloc(sizeof(t_stack));
-	stack_init(argc, argv, stack_a, stack_b);
+	if (stack_init(argc, argv, stack_a, stack_b))
+	{
+		printf("Erorr\n");
+		return 0;
+	}
+	printf("stack_a list\n");
 	print_all(stack_a);
+	printf("stack_b list\n");
+	print_all(stack_b);
 	test = get_next_line(0);
 	while (test)
 	{
-		printf("%s", test);
+		if (ft_strncmp(test, "sa", ft_strlen(test) - 1) == 0)
+			swap(stack_a);
+		if (ft_strncmp(test, "sb", ft_strlen(test) - 1) == 0)
+			swap(stack_b);
+		if (ft_strncmp(test, "ss", ft_strlen(test) - 1) == 0)
+		{
+			swap(stack_a);
+			swap(stack_b);
+		}
+		if (ft_strncmp(test, "pa", ft_strlen(test) - 1) == 0 && !(is_empty(stack_b)))
+			push_stack(stack_a, stack_b);
+		if (ft_strncmp(test, "pb", ft_strlen(test) - 1) == 0 && !(is_empty(stack_a)))
+			push_stack(stack_b, stack_a);
+		if (ft_strncmp(test, "ra", ft_strlen(test) - 1) == 0)
+			rotate(stack_a);
+		if (ft_strncmp(test, "rb", ft_strlen(test) - 1) == 0)
+			rotate(stack_b);
+		if (ft_strncmp(test, "rr", ft_strlen(test) - 1) == 0)
+		{
+			rotate(stack_a);
+			rotate(stack_b);
+		}
+		printf("stack_a list\n");
+		print_all(stack_a);
+		printf("stack_b list\n");
+		print_all(stack_b);
 		free(test);
 		test = get_next_line(1);
 	}
