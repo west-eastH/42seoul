@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:11:47 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/12 12:13:31 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/05/16 20:01:48 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,18 +244,4 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	return (no_line(fd, &lst, size));
-}
-
-#include <stdio.h>
-#include <fcntl.h>
-int main ()
-{
-	int f1;
-	f1 = open("test.txt", O_RDONLY);
-	printf("%s", get_next_line(f1));
-	printf("%s", get_next_line(f1));
-	printf("%s", get_next_line(f1));
-	printf("%s", get_next_line(f1));
-	
-	return 0;
 }
