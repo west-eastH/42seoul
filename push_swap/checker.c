@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:41:50 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/16 16:50:26 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/05/16 19:58:58 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,53 @@ int	push_back(t_stack *ft_stack, int data)
 {
 	t_node	*temp;
 	t_node	*tail_node;
+	t_node	*cur;
 
 	temp = (t_node *)malloc(sizeof(t_node));
 	temp->data = data;
+	cur = ft_stack->head->next;
 	temp->rank = 1;
+	while (cur != ft_stack->tail)
+	{
+		if (cur->data > data)
+			temp->rank++;
+		else
+			cur->rank++;
+		cur = cur->next;
+	}
 	tail_node = ft_stack->tail;
 	tail_node->pre->next = temp;
 	temp->pre = tail_node->pre;
 	tail_node->pre = temp;
 	temp->next = tail_node;
 	ft_stack->size++;
+	return 0;
+}
+
+int push_front(t_stack *stack, int data)
+{
+	t_node	*temp;
+	t_node	*head_node;
+	t_node	*cur;
+
+	temp = (t_node *)malloc(sizeof(t_node));
+	temp->data = data;
+	cur = stack->head->next;
+	temp->rank = 1;
+	while (cur != stack->tail)
+	{
+		if (cur->data > data)
+			temp->rank++;
+		else
+			cur->rank++;
+		cur = cur->next;
+	}
+	head_node = stack->head;
+	temp->next = head_node->next;
+	head_node->next->pre = temp;
+	head_node->next = temp;
+	temp->pre = head_node;
+	stack->size++;
 	return 0;
 }
 
@@ -120,13 +157,13 @@ int	stack_init(int argc, char *argv[], t_stack *stack_a, t_stack *stack_b)
 void print_all(t_stack *ft_stack)
 {
 	t_node *p;
-	p = ft_stack->head->next;
-	while (p->next != ft_stack->tail)
+	p = ft_stack->tail->pre;
+	while (p->pre != ft_stack->head)
 	{
-		printf("%d  ", p->data);
-		p = p->next;
+		printf("%d  %d\n", p->data, p->rank);
+		p = p->pre;
 	}
-	printf("%d\n", p->data);
+	printf("%d  %d\n", p->data, p->rank);
 }
 
 void swap(t_stack *stack)
@@ -156,11 +193,41 @@ int delete_last(t_stack *stack)
 {
 	t_node *temp;
 	int result;
+	t_node	*cur;
 
+	cur = stack->head->next;
 	temp = stack->tail->pre;
 	result = temp->data;
 	temp->pre->next = temp->next;
 	temp->next->pre = temp->pre;
+	while (cur != stack->tail)
+	{
+		if (cur->data < result)
+			cur->rank--;
+		cur = cur->next;
+	}
+	free(temp);
+	temp = 0;
+	stack->size--;
+	return result;
+}
+int delete_first(t_stack *stack)
+{
+	t_node *temp;
+	int result;
+	t_node	*cur;
+
+	cur = stack->head->next;
+	temp = stack->head->next;
+	result = temp->data;
+	temp->pre->next = temp->next;
+	temp->next->pre = temp->pre;
+	while (cur != stack->tail)
+	{
+		if (cur->data < result)
+			cur->rank--;
+		cur = cur->next;
+	}
 	free(temp);
 	temp = 0;
 	stack->size--;
@@ -169,24 +236,46 @@ int delete_last(t_stack *stack)
 
 void push_stack(t_stack *dest, t_stack *src)
 {
+	if (src->size == 0)
+		return ;
 	push_back(dest, delete_last(src));
-	
 }
 void rotate(t_stack *stack)
 {
-	int data;
-	t_node *temp;
-
 	if (stack->size < 2)
 		return ;
-	temp = stack->head->next;
-	data = temp->data;
-	stack->head->next = temp->next;
-	temp->next->pre = stack->head;
-	free(temp);
-	temp = 0;
-	stack->size--;
-	push_back(stack, data);
+	push_back(stack, delete_first(stack));
+}
+
+void rev_rotate(t_stack *stack)
+{
+	if (stack->size < 2)
+		return ;
+	push_front(stack, delete_last(stack));
+}
+
+void	set_rank(t_stack *stack)
+{
+	t_node	*cur;
+	cur = stack->head->next;
+}
+
+int checker(t_stack *stack_a, t_stack *stack_b)
+{
+	t_node	*cur;
+
+	if (stack_b->size != 0)
+		return 1;
+	cur = stack_a->head->next;
+	while (cur != stack_a->tail)
+	{
+		if (cur->next == stack_a->tail)
+			break ;
+		if (cur->data < cur->next->data)
+			return 1;
+		cur = cur->next;
+	}
+	return 0;
 }
 
 int main(int argc, char *argv[])
@@ -211,32 +300,45 @@ int main(int argc, char *argv[])
 	{
 		if (ft_strncmp(test, "sa", ft_strlen(test) - 1) == 0)
 			swap(stack_a);
-		if (ft_strncmp(test, "sb", ft_strlen(test) - 1) == 0)
+		else if (ft_strncmp(test, "sb", ft_strlen(test) - 1) == 0)
 			swap(stack_b);
-		if (ft_strncmp(test, "ss", ft_strlen(test) - 1) == 0)
+		else if (ft_strncmp(test, "ss", ft_strlen(test) - 1) == 0)
 		{
 			swap(stack_a);
 			swap(stack_b);
 		}
-		if (ft_strncmp(test, "pa", ft_strlen(test) - 1) == 0 && !(is_empty(stack_b)))
+		else if (ft_strncmp(test, "pa", ft_strlen(test) - 1) == 0)
 			push_stack(stack_a, stack_b);
-		if (ft_strncmp(test, "pb", ft_strlen(test) - 1) == 0 && !(is_empty(stack_a)))
+		else if (ft_strncmp(test, "pb", ft_strlen(test) - 1) == 0)
 			push_stack(stack_b, stack_a);
-		if (ft_strncmp(test, "ra", ft_strlen(test) - 1) == 0)
+		else if (ft_strncmp(test, "ra", ft_strlen(test) - 1) == 0)
 			rotate(stack_a);
-		if (ft_strncmp(test, "rb", ft_strlen(test) - 1) == 0)
+		else if (ft_strncmp(test, "rb", ft_strlen(test) - 1) == 0)
 			rotate(stack_b);
-		if (ft_strncmp(test, "rr", ft_strlen(test) - 1) == 0)
+		else if (ft_strncmp(test, "rr", ft_strlen(test) - 1) == 0)
 		{
 			rotate(stack_a);
 			rotate(stack_b);
+		}
+		else if (ft_strncmp(test, "rra", ft_strlen(test) - 1) == 0)
+			rev_rotate(stack_a);
+		else if (ft_strncmp(test, "rrb", ft_strlen(test) - 1) == 0)
+			rev_rotate(stack_b);
+		else if (ft_strncmp(test, "rrr", ft_strlen(test) - 1) == 0)
+		{
+			rev_rotate(stack_a);
+			rev_rotate(stack_b);
 		}
 		printf("stack_a list\n");
 		print_all(stack_a);
 		printf("stack_b list\n");
 		print_all(stack_b);
 		free(test);
-		test = get_next_line(1);
+		test = get_next_line(0);
 	}
+	if (checker(stack_a, stack_b))
+		printf("KO\n");
+	else
+		printf("OK\n");
 	return 0;
 }
