@@ -6,11 +6,11 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:51:27 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/02 18:45:38 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/05/17 15:56:36 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "checker.h"
 
 void	gnl_free(t_list **lst, int fd)
 {

@@ -6,11 +6,11 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:31:19 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/02 20:15:46 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/05/17 15:56:42 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "checker.h"
 
 char	*gnl_strjoin(char *dest, char *src, ssize_t size)
 {
