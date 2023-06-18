@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:50:39 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/17 18:11:18 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/18 22:20:43 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,4 @@ void	rev_rotate(t_stack *stack)
 	if (stack->size < 2)
 		return ;
 	push_front(stack, pop_last(stack));
-}
-
-void	set_rank(t_stack *stack)
-{
-	t_node	*cur;
-
-	cur = stack->head->next;
 }

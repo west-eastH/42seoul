@@ -3,51 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_format.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:23:13 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/17 19:25:07 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/05/20 18:35:53 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_printf_c(char c)
+ssize_t	ft_printf_c(char c)
 {
-	write(1, &c, 1);
+	if (write(1, &c, 1) < 0)
+		return (-1);
 	return (1);
 }
 
-size_t	ft_printf_s(char *s)
+ssize_t	ft_printf_s(char *s)
 {
-	size_t	len;
+	ssize_t	len;
 
+	if (s == NULL)
+	{
+		if (write(1, "(null)", 6) < 0)
+			return (-1);
+		return (6);
+	}
 	len = ft_strlen(s);
-	write(1, s, len);
+	if (write(1, s, len) < 0)
+		return (-1);
 	return (len);
 }
 
-size_t	ft_printf_di(int d)
+ssize_t	ft_printf_di(int d)
 {
-	size_t	len;
+	ssize_t	len;
 
 	len = 0;
 	ft_putnbr_di(d, &len);
 	return (len);
 }
 
-size_t	ft_printf_u(unsigned int u)
+ssize_t	ft_printf_u(unsigned int u)
 {
-	size_t	len;
+	ssize_t	len;
 
 	len = 0;
 	ft_putnbr_u(u, &len);
 	return (len);
 }
 
-size_t	ft_printf_x(int x, int is_upper)
+ssize_t	ft_printf_x(int x, int is_upper)
 {
-	size_t	len;
+	ssize_t	len;
 
 	len = 0;
 	ft_putnbr_x(x, &len, is_upper);

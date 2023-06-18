@@ -6,7 +6,7 @@ CFLAG		= -Wall -Wextra -Werror
 RM			= rm -f
 
 AR			= ar
-ARFLAGS		= rs
+ARFLAGS		= rsc
 
 INCLUDES	= ./ft_printf.h
 

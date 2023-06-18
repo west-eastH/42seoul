@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:01:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/17 19:32:08 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/05/22 13:09:43 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-size_t	st_len(const char *st)
+ssize_t	st_len(const char *st)
 {
 	size_t	i;
 	size_t	len;
@@ -42,28 +42,26 @@ size_t	st_len(const char *st)
 	return (len);
 }
 
-size_t	check_format(char format, va_list ap)
+ssize_t	check_format(char format, va_list *ap)
 {
-	size_t	hex_len;
-
-	hex_len = 0;
 	if (format == 'c')
-		return (ft_printf_c(va_arg(ap, int)));
+		return (ft_printf_c(va_arg(*ap, int)));
 	else if (format == 's')
-		return (ft_printf_s(va_arg(ap, char *)));
+		return (ft_printf_s(va_arg(*ap, char *)));
 	else if (format == 'p')
-		return (ft_printf_p(va_arg(ap, unsigned long long)));
+		return (ft_printf_p(va_arg(*ap, unsigned long long)));
 	else if (format == 'd' || format == 'i')
-		return (ft_printf_di(va_arg(ap, int)));
+		return (ft_printf_di(va_arg(*ap, int)));
 	else if (format == 'u')
-		return (ft_printf_u(va_arg(ap, unsigned int)));
+		return (ft_printf_u(va_arg(*ap, unsigned int)));
 	else if (format == 'x')
-		return (ft_printf_x(va_arg(ap, unsigned int), 0));
+		return (ft_printf_x(va_arg(*ap, int), 0));
 	else if (format == 'X')
-		return (ft_printf_x(va_arg(ap, unsigned int), 1));
+		return (ft_printf_x(va_arg(*ap, int), 1));
 	else
 	{
-		write(1, &format, 1);
+		if (write(1, &format, 1) < 0)
+			return (-1);
 		return (1);
 	}
 }
@@ -72,18 +70,23 @@ int	ft_printf(const char *st, ...)
 {
 	va_list	ap;
 	size_t	i;
-	size_t	len;
+	ssize_t	len;
+	ssize_t	check;
 
 	len = st_len(st);
 	i = 0;
 	va_start(ap, st);
+	check = 0;
 	while (st[i])
 	{
+		if (check == -1)
+			return (-1);
 		if (st[i] != '%')
-			write(1, &st[i], 1);
+			check = write(1, &st[i], 1);
 		else
 		{
-			len += check_format(st[i + 1], ap);
+			check = check_format(st[i + 1], &ap);
+			len += check;
 			i += 2;
 			continue ;
 		}
