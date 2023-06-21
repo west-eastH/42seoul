@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:56:46 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/17 17:52:35 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/21 15:27:36 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,6 @@ int	ft_atoi(const char *str)
 	return (sign * res);
 }
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
@@ -60,8 +50,24 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-void	ft_putendl_fd(char *s, int fd)
+char	*ft_strdup(const char *s1)
 {
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
+	char	*temp;
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	len = 0;
+	while (s1[len])
+		len++;
+	temp = (char *)malloc(len + 1);
+	if (!temp)
+		return (NULL);
+	while (s1[i])
+	{
+		temp[i] = s1[i];
+		i++;
+	}
+	temp[i] = 0;
+	return (temp);
 }

@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/18 12:52:53 by dongseo           #+#    #+#             */
-/*   Updated: 2023/03/20 17:18:15 by dongseo          ###   ########.fr       */
+/*   Created: 2023/06/21 11:39:29 by dongseo           #+#    #+#             */
+/*   Updated: 2023/06/21 16:37:10 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isprint(int c)
+#include "checker.h"
+
+void	print_stack(t_stack *stack)
 {
-	if (c >= 32 && c <= 126)
-		return (1);
-	return (0);
+	t_node	*temp;
+
+	temp = stack->head->next;
+	while (temp != stack->tail)
+	{
+
+		ft_printf("%d ", temp->data);
+		temp = temp->next;
+	}
+	ft_printf("\n");
 }

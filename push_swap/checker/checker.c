@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:41:50 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/17 17:17:36 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/21 16:37:35 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	check_sort(t_stack *stack_a, t_stack *stack_b)
 
 	if (stack_b->size != 0)
 	{
-		ft_putendl_fd("KO", 1);
+		ft_printf("KO\n");
 		return ;
 	}
 	cur = stack_a->head->next;
@@ -28,12 +28,12 @@ void	check_sort(t_stack *stack_a, t_stack *stack_b)
 			break ;
 		if (cur->data < cur->next->data)
 		{
-			ft_putendl_fd("KO", 1);
+			ft_printf("KO\n");
 			return ;
 		}
 		cur = cur->next;
 	}
-	ft_putendl_fd("OK", 1);
+	ft_printf("OK\n");
 }
 
 int	is_rotate(char *command, t_stack *stack_a, t_stack *stack_b)
@@ -98,6 +98,10 @@ int	check_command(char *command, t_stack *stack_a, t_stack *stack_b)
 		else
 			return (1);
 		free(command);
+		ft_printf("stack_A : ");
+		print_stack(stack_a);
+		ft_printf("stack_B : ");
+		print_stack(stack_b);
 		command = get_next_line(0);
 	}
 	free(command);
@@ -114,13 +118,14 @@ int	main(int argc, char *argv[])
 	stack_b = (t_stack *)malloc(sizeof(t_stack));
 	if (stack_init(argc, argv, stack_a, stack_b))
 	{
-		ft_putendl_fd("Error", 1);
+		ft_printf("Error\n");
 		exit(1);
 	}
 	command = get_next_line(0);
 	if (check_command(command, stack_a, stack_b))
 	{
-		ft_putendl_fd("Error", 1);
+		ft_printf("Error\n");
+		command = NULL;
 		free(command);
 		exit(1);
 	}

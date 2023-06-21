@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/17 18:11:18 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/21 15:26:52 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
@@ -71,12 +72,42 @@ void	rev_rotate(t_stack *stack);
 void	set_rank(t_stack *stack);
 
 int		ft_atoi(const char *str);
-size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s1);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	ft_putendl_fd(char *s, int fd);
 
 void	check_sort(t_stack *stack_a, t_stack *stack_b);
 int		is_rotate(char *command, t_stack *stack_a, t_stack *stack_b);
 int		is_swap_or_push(char *command, t_stack *stack_a, t_stack *stack_b);
 int		check_command(char *command, t_stack *stack_a, t_stack *stack_b);
+
+char	*ft_init(char *s_cpy, size_t len, size_t *word_cnt);
+void	set_index(size_t index[]);
+int		make_result(char **result, char *s_cpy, size_t len);
+int		check(char **result, char *s_cpy, size_t len);
+char	**ft_split(char const *s);
+
+void	free_split(char	**temp);
+int		is_dup_split(char *st);
+int		st_compare(char **st1, char **st2);
+
+size_t				ft_strlen(const char *s);
+ssize_t				st_len(const char *st);
+
+void				ft_putnbr_di(int n, ssize_t *len);
+void				ft_putnbr_u(unsigned int u, ssize_t *len);
+void				ft_putnbr_x(unsigned int x, ssize_t *len, int is_upper);
+unsigned long long	set_base(int base[], unsigned long long p);
+
+ssize_t				ft_printf_c(char c);
+ssize_t				ft_printf_s(char *s);
+ssize_t				ft_printf_di(int d);
+ssize_t				ft_printf_u(unsigned int u);
+ssize_t				ft_printf_x(int x, int is_upper);
+ssize_t				ft_printf_p(unsigned long long p);
+
+ssize_t				check_format(char format, va_list *ap);
+int					ft_printf(const char *st, ...);
+
+
+void	print_stack(t_stack *stack);
 #endif

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:46:21 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/17 18:03:29 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/21 15:10:39 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,27 @@
 
 int	stack_init(int argc, char *argv[], t_stack *stack_a, t_stack *stack_b)
 {
-	size_t	i;
+	int		i;
+	int		j;
 	int		data;
+	char	**temp;
 
 	if (is_int(argc, argv) || is_dup(argc, argv)
 		|| init(stack_a) || init(stack_b))
 		return (1);
-	i = argc - 1;
-	while (i > 0)
+	i = 1;
+	while (i < argc)
 	{
-		data = ft_atoi(argv[i]);
-		if (push_back(stack_a, data))
-			return (1);
-		i--;
+		j = 0;
+		temp = ft_split(argv[i]);
+		while (temp[j])
+		{
+			data = ft_atoi(temp[j]);
+			if (push_front(stack_a, data))
+				return (1);
+			j++;
+		}
+		i++;
 	}
 	return (0);
 }
@@ -55,19 +63,28 @@ int	check_sign(char *str)
 
 int	is_int(int argc, char *argv[])
 {
-	int	i;
-	int	data;
+	int		i;
+	char	**sp;
+	int		j;
 
 	i = 1;
 	if (argc == 1)
 		return (1);
 	while (i < argc)
 	{
-		if (check_sign(argv[i]))
-			return (1);
-		data = ft_atoi(argv[i]);
-		if (data < -2147483648 || data > 2147483647)
-			return (1);
+		sp = ft_split(argv[i]);
+		j = 0;
+		while (sp[j])
+		{
+			if (check_sign(sp[j]) || ft_atoi(sp[j]) < -2147483648
+				|| ft_atoi(sp[j]) > 2147483647)
+			{
+				free_split(sp);
+				return (1);
+			}
+			j++;
+		}
+		free_split(sp);
 		i++;
 	}
 	return (0);
@@ -75,20 +92,25 @@ int	is_int(int argc, char *argv[])
 
 int	is_dup(int argc, char *argv[])
 {
-	int	i;
-	int	j;
-	int	temp1;
-	int	temp2;
+	int		i;
+	int		j;
+	char	**temp1;
+	char	**temp2;
 
 	i = 1;
 	while (i < argc)
 	{
 		j = i + 1;
+		if (is_dup_split(argv[i]))
+			return (1);
+		if (j < argc)
+			if (is_dup_split(argv[j]))
+				return (1);
 		while (j < argc)
 		{
-			temp1 = ft_atoi(argv[i]);
-			temp2 = ft_atoi(argv[j]);
-			if (temp1 == temp2)
+			temp1 = ft_split(argv[i]);
+			temp2 = ft_split(argv[j]);
+			if (st_compare(temp1, temp2))
 				return (1);
 			j++;
 		}

@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/19 19:28:59 by dongseo           #+#    #+#             */
-/*   Updated: 2023/03/27 18:30:52 by dongseo          ###   ########.fr       */
+/*   Created: 2023/06/21 12:33:50 by dongseo           #+#    #+#             */
+/*   Updated: 2023/06/21 14:40:35 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "checker.h"
 
-static char	*ft_init(char *s_cpy, char c, size_t len, size_t *word_cnt)
+char	*ft_init(char *s_cpy, size_t len, size_t *word_cnt)
 {
 	size_t	i;
 	size_t	j;
@@ -20,7 +20,7 @@ static char	*ft_init(char *s_cpy, char c, size_t len, size_t *word_cnt)
 	i = 0;
 	while (i < len)
 	{
-		if (s_cpy[i] == c)
+		if ((s_cpy[i] >= 9 && s_cpy[i] <= 13) || s_cpy[i] == 32)
 			s_cpy[i] = 0;
 		i++;
 	}
@@ -37,14 +37,14 @@ static char	*ft_init(char *s_cpy, char c, size_t len, size_t *word_cnt)
 	return (s_cpy);
 }
 
-static void	set_index(size_t index[])
+void	set_index(size_t index[])
 {
 	index[0] = 1;
 	index[1] = 0;
 	index[2] = 0;
 }
 
-static int	make_result(char **result, char *s_cpy, size_t len)
+int	make_result(char **result, char *s_cpy, size_t len)
 {
 	size_t	index[3];
 
@@ -72,7 +72,7 @@ static int	make_result(char **result, char *s_cpy, size_t len)
 	return (0);
 }
 
-static int	check(char **result, char *s_cpy, size_t len)
+int	check(char **result, char *s_cpy, size_t len)
 {
 	if (!result)
 	{
@@ -88,7 +88,7 @@ static int	check(char **result, char *s_cpy, size_t len)
 	return (0);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s)
 {
 	size_t	len;
 	char	*s_cpy;
@@ -107,29 +107,10 @@ char	**ft_split(char const *s, char c)
 	if (!s_cpy)
 		return (NULL);
 	len = ft_strlen(s_cpy);
-	s_cpy = ft_init(s_cpy, c, len, &word_cnt);
+	s_cpy = ft_init(s_cpy, len, &word_cnt);
 	result = (char **)malloc(sizeof(char *) * (word_cnt + 1));
 	if (check(result, s_cpy, len))
 		return (0);
 	free(s_cpy);
 	return (result);
 }
-/* 
-#include <stdio.h>
-#include <string.h>
-int main ()
-{
-	char **temp;
-	char *s = " hel loq wdkqwp kdkqwd[ k[qwk d!";
-	char c = ' ';
-	temp = ft_split(s,c);
-	while(*temp)
-	{
-		printf("%s\n",*temp);
-		temp++;
-	}
-	int i;
-	i = 0;
-	return 0;
-}
- */
