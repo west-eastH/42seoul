@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:46:21 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/21 15:10:39 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/25 05:24:10 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	check_sign(char *str)
 	int	i;
 
 	i = 0;
+	if (str[0] == 0)
+		return (1);
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')

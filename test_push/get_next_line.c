@@ -6,11 +6,11 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:11:47 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/25 01:23:52 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/25 05:01:04 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "push_swap.h"
 
 int	ft_backup(t_list **lst, int fd, char *buffer, int size)
 {
@@ -20,14 +20,14 @@ int	ft_backup(t_list **lst, int fd, char *buffer, int size)
 	cur = ft_find_fd(*lst, fd);
 	if (cur != NULL)
 	{
-		cur->st = ft_strjoin(cur->st, buffer, size);
+		cur->st = gnl_ft_strjoin(cur->st, buffer, size);
 		return (0);
 	}
 	cur = (t_list *)malloc(sizeof(t_list));
 	if (!cur)
 		return (1);
 	cur->fd = fd;
-	cur->st = ft_strjoin(NULL, buffer, size);
+	cur->st = gnl_ft_strjoin(NULL, buffer, size);
 	cur->next = NULL;
 	if (!*lst)
 	{
@@ -65,13 +65,13 @@ char	*gnl_split(int fd, t_list **lst, int idx)
 	char	*temp;
 
 	cur = ft_find_fd(*lst, fd);
-	result = ft_strdup(cur->st, idx + 1);
+	result = gnl_ft_strdup(cur->st, idx + 1);
 	if (!result)
 		return (NULL);
 	if (cur->st[idx + 1] != '\0')
 	{
 		len = ft_strlen(cur->st + idx + 1);
-		temp = ft_strdup(cur->st + idx + 1, len);
+		temp = gnl_ft_strdup(cur->st + idx + 1, len);
 		if (!temp)
 		{
 			free(cur->st);
@@ -105,7 +105,7 @@ char	*no_line(int fd, t_list **lst, int size)
 		ft_free(lst, fd);
 		return (NULL);
 	}
-	temp = ft_strdup(cur->st, ft_strlen(cur->st));
+	temp = gnl_ft_strdup(cur->st, ft_strlen(cur->st));
 	free(cur->st);
 	cur->st = NULL;
 	ft_free(lst, fd);
