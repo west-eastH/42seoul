@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/25 05:58:15 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/25 17:37:48 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ void	ft_free(t_list **lst, int fd);
 
 
 //ft_split
-char	*ft_init(char *s_cpy, char c, size_t len, size_t *word_cnt);
+char	*ft_init(char *s_cpy, size_t len, size_t *word_cnt);
 void	set_index(size_t index[]);
 int	make_result(char **result, char *s_cpy, size_t len);
 int	check(char **result, char *s_cpy, size_t len);
-char	**ft_split(char const *s, char c);
+char	**ft_split(char const *s);
 
 
 //libft

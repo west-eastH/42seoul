@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 19:28:59 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/25 05:45:05 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/25 17:36:20 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	*ft_init(char *s_cpy, char c, size_t len, size_t *word_cnt)
+char	*ft_init(char *s_cpy, size_t len, size_t *word_cnt)
 {
 	size_t	i;
 	size_t	j;
@@ -20,7 +20,7 @@ char	*ft_init(char *s_cpy, char c, size_t len, size_t *word_cnt)
 	i = 0;
 	while (i < len)
 	{
-		if (s_cpy[i] == c)
+		if (s_cpy[i] == 32 || (s_cpy[i] >= 9 && s_cpy[i] <= 13))
 			s_cpy[i] = 0;
 		i++;
 	}
@@ -88,7 +88,7 @@ int	check(char **result, char *s_cpy, size_t len)
 	return (0);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s)
 {
 	size_t	len;
 	char	*s_cpy;
@@ -107,7 +107,7 @@ char	**ft_split(char const *s, char c)
 	if (!s_cpy)
 		return (NULL);
 	len = ft_strlen(s_cpy);
-	s_cpy = ft_init(s_cpy, c, len, &word_cnt);
+	s_cpy = ft_init(s_cpy, len, &word_cnt);
 	result = (char **)malloc(sizeof(char *) * (word_cnt + 1));
 	if (check(result, s_cpy, len))
 		return (0);
