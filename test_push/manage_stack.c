@@ -3,107 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   manage_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/25 05:27:34 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/25 18:13:40 by dongseo          ###   ########.fr       */
+/*   Created: 2023/06/27 02:10:26 by dongseo           #+#    #+#             */
+/*   Updated: 2023/06/27 05:54:38 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_sign(char *str)
+void	swap(t_stack *stack, int flag)
 {
-	int	i;
+	t_node	*top;
+	t_node	*temp;
 
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] < '0' || str[i] > '9')
-		{
-			if (((i == 0 && str[i] == '-') || (i == 0 && str[i] == '+'))
-				&& str[i + 1] > '0' && str[i + 1] < '9')
-			{
-				i++;
-				continue ;
-			}
-			return (1);
-		}
-		i++;
-	}
-	return (0);
+	if (stack->size <= 1)
+		return ;
+	top = stack->tail->pre;
+	temp = top->pre;
+	temp->pre->next = top;
+	temp->next = top->next;
+	top->pre = temp->pre;
+	temp->next->pre = temp;
+	top->next = temp;
+	temp->pre = top;
+	if (flag == 1)
+		ft_printf("sa\n");
+	else if (flag == 2)
+		ft_printf("sb\n");
 }
 
-int	ft_atoi(const char *str)
+void	rotate(t_stack *stack, int flag)
 {
-	int			i;
-	long long	res;
-	int			sign;
-
-	sign = 1;
-	res = 0;
-	i = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res *= 10;
-		res += str[i] - '0';
-		i++;
-	}
-	return (sign * res);
+	if (stack->size < 2)
+		return ;
+	push_front(stack, pop_last(stack));
+	if (flag == 1)
+		ft_printf("ra\n");
+	else if (flag == 2)
+		ft_printf("rb\n");
 }
 
-int	is_int(char *str[])
+void	rev_rotate(t_stack *stack, int flag)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (check_sign(str[i]) || ft_atoi(str[i]) < -2147483648
-				|| ft_atoi(str[i]) > 2147483647)
-			return (1);
-		i++;
-	}
-	return 0;
+	if (stack->size < 2)
+		return ;
+	push_back(stack, pop_first(stack));
+	if (flag == 1)
+		ft_printf("rra\n");
+	else if (flag == 2)
+		ft_printf("rrb\n");
 }
 
-int	stack_init(int argc, char *argv[])
+void	push_stack(t_stack *dest, t_stack *start, int flag)
 {
-	int i;
-	char *joined_str;
-	char	**split_str;
-
-	if (argc < 2)
-		return (1);
-	i = 1;
-	joined_str = NULL;
-	while (i < argc)
-	{
-		if (ft_strlen(argv[i]) == 0)
-			return (1);
-		joined_str = ft_strjoin(joined_str, argv[i], ft_strlen(argv[i]));
-		if (joined_str == NULL)
-			return (1);
-		i++;
-	}
-	split_str = ft_split(joined_str);
-	if (is_int(split_str))
-	{
-		free(split_str);
-		return (1);
-	}
-	return (0);
+	push_back(dest, pop_last(start));
+	if (flag == 1)
+		ft_printf("pa\n");
+	else if (flag == 2)
+		ft_printf("pb\n");
 }
 
-int	is_dup()
+int	get_top(t_stack *stack)
 {
-	
+	t_node *cur;
+
+	cur = stack->tail->pre;
+	return cur->data;
 }

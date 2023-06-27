@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 04:57:55 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/25 06:13:57 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/26 23:42:08 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*ft_strdup(const char *s1)
 	return (temp);
 }
 
-
 char	*ft_strjoin(char *s1, char *s2, size_t s2_len)
 {
 	char	*temp;
@@ -73,4 +72,30 @@ char	*ft_strjoin(char *s1, char *s2, size_t s2_len)
 	}
 	temp[i + j] = 0;
 	return (temp);
+}
+
+int	ft_atoi(const char *str)
+{
+	int			i;
+	long long	res;
+	int			sign;
+
+	sign = 1;
+	res = 0;
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res *= 10;
+		res += str[i] - '0';
+		i++;
+	}
+	return (sign * res);
 }

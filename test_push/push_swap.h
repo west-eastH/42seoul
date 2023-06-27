@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/25 17:37:48 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/27 05:37:28 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ char	**ft_split(char const *s);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char *s1, char *s2, size_t s2_len);
+int	ft_atoi(const char *str);
 
 //push_swap
 typedef struct s_node
 {
 	int				data;
+	int				cnt;
 	struct s_node	*pre;
 	struct s_node	*next;
 }t_node;
@@ -87,6 +89,36 @@ typedef struct s_stack
 	t_node	*head;
 	t_node	*tail;
 }t_stack;
-int	stack_init(int argc, char *argv[]);
+
+//init
+int	stack_init(int argc, char *argv[], t_stack *stack_a, t_stack *stack_b);
+int	check_sign(char *str);
+int	is_int(char *str[]);
+int	is_dup(char *str[]);
+char	*join_argv(int argc, char *argv[]);
+
+//stack_push_pop
+int	push_back(t_stack *stack, int data);
+int	push_front(t_stack *stack, int data);
+int	pop_last(t_stack *stack);
+int	pop_first(t_stack *stack);
+int	init(t_stack *stack);
+
+//push_swap_utils
+void print_stack(t_stack *stack, t_stack *stack_b);
+void	check_sort(t_stack *stack_a, t_stack *stack_b);
+
+//manage_stack
+void	swap(t_stack *stack, int flag);
+void	rotate(t_stack *stack, int flag);
+void	rev_rotate(t_stack *stack, int flag);
+void	push_stack(t_stack *dest, t_stack *start, int flag);
+int		get_top(t_stack *stack);
+
+//push_swap
+void	push_swap(t_stack *stack_a, t_stack *stack_b);
+void	push_until_three(t_stack *stack_a, t_stack *stack_b);
+void	sort_three(t_stack *stack);
+void	sort_three_num(int a, int b, int c, t_stack *stack);
 
 #endif
