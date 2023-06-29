@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_push_pop.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:57:01 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/27 03:43:14 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/28 20:18:45 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ int	push_back(t_stack *stack, int data)
 {
 	t_node	*temp;
 	t_node	*tail_node;
-	t_node	*cur;
 
 	temp = (t_node *)malloc(sizeof(t_node));
 	if (!temp)
 		return (1);
 	temp->data = data;
-	temp->cnt = 0;
-	cur = stack->head->next;
+	temp->ra_cnt = 0;
+	temp->rb_cnt = 0;
+	temp->flag = -1;
 	tail_node = stack->tail;
 	tail_node->pre->next = temp;
 	temp->pre = tail_node->pre;
@@ -37,14 +37,14 @@ int	push_front(t_stack *stack, int data)
 {
 	t_node	*temp;
 	t_node	*head_node;
-	t_node	*cur;
 
 	temp = (t_node *)malloc(sizeof(t_node));
 	if (!temp)
 		return (1);
 	temp->data = data;
-	temp->cnt = 0;
-	cur = stack->head->next;
+	temp->ra_cnt = 0;
+	temp->rb_cnt = 0;
+	temp->flag = -1;
 	head_node = stack->head;
 	temp->next = head_node->next;
 	head_node->next->pre = temp;
@@ -92,9 +92,13 @@ int	init(t_stack *stack)
 		return (1);
 	stack->size = 0;
 	stack->head->data = 0;
-	stack->head->cnt = 0;
+	stack->head->ra_cnt = 0;
+	stack->head->rb_cnt = 0;
+	stack->head->flag = -1;
 	stack->tail->data = 0;
-	stack->tail->cnt = 0;
+	stack->tail->ra_cnt = 0;
+	stack->tail->rb_cnt = 0;
+	stack->tail->flag = -1;
 	stack->head->pre = stack->head;
 	stack->head->next = stack->tail;
 	stack->tail->pre = stack->head;

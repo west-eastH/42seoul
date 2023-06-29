@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/27 05:37:28 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/28 21:59:29 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ int	ft_atoi(const char *str);
 typedef struct s_node
 {
 	int				data;
-	int				cnt;
+	int				ra_cnt;
+	int				rb_cnt;
+	int				flag;
 	struct s_node	*pre;
 	struct s_node	*next;
 }t_node;
@@ -121,4 +123,10 @@ void	push_until_three(t_stack *stack_a, t_stack *stack_b);
 void	sort_three(t_stack *stack);
 void	sort_three_num(int a, int b, int c, t_stack *stack);
 
+
+//push_b_to_a
+void rotate_a(t_stack *stack_a, t_stack *stack_b, int cnt_a, int cnt_b);
+void rotate_b(t_stack *stack_a, t_stack *stack_b, int cnt_a, int cnt_b);
+void rotate_c(t_stack *stack_a, t_stack *stack_b, int cnt_a, int cnt_b);
+void rotate_d(t_stack *stack_a, t_stack *stack_b, int cnt_a, int cnt_b);
 #endif
