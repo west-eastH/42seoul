@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 02:10:26 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/27 05:54:38 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/01 17:52:56 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	push_stack(t_stack *dest, t_stack *start, int flag)
 
 int	get_top(t_stack *stack)
 {
-	t_node *cur;
+	t_node	*cur;
 
 	cur = stack->tail->pre;
-	return cur->data;
+	return (cur->data);
 }

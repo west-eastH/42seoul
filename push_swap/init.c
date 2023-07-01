@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 05:27:34 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/26 23:57:17 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/01 18:28:14 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_sign(char *str)
 
 int	is_int(char *str[])
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -46,7 +46,7 @@ int	is_int(char *str[])
 			return (1);
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
 char	*join_argv(int argc, char *argv[])
@@ -102,8 +102,8 @@ int	stack_init(int argc, char *argv[], t_stack *stack_a, t_stack *stack_b)
 
 int	is_dup(char *str[])
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 1;
