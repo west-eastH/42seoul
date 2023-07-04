@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:11:47 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/01 18:42:39 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/04 18:49:06 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int	ft_backup(t_list **lst, int fd, char *buffer, int size)
+int	gnl_ft_backup(t_list **lst, int fd, char *buffer, int size)
 {
 	t_list	*temp;
 	t_list	*cur;
 
-	cur = ft_find_fd(*lst, fd);
+	cur = gnl_ft_find_fd(*lst, fd);
 	if (cur != NULL)
 	{
 		cur->st = gnl_ft_strjoin(cur->st, buffer, size);
@@ -41,7 +41,7 @@ int	ft_backup(t_list **lst, int fd, char *buffer, int size)
 	return (0);
 }
 
-int	is_line(char *backup)
+int	gnl_is_line(char *backup)
 {
 	size_t	i;
 
@@ -64,18 +64,18 @@ char	*gnl_split(int fd, t_list **lst, int idx)
 	char	*result;
 	char	*temp;
 
-	cur = ft_find_fd(*lst, fd);
+	cur = gnl_ft_find_fd(*lst, fd);
 	result = gnl_ft_strdup(cur->st, idx + 1);
 	if (!result)
 		return (NULL);
 	if (cur->st[idx + 1] != '\0')
 	{
-		len = ft_strlen(cur->st + idx + 1);
+		len = gnl_ft_strlen(cur->st + idx + 1);
 		temp = gnl_ft_strdup(cur->st + idx + 1, len);
 		if (!temp)
 		{
 			free(cur->st);
-			ft_free(lst, fd);
+			gnl_ft_free(lst, fd);
 			return (NULL);
 		}
 	}
@@ -86,7 +86,7 @@ char	*gnl_split(int fd, t_list **lst, int idx)
 	return (result);
 }
 
-char	*no_line(int fd, t_list **lst, int size)
+char	*gnl_no_line(int fd, t_list **lst, int size)
 {
 	t_list	*cur;
 	int		idx;
@@ -94,21 +94,21 @@ char	*no_line(int fd, t_list **lst, int size)
 
 	if (size < 0)
 		return (NULL);
-	cur = ft_find_fd(*lst, fd);
+	cur = gnl_ft_find_fd(*lst, fd);
 	if (!cur)
 		return (NULL);
-	idx = is_line(cur->st);
+	idx = gnl_is_line(cur->st);
 	if (0 <= idx)
 		return (gnl_split(fd, lst, idx));
 	if (!cur->st)
 	{
-		ft_free(lst, fd);
+		gnl_ft_free(lst, fd);
 		return (NULL);
 	}
-	temp = gnl_ft_strdup(cur->st, ft_strlen(cur->st));
+	temp = gnl_ft_strdup(cur->st, gnl_ft_strlen(cur->st));
 	free(cur->st);
 	cur->st = NULL;
-	ft_free(lst, fd);
+	gnl_ft_free(lst, fd);
 	return (temp);
 }
 
@@ -124,17 +124,18 @@ char	*get_next_line(int fd)
 	while (0 < size)
 	{
 		buffer[size] = 0;
-		if (ft_backup(&lst, fd, buffer, size))
+		if (gnl_ft_backup(&lst, fd, buffer, size))
 			return (NULL);
-		if (is_line(ft_find_fd(lst, fd)->st) >= 0)
-			return (gnl_split(fd, &lst, is_line(ft_find_fd(lst, fd)->st)));
+		if (gnl_is_line(gnl_ft_find_fd(lst, fd)->st) >= 0)
+			return (gnl_split(fd, &lst,
+					gnl_is_line(gnl_ft_find_fd(lst, fd)->st)));
 		size = read(fd, buffer, BUFFER_SIZE);
 	}
-	if (size < 0 && ft_find_fd(lst, fd))
+	if (size < 0 && gnl_ft_find_fd(lst, fd))
 	{
-		free(ft_find_fd(lst, fd)->st);
-		ft_free(&lst, fd);
+		free(gnl_ft_find_fd(lst, fd)->st);
+		gnl_ft_free(&lst, fd);
 		return (NULL);
 	}
-	return (no_line(fd, &lst, size));
+	return (gnl_no_line(fd, &lst, size));
 }

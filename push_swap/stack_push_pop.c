@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_push_pop.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:57:01 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/28 20:18:45 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/04 15:51:54 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,14 @@ int	pop_first(t_stack *stack)
 int	init(t_stack *stack)
 {
 	stack->head = (t_node *)malloc(sizeof(t_node));
-	stack->tail = (t_node *)malloc(sizeof(t_node));
-	if (stack->head == NULL || stack->tail == NULL)
+	if (stack->head == NULL)
 		return (1);
+	stack->tail = (t_node *)malloc(sizeof(t_node));
+	if (stack->tail == NULL)
+	{
+		free(stack->head);
+		return (1);
+	}
 	stack->size = 0;
 	stack->head->data = 0;
 	stack->head->ra_cnt = 0;

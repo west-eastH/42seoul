@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 05:27:34 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/01 18:28:14 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/04 15:54:48 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int	stack_init(int argc, char *argv[], t_stack *stack_a, t_stack *stack_b)
 	char	**split_str;
 	int		i;
 
-	if (argc < 2)
-		return (1);
 	if (!join_argv(argc, argv))
 		return (1);
 	split_str = ft_split(join_argv(argc, argv));

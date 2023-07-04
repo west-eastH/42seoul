@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 04:57:55 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/01 18:42:44 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/04 18:32:49 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,16 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (sign * res);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] && s2[i] && s1[i] == s2[i] && i + 1 < n)
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

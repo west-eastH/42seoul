@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 03:59:46 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/04 00:33:15 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/04 15:58:20 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ void	push_swap(t_stack *stack_a, t_stack *stack_b)
 		if (stack_a->size > 4)
 			push_stack(stack_b, stack_a, 2);
 		push_stack(stack_b, stack_a, 2);
+		push_a_to_b(stack_a, stack_b);
 	}
-	push_a_to_b(stack_a, stack_b);
 	sort_three(stack_a);
 	while (stack_b->size)
 		greedy(stack_a, stack_b);
@@ -92,14 +92,24 @@ int	main(int argc, char *argv[])
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
+	if (argc < 2)
+		return (0);
 	stack_a = (t_stack *)malloc(sizeof(t_stack));
+	if (!stack_a)
+		return (0);
 	stack_b = (t_stack *)malloc(sizeof(t_stack));
+	if (!stack_b)
+	{
+		free(stack_a);
+		return (0);
+	}
 	if (stack_init(argc, argv, stack_a, stack_b))
 	{
 		ft_printf("Error\n");
-		exit(1);
+		free(stack_a);
+		free(stack_b);
+		return (0);
 	}
 	push_swap(stack_a, stack_b);
-	print_stack(stack_a, stack_b);
 	return (0);
 }

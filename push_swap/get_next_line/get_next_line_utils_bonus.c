@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:44:55 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/01 18:42:36 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/04 18:49:11 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+
+size_t	gnl_ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (i);
+	while (s[i])
+		i++;
+	return (i);
+}
 
 char	*gnl_ft_strdup(char *s1, size_t len)
 {
@@ -30,7 +42,7 @@ char	*gnl_ft_strdup(char *s1, size_t len)
 	return (temp);
 }
 
-void	ft_free(t_list **lst, int fd)
+void	gnl_ft_free(t_list **lst, int fd)
 {
 	t_list	*cur;
 	t_list	*pre;
@@ -68,7 +80,7 @@ char	*gnl_ft_strjoin(char *s1, char *s2, size_t s2_len)
 	i = 0;
 	if (!s1)
 		return (gnl_ft_strdup(s2, s2_len));
-	s1_len = ft_strlen(s1);
+	s1_len = gnl_ft_strlen(s1);
 	temp = (char *)malloc(s1_len + s2_len + 1);
 	if (!temp)
 		return (NULL);
@@ -85,7 +97,7 @@ char	*gnl_ft_strjoin(char *s1, char *s2, size_t s2_len)
 	return (temp);
 }
 
-t_list	*ft_find_fd(t_list *lst, int fd)
+t_list	*gnl_ft_find_fd(t_list *lst, int fd)
 {
 	t_list	*temp;
 
