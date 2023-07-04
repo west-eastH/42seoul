@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 12:33:50 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/21 14:40:35 by dongseo          ###   ########.fr       */
+/*   Created: 2023/03/19 19:28:59 by dongseo           #+#    #+#             */
+/*   Updated: 2023/07/01 18:42:41 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "../push_swap.h"
 
 char	*ft_init(char *s_cpy, size_t len, size_t *word_cnt)
 {
@@ -20,7 +20,7 @@ char	*ft_init(char *s_cpy, size_t len, size_t *word_cnt)
 	i = 0;
 	while (i < len)
 	{
-		if ((s_cpy[i] >= 9 && s_cpy[i] <= 13) || s_cpy[i] == 32)
+		if (s_cpy[i] == 32 || (s_cpy[i] >= 9 && s_cpy[i] <= 13))
 			s_cpy[i] = 0;
 		i++;
 	}

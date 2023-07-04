@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 03:59:46 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/01 18:03:42 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/04 00:33:15 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ int	main(int argc, char *argv[])
 		exit(1);
 	}
 	push_swap(stack_a, stack_b);
+	print_stack(stack_a, stack_b);
 	return (0);
 }

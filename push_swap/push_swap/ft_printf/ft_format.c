@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_format.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:23:13 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/21 16:34:25 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/01 18:42:14 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "../push_swap.h"
 
 ssize_t	ft_printf_c(char c)
 {

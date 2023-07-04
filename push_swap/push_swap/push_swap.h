@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/01 18:32:10 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/04 01:44:27 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,6 @@ int					ft_printf(const char *st, ...);
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-
-typedef struct s_list
-{
-	int				fd;
-	char			*st;
-	struct s_list	*next;
-}t_list;
-
-char				*gnl_ft_strdup(char *s1, size_t len);
-char				*gnl_ft_strjoin(char *s1, char *s2, size_t s2_len);
-t_list				*ft_find_fd(t_list *lst, int fd);
-int					ft_backup(t_list **lst, int fd, char *buffer, int size);
-int					is_line(char *backup);
-char				*gnl_split(int fd, t_list **lst, int idx);
-char				*no_line(int fd, t_list **lst, int size);
-char				*get_next_line(int fd);
-void				ft_free(t_list **lst, int fd);
 
 char				*ft_init(char *s_cpy, size_t len, size_t *word_cnt);
 void				set_index(size_t index[]);
@@ -96,6 +79,7 @@ int					pop_last(t_stack *stack);
 int					pop_first(t_stack *stack);
 int					init(t_stack *stack);
 
+//dddddd////////////////////////////////////////////
 void				print_stack(t_stack *stack, t_stack *stack_b);
 void				check_sort(t_stack *stack_a, t_stack *stack_b);
 void				print_cur(t_node *cur);

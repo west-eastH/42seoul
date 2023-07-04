@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 15:50:39 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/18 22:20:43 by dongseo          ###   ########.fr       */
+/*   Created: 2023/06/27 02:10:26 by dongseo           #+#    #+#             */
+/*   Updated: 2023/07/01 17:52:56 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "push_swap.h"
 
-void	swap(t_stack *stack)
+void	swap(t_stack *stack, int flag)
 {
 	t_node	*top;
 	t_node	*temp;
@@ -27,25 +27,47 @@ void	swap(t_stack *stack)
 	temp->next->pre = temp;
 	top->next = temp;
 	temp->pre = top;
+	if (flag == 1)
+		ft_printf("sa\n");
+	else if (flag == 2)
+		ft_printf("sb\n");
 }
 
-int	is_empty(t_stack *stack)
-{
-	if (stack->size == 0)
-		return (1);
-	return (0);
-}
-
-void	rotate(t_stack *stack)
-{
-	if (stack->size < 2)
-		return ;
-	push_back(stack, pop_first(stack));
-}
-
-void	rev_rotate(t_stack *stack)
+void	rotate(t_stack *stack, int flag)
 {
 	if (stack->size < 2)
 		return ;
 	push_front(stack, pop_last(stack));
+	if (flag == 1)
+		ft_printf("ra\n");
+	else if (flag == 2)
+		ft_printf("rb\n");
+}
+
+void	rev_rotate(t_stack *stack, int flag)
+{
+	if (stack->size < 2)
+		return ;
+	push_back(stack, pop_first(stack));
+	if (flag == 1)
+		ft_printf("rra\n");
+	else if (flag == 2)
+		ft_printf("rrb\n");
+}
+
+void	push_stack(t_stack *dest, t_stack *start, int flag)
+{
+	push_back(dest, pop_last(start));
+	if (flag == 1)
+		ft_printf("pa\n");
+	else if (flag == 2)
+		ft_printf("pb\n");
+}
+
+int	get_top(t_stack *stack)
+{
+	t_node	*cur;
+
+	cur = stack->tail->pre;
+	return (cur->data);
 }

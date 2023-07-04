@@ -6,11 +6,11 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 19:28:59 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/25 17:36:20 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/01 18:42:41 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
 char	*ft_init(char *s_cpy, size_t len, size_t *word_cnt)
 {

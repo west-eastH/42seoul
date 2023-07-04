@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 23:57:22 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/01 18:28:42 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/04 00:55:30 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,6 @@ void	print_cur(t_node *cur)
 	ft_printf("flag : %d\n", cur->flag);
 	ft_printf("pre-data : %d\n", cur->pre->data);
 	ft_printf("next-data : %d\n", cur->next->data);
-}
-
-void	print_stack(t_stack *stack_a, t_stack *stack_b)
-{
-	t_node	*cur_a;
-	t_node	*cur_b;
-
-	cur_a = stack_a->head->next;
-	cur_b = stack_b->head->next;
-	ft_printf("stack_a : ");
-	while (cur_a != stack_a->tail)
-	{
-		ft_printf("%d  ", cur_a->data);
-		cur_a = cur_a->next;
-	}
-	ft_printf("\n");
-	ft_printf("stack_b : ");
-	while (cur_b != stack_b->tail)
-	{
-		ft_printf("%d  ", cur_b->data);
-		cur_b = cur_b->next;
-	}
-	ft_printf("\n");
 }
 
 void	check_sort(t_stack *stack_a, t_stack *stack_b)
@@ -89,7 +66,7 @@ void	check_ra(t_stack *stack_a)
 	}
 	if (ra_cnt == stack_a->size)
 		return ;
-	if (ra_cnt < stack_a->size / 2)
+	if (ra_cnt <= stack_a->size / 2)
 		while (ra_cnt--)
 			rotate(stack_a, 1);
 	else
@@ -136,4 +113,27 @@ void	push_a_to_b(t_stack *stack_a, t_stack *stack_b)
 	}
 	while (stack_a->size > 3)
 		push_stack(stack_b, stack_a, 2);
+}
+
+void	print_stack(t_stack *stack_a, t_stack *stack_b)
+{
+	t_node	*cur_a;
+	t_node	*cur_b;
+
+	cur_a = stack_a->head->next;
+	cur_b = stack_b->head->next;
+	ft_printf("stack_a : ");
+	while (cur_a != stack_a->tail)
+	{
+		ft_printf("%d  ", cur_a->data);
+		cur_a = cur_a->next;
+	}
+	ft_printf("\n");
+	ft_printf("stack_b : ");
+	while (cur_b != stack_b->tail)
+	{
+		ft_printf("%d  ", cur_b->data);
+		cur_b = cur_b->next;
+	}
+	ft_printf("\n");
 }

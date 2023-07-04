@@ -3,33 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   stack_push_pop.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:57:01 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/17 18:11:18 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/06/28 20:18:45 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "push_swap.h"
 
 int	push_back(t_stack *stack, int data)
 {
 	t_node	*temp;
 	t_node	*tail_node;
-	t_node	*cur;
 
 	temp = (t_node *)malloc(sizeof(t_node));
+	if (!temp)
+		return (1);
 	temp->data = data;
-	cur = stack->head->next;
-	temp->rank = 1;
-	while (cur != stack->tail)
-	{
-		if (cur->data > data)
-			temp->rank++;
-		else
-			cur->rank++;
-		cur = cur->next;
-	}
+	temp->ra_cnt = 0;
+	temp->rb_cnt = 0;
+	temp->flag = -1;
 	tail_node = stack->tail;
 	tail_node->pre->next = temp;
 	temp->pre = tail_node->pre;
@@ -43,20 +37,14 @@ int	push_front(t_stack *stack, int data)
 {
 	t_node	*temp;
 	t_node	*head_node;
-	t_node	*cur;
 
 	temp = (t_node *)malloc(sizeof(t_node));
+	if (!temp)
+		return (1);
 	temp->data = data;
-	cur = stack->head->next;
-	temp->rank = 1;
-	while (cur != stack->tail)
-	{
-		if (cur->data > data)
-			temp->rank++;
-		else
-			cur->rank++;
-		cur = cur->next;
-	}
+	temp->ra_cnt = 0;
+	temp->rb_cnt = 0;
+	temp->flag = -1;
 	head_node = stack->head;
 	temp->next = head_node->next;
 	head_node->next->pre = temp;
@@ -70,19 +58,11 @@ int	pop_last(t_stack *stack)
 {
 	t_node	*temp;
 	int		result;
-	t_node	*cur;
 
-	cur = stack->head->next;
 	temp = stack->tail->pre;
 	result = temp->data;
 	temp->pre->next = temp->next;
 	temp->next->pre = temp->pre;
-	while (cur != stack->tail)
-	{
-		if (cur->data < result)
-			cur->rank--;
-		cur = cur->next;
-	}
 	free(temp);
 	temp = 0;
 	stack->size--;
@@ -93,28 +73,35 @@ int	pop_first(t_stack *stack)
 {
 	t_node	*temp;
 	int		result;
-	t_node	*cur;
 
-	cur = stack->head->next;
 	temp = stack->head->next;
 	result = temp->data;
 	temp->pre->next = temp->next;
 	temp->next->pre = temp->pre;
-	while (cur != stack->tail)
-	{
-		if (cur->data < result)
-			cur->rank--;
-		cur = cur->next;
-	}
 	free(temp);
 	temp = 0;
 	stack->size--;
 	return (result);
 }
 
-void	push_stack(t_stack *dest, t_stack *src)
+int	init(t_stack *stack)
 {
-	if (src->size == 0)
-		return ;
-	push_back(dest, pop_last(src));
+	stack->head = (t_node *)malloc(sizeof(t_node));
+	stack->tail = (t_node *)malloc(sizeof(t_node));
+	if (stack->head == NULL || stack->tail == NULL)
+		return (1);
+	stack->size = 0;
+	stack->head->data = 0;
+	stack->head->ra_cnt = 0;
+	stack->head->rb_cnt = 0;
+	stack->head->flag = -1;
+	stack->tail->data = 0;
+	stack->tail->ra_cnt = 0;
+	stack->tail->rb_cnt = 0;
+	stack->tail->flag = -1;
+	stack->head->pre = stack->head;
+	stack->head->next = stack->tail;
+	stack->tail->pre = stack->head;
+	stack->tail->next = stack->tail;
+	return (0);
 }

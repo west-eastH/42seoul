@@ -10,7 +10,7 @@ ARFLAGS		= rsc
 
 INCLUDES	= ./push_swap.h
 
-SRC			= ./ftprintf/ft_printf.c ./ftprintf/ft_format.c ./ftprintf/ft_putnbr.c ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c ./libft/ft_split.c ./libft/libft.c ./manage_stack.c ./push_b_to_a.c ./push_swap_utils.c ./push_swap.c ./set_num.c ./stack_push_pop.c
+SRC			= ./ft_printf/ft_printf.c ./ft_printf/ft_format.c ./ft_printf/ft_putnbr.c ./libft/ft_split.c ./libft/libft.c ./init.c ./manage_stack.c ./push_b_to_a.c ./push_swap_utils.c ./push_swap.c ./set_num.c ./stack_push_pop.c
 SRCS		= $(SRC)
 OBJS =		$(SRCS:.c=.o)
 
