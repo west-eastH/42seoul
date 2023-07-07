@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 23:57:22 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/04 18:49:29 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/05 16:47:04 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	free_stack(t_stack *stack_a, t_stack *stack_b)
 
 int	check_swap(char *command, t_stack *stack_a, t_stack *stack_b)
 {
-	if (ft_strncmp(command, "sa\n", 4))
+	if (ft_strncmp(command, "sa\n", 4) == 0)
 		swap(stack_a, 0);
-	else if (ft_strncmp(command, "sb\n", 4))
+	else if (ft_strncmp(command, "sb\n", 4) == 0)
 		swap(stack_b, 0);
-	else if (ft_strncmp(command, "ss\n", 4))
+	else if (ft_strncmp(command, "ss\n", 4) == 0)
 	{
 		swap(stack_a, 0);
 		swap(stack_b, 0);
@@ -38,9 +38,9 @@ int	check_swap(char *command, t_stack *stack_a, t_stack *stack_b)
 
 int	check_push(char *command, t_stack *stack_a, t_stack *stack_b)
 {
-	if (ft_strncmp(command, "pa\n", 4))
+	if (ft_strncmp(command, "pa\n", 4) == 0)
 		push_stack(stack_a, stack_b, 0);
-	else if (ft_strncmp(command, "pb\n", 4))
+	else if (ft_strncmp(command, "pb\n", 4) == 0)
 		push_stack(stack_b, stack_a, 0);
 	else
 		return (1);
@@ -49,20 +49,20 @@ int	check_push(char *command, t_stack *stack_a, t_stack *stack_b)
 
 int	check_rotate(char *command, t_stack *stack_a, t_stack *stack_b)
 {
-	if (ft_strncmp(command, "ra\n", 4))
+	if (ft_strncmp(command, "ra\n", 4) == 0)
 		rotate(stack_a, 0);
-	else if (ft_strncmp(command, "rb\n", 4))
+	else if (ft_strncmp(command, "rb\n", 4) == 0)
 		rotate(stack_b, 0);
-	else if (ft_strncmp(command, "rr\n", 4))
+	else if (ft_strncmp(command, "rr\n", 4) == 0)
 	{
 		rotate(stack_a, 0);
 		rotate(stack_b, 0);
 	}
-	else if (ft_strncmp(command, "rra\n", 5))
+	else if (ft_strncmp(command, "rra\n", 5) == 0)
 		rev_rotate(stack_a, 0);
-	else if (ft_strncmp(command, "rrb\n", 5))
+	else if (ft_strncmp(command, "rrb\n", 5) == 0)
 		rev_rotate(stack_b, 0);
-	else if (ft_strncmp(command, "rrr\n", 5))
+	else if (ft_strncmp(command, "rrr\n", 5) == 0)
 	{
 		rev_rotate(stack_a, 0);
 		rev_rotate(stack_b, 0);

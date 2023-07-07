@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 04:57:55 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/04 18:32:49 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/05 15:17:22 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*ft_strjoin(char *s1, char *s2, size_t s2_len)
 	return (temp);
 }
 
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
 	int			i;
 	long long	res;

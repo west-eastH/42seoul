@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 03:59:46 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/04 18:49:20 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/05 17:00:27 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	checker(char *command, t_stack *stack_a, t_stack *stack_b)
 		if (check == 1)
 		{
 			free_stack(stack_a, stack_b);
-			ft_printf("Error\n");
+			write(2, "Error\n", 6);
 			return (1);
 		}
 		command = get_next_line(0);
@@ -51,7 +51,7 @@ int	main(int argc, char *argv[])
 	stack_b = (t_stack *)malloc(sizeof(t_stack));
 	if (!stack_a || !stack_b || stack_init(argc, argv, stack_a, stack_b))
 	{
-		ft_printf("Error\n");
+		write(2, "Error\n", 6);
 		free_stack(stack_a, stack_b);
 		return (0);
 	}

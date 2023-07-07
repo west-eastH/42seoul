@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 05:27:34 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/04 15:54:48 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/05 17:27:40 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_sign(char *str)
 		if (str[i] < '0' || str[i] > '9')
 		{
 			if (((i == 0 && str[i] == '-') || (i == 0 && str[i] == '+'))
-				&& str[i + 1] > '0' && str[i + 1] < '9')
+				&& str[i + 1] >= '0' && str[i + 1] <= '9')
 			{
 				i++;
 				continue ;
@@ -68,7 +68,14 @@ char	*join_argv(int argc, char *argv[])
 			return (NULL);
 		i++;
 	}
-	return (result);
+	i = 0;
+	while (result[i])
+	{
+		if ((result[i] < 9 || result[i] > 13) && result[i] != 32)
+			return (result);
+		i++;
+	}
+	return (NULL);
 }
 
 int	stack_init(int argc, char *argv[], t_stack *stack_a, t_stack *stack_b)

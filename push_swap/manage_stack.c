@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 02:10:26 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/01 17:52:56 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/05 17:20:16 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	rev_rotate(t_stack *stack, int flag)
 
 void	push_stack(t_stack *dest, t_stack *start, int flag)
 {
+	if (start->size == 0)
+		return ;
 	push_back(dest, pop_last(start));
 	if (flag == 1)
 		ft_printf("pa\n");

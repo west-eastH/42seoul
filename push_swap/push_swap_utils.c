@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 23:57:22 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/04 15:37:12 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/07 12:52:57 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,16 @@ void	push_a_to_b(t_stack *stack_a, t_stack *stack_b)
 		{
 			push_stack(stack_b, stack_a, 2);
 			if (get_top(stack_b) < pivot_a)
-				rotate(stack_b, 2);
+			{
+				if (get_top(stack_a) > pivot_b)
+				{
+					rotate(stack_a, 0);
+					rotate(stack_b, 0);
+					ft_printf("rr\n");
+				}
+				else
+					rotate(stack_b, 2);
+			}
 		}
 		else
 			rotate(stack_a, 1);

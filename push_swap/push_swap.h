@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/04 18:41:09 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/05 15:19:12 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char				**ft_split(char const *s);
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s1);
 char				*ft_strjoin(char *s1, char *s2, size_t s2_len);
-int					ft_atoi(const char *str);
+long long			ft_atoi(const char *str);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 
 typedef struct s_node
