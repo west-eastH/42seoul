@@ -1,7 +1,9 @@
 ifdef WITH_BONUS
 	NAME = checker
+	INCLUDES	= ./checker_bonus.h
 else
 	NAME = push_swap
+	INCLUDES	= ./push_swap.h
 endif
 NAME_BUNUS = checker
 
@@ -9,8 +11,6 @@ CC			= cc
 CFLAG		= -Wall -Wextra -Werror
 
 RM			= rm -f
-
-INCLUDES	= ./push_swap.h
 
 MANDATORY	= ./ft_printf/ft_printf.c ./ft_printf/ft_format.c ./ft_printf/ft_putnbr.c ./libft/ft_split.c ./libft/libft.c ./init.c ./manage_stack.c ./push_b_to_a.c ./push_swap_utils.c ./push_swap.c ./set_num.c ./stack_push_pop.c
 

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 23:57:22 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/07 12:52:57 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/07 13:35:54 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,45 @@ int	is_sort(t_stack *stack)
 	return (1);
 }
 
+int	set_pivot(t_stack *stack_a, int flag)
+{
+	t_node	*cur;
+	t_node	*temp;
+	int		idx;
+
+	cur = stack_a->head->next;
+	while (cur != stack_a->tail)
+	{
+		idx = 0;
+		temp = stack_a->head->next;
+		while (temp != stack_a->tail)
+		{
+			if (cur->data > temp->data)
+				idx++;
+			temp = temp->next;
+		}
+		if (idx == (stack_a->size / 3) * flag)
+			return (cur->data);
+		cur = cur->next;
+	}
+	return (0);
+}
+
+void	push_sort(t_stack *stack_a, t_stack *stack_b, int p1, int p2)
+{
+	if (get_top(stack_b) < p1)
+	{
+		if (get_top(stack_a) > p2)
+		{
+			rotate(stack_a, 0);
+			rotate(stack_b, 0);
+			ft_printf("rr\n");
+		}
+		else
+			rotate(stack_b, 2);
+	}
+}
+
 void	push_a_to_b(t_stack *stack_a, t_stack *stack_b)
 {
 	int	pivot_a;
@@ -62,24 +101,14 @@ void	push_a_to_b(t_stack *stack_a, t_stack *stack_b)
 	count = stack_a->size;
 	if (stack_b->head->next->data > stack_b->tail->pre->data)
 		swap(stack_b, 2);
-	pivot_a = stack_b->head->next->data;
-	pivot_b = stack_b->tail->pre->data;
+	pivot_a = set_pivot(stack_a, 1);
+	pivot_b = set_pivot(stack_a, 2);
 	while (count - 3)
 	{
 		if (get_top(stack_a) < pivot_b)
 		{
 			push_stack(stack_b, stack_a, 2);
-			if (get_top(stack_b) < pivot_a)
-			{
-				if (get_top(stack_a) > pivot_b)
-				{
-					rotate(stack_a, 0);
-					rotate(stack_b, 0);
-					ft_printf("rr\n");
-				}
-				else
-					rotate(stack_b, 2);
-			}
+			push_sort(stack_a, stack_b, pivot_a, pivot_b);
 		}
 		else
 			rotate(stack_a, 1);

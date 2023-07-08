@@ -6,11 +6,11 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:44:55 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/04 18:49:11 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/08 14:12:49 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../checker_bonus.h"
 
 size_t	gnl_ft_strlen(const char *s)
 {

@@ -1,21 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   checker_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/08 14:07:33 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/08 14:08:37 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef CHECKER_BONUS_H
+# define CHECKER_BONUS_H
 
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+typedef struct s_list
+{
+	int				fd;
+	char			*st;
+	struct s_list	*next;
+}t_list;
+
+size_t				gnl_ft_strlen(const char *s);
+char				*gnl_ft_strdup(char *s1, size_t len);
+char				*gnl_ft_strjoin(char *s1, char *s2, size_t s2_len);
+t_list				*gnl_ft_find_fd(t_list *lst, int fd);
+int					gnl_ft_backup(t_list **lst, int fd, char *buffer, int size);
+
+int					gnl_is_line(char *backup);
+char				*gnl_split(int fd, t_list **lst, int idx);
+char				*gnl_no_line(int fd, t_list **lst, int size);
+char				*get_next_line(int fd);
+void				gnl_ft_free(t_list **lst, int fd);
 
 ssize_t				st_len(const char *st);
 void				ft_putnbr_di(int n, ssize_t *len);
@@ -81,32 +104,14 @@ void				rev_rotate(t_stack *stack, int flag);
 void				push_stack(t_stack *dest, t_stack *start, int flag);
 int					get_top(t_stack *stack);
 
-void				push_swap(t_stack *stack_a, t_stack *stack_b);
-void				push_until_three(t_stack *stack_a, t_stack *stack_b);
-void				sort_three(t_stack *stack);
-void				sort_three_num(int a, int b, int c, t_stack *stack);
-
-void				rotate_a(t_stack *stack_a, t_stack *stack_b,
-						int cnt_a, int cnt_b);
-void				rotate_b(t_stack *stack_a, t_stack *stack_b,
-						int cnt_a, int cnt_b);
-void				rotate_c(t_stack *stack_a, t_stack *stack_b,
-						int cnt_a, int cnt_b);
-void				rotate_d(t_stack *stack_a, t_stack *stack_b,
-						int cnt_a, int cnt_b);
-void				push_b_to_a(t_stack *stack_a,
-						t_stack *stack_b, t_node *cur);
-
-int					set_mm_ra(t_stack *stack_a);
-void				set_ra_cnt(t_stack *stack_a, t_stack *stack_b);
-void				set_rb_cnt(t_stack *stack_b);
-int					set_min_cnt(int *min_cnt, t_node *cur, int flag, int size);
-int					find_min(t_stack *stack_a, t_stack *stack_b);
-
-void				check_ra(t_stack *stack_a);
-int					is_sort(t_stack *stack);
-int					set_pivot(t_stack *stack_a, int flag);
-void				push_sort(t_stack *stack_a, t_stack *stack_b,
-						int p1, int p2);
-void				push_a_to_b(t_stack *stack_a, t_stack *stack_b);
+int					checker(char *command, t_stack *stack_a,
+						t_stack *stack_b);
+void				free_stack(t_stack *stack_a, t_stack *stack_b);
+int					check_swap(char *command, t_stack *stack_a,
+						t_stack *stack_b);
+int					check_push(char *command, t_stack *stack_a,
+						t_stack *stack_b);
+int					check_rotate(char *command, t_stack *stack_a,
+						t_stack *stack_b);
+void				check_sort(t_stack *stack_a, t_stack *stack_b);
 #endif
