@@ -1,12 +1,11 @@
 
 NAME = so_long
 CC			= cc
-CFLAG		= -Wall -Wextra -Werror -lmlx -framework OpenGL -framework Appkit
+CFLAG		= -Wall -Wextra -Werror
 
 RM			= rm -f
 
-INCLUDES	= ./push_swap.h
-SRCS			= ./main.c
+SRCS			= main.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -14,16 +13,16 @@ all : $(NAME)
 
 
 $(NAME) : $(OBJS)
-		$(CC) $(CFLAG) $(OBJS) -o $(NAME)
+		$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-%.o : %.c $(INCLUDES)
-	$(CC) $(CFLAG) -c $< -o $@
+%.o : %.c
+	$(CC) $(CFLAG) -Imlx -c $< -o $@
 
 clean :
-	$(RM) $(SRCS_BONUS:.c=.o) $(SRCS:.c=.o)
+	$(RM) $(SRCS:.c=.o)
 
 fclean : clean
-	$(RM) $(NAME) $(NAME_BUNUS)
+	$(RM) $(NAME)
 
 re : fclean all
 
