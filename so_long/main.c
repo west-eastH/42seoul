@@ -1,22 +1,9 @@
+#include "mlx.h"
+#include "so_long.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include "mlx.h"
 
-typedef struct s_param
-{
-	void	*mlx;
-	void	*win;
-	void	*c;
-	void	*g;
-	void	*w;
-	size_t	fd;
-	int		x;
-	int		y;
-	int		wi;
-	int		he;
-	int		win_width;
-	int		win_height;
-}	t_param;
 
 #define KEY_ESC			53
 #define KEY_W				13
@@ -25,44 +12,80 @@ typedef struct s_param
 #define KEY_D				2
 #define PRESS_RED_BUTTON	17
 
-int	key_press(int keycode, t_param *param)
-// 입력에따라 좌표로 사용할 값을 증감시킴
+void	init(t_param *par)
 {
-	if (keycode == KEY_W && param->y != 0)
-		param->y -= param->he;
-	if (keycode == KEY_S && param->y != 480)
-		param->y += param->he;
-	else if (keycode == KEY_A && param->x != 0)
-		param->x -= param->wi;
-	else if (keycode == KEY_D && param->x != 480)
-		param->x += param->wi;
-	else if (keycode == KEY_ESC)
-		exit(0);
-	printf("y: %d x: %d\n", param->y, param->x);
-	return (0);
+	par->fd = open("map/map.ber", O_RDONLY);
+	par->mlx = mlx_init();
+	par->x = 0;
+	par->y = 0;
+	par->move = 0;
+	par->c = mlx_xpm_file_to_image(par->mlx, "img/c.xpm", &par->img_wi, &par->img_he);
+	par->g = mlx_xpm_file_to_image(par->mlx, "img/g.xpm", &par->img_wi, &par->img_he);
+	par->w = mlx_xpm_file_to_image(par->mlx, "img/w.xpm", &par->img_wi, &par->img_he);
+	par->p = mlx_xpm_file_to_image(par->mlx, "img/p.xpm", &par->img_wi, &par->img_he);
+	par->e = mlx_xpm_file_to_image(par->mlx, "img/e1.xpm", &par->img_wi, &par->img_he);
+	par->map = NULL;
 }
 
-int	draw(t_param *loc)
+void map_init(t_param *par)
 {
-	mlx_clear_window(loc->mlx, loc->win); //기존에 그려놨던 윈도우를 지워줌
-	mlx_put_image_to_window(loc->mlx, loc->win, loc->c, loc->x, loc->y);
-    //새로운 좌표를 이용한 새 위치에 이미지를 그려줌
-	return (0);
+	t_map	*cur;
+	char	*st;
+
+	cur = (t_map *)malloc(sizeof(t_map));
+	if (!cur)
+		exit(1);
+	par->map = cur;
+	st = get_next_line(par->fd);
+	while (st)
+	{
+		cur->line = st;
+		cur->next = (t_map *)malloc(sizeof(t_map));
+		if (!cur->next)
+			exit(1);
+		free(st);
+		st = get_next_line(par->fd);
+		cur = cur->next;
+		cur->next = NULL;
+	}
+	free(st);
+	cur = par->map;
+	while (cur)
+	{
+		printf("%s", cur->line);
+		cur = cur->next;
+	}
 }
 
 int	main(void)
 {
 	t_param		par;
 
-	par.mlx = mlx_init();
-	par.c = mlx_xpm_file_to_image(par.mlx, "knight_front.xpm", &par.wi, &par.he);
-	par.win = mlx_new_window(par.mlx, 1000, 1000, "DrawMap");
-	par.x = 0;
-	par.y = 0;
-	mlx_key_hook(par.win, &key_press, &par);
-    //키보드 입력을 받아줌
-	mlx_loop_hook(par.mlx, &draw, &par);
-    //이미지를 지우고 다시 그려주는 draw함수를 이벤트마다 실행해줌
+	init(&par);
+	if (par.fd < 0)
+		return (0);
+	printf("qqqqqqqqqqqqqqq\n");
+	par.win = mlx_new_window(par.mlx, par.img_wi * 8, par.img_he * 5, "so_long");
+	printf("qqqqqqqqqqqqqqq\n");
+	map_init(&par);
+	printf("qqqqqqqqqqqqqqq\n");
+	int i;
+	int j;
+	i = 0;
+	j = 0;
+	while (i < 5)
+	{
+		j = 0;
+		while (j < 8)
+		{
+			mlx_put_image_to_window(par.mlx, par.win, par.g, par.x, par.y);
+			par.x += par.img_wi;
+			j++;
+		}
+		par.x = 0;
+		par.y += par.img_he;
+		i++;
+	}
 	mlx_loop(par.mlx);
 	return (0);
 }
