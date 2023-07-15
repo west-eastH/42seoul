@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/12 16:55:17 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/15 19:58:24 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,17 @@
 typedef struct s_map
 {
 	char			*line;
+	struct s_map	*pre;
 	struct s_map	*next;
 }	t_map;
+
+typedef struct s_stack
+{
+	int				x;
+	int				y;
+	struct s_stack	*pre;
+	struct s_stack	*next;
+}	t_stack;
 
 typedef struct s_param
 {
@@ -43,6 +52,8 @@ typedef struct s_param
 	int		img_he;
 	int		win_wi;
 	int		win_he;
+	int		wi_cnt;
+	int		he_cnt;
 	int		move;
 	t_map	*map;
 }	t_param;
