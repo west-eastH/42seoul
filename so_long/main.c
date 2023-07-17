@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/17 13:35:03 by dongseo           #+#    #+#             */
+/*   Updated: 2023/07/17 13:50:41 by dongseo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 #define KEY_ESC			53
@@ -27,7 +39,7 @@ void	free_map(t_map *map)
 
 void	free_copy_map(char	**map)
 {
-	int i;
+	int		i;
 	char	*temp;
 
 	i = 0;
@@ -42,7 +54,7 @@ void	free_copy_map(char	**map)
 	map = NULL;
 }
 
-int key_hook(int keycode, t_param *par)
+int	key_hook(int keycode, t_param *par)
 {
 	if (keycode == 53)
 	{
@@ -57,9 +69,10 @@ int key_hook(int keycode, t_param *par)
 		move_up(par);
 	if (keycode == KEY_S)
 		move_down(par);
-	return 0;
+	return (0);
 }
-int ft_close(void)
+
+int	ft_close(void)
 {
 	exit(0);
 }

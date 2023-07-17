@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils_2.c                                      :+:      :+:    :+:   */
+/*   manage_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:39:29 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/17 10:39:40 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/17 13:36:27 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	push_back(t_stack **stack, int y, int x)
 {
-	t_stack *cur;
-	t_stack *temp;
+	t_stack	*cur;
+	t_stack	*temp;
 
 	cur = (t_stack *)malloc(sizeof(t_stack));
 	if (!cur)
@@ -36,43 +36,45 @@ void	push_back(t_stack **stack, int y, int x)
 	temp->next = cur;
 }
 
-int is_empty(t_stack *stack)
+int	is_empty(t_stack *stack)
 {
 	if (stack == NULL)
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
-t_stack *top_stack(t_stack *stack)
+t_stack	*top_stack(t_stack *stack)
 {
-	t_stack *cur;
+	t_stack	*cur;
 
 	cur = stack;
 	while (cur->next)
 		cur = cur->next;
-	return cur;
+	return (cur);
 }
 
 int	stack_size(t_stack *stack)
 {
-	t_stack *cur;
-	int i;
+	t_stack	*cur;
+	int		i;
 
 	if (stack == NULL)
-		return 0;
+		return (0);
 	i = 1;
 	cur = stack;
-	while(cur->next)
+	while (cur->next)
 	{
 		i++;
 		cur = cur->next;
 	}
-	return i;
+	return (i);
 }
+
 void	pop_stack(t_stack **stack)
 {
-	t_stack *cur;
-	t_stack *temp;
+	t_stack	*cur;
+	t_stack	*temp;
+
 	if (stack_size(*stack) == 1)
 	{
 		cur = *stack;
@@ -88,4 +90,3 @@ void	pop_stack(t_stack **stack)
 	free(temp);
 	temp = NULL;
 }
-

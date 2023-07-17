@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:28:33 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/17 11:56:20 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/17 13:51:46 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	move_exit(t_param *par, t_map *cur, int flag)
 		exit(0);
 	}
 	par->move++;
-	ft_printf("move = %d\n",par->move);
+	ft_printf("move = %d\n", par->move);
 	cur->line[par->p_x] = '0';
 	if (flag == 1)
 		par->p_y--;
@@ -31,7 +31,6 @@ void	move_exit(t_param *par, t_map *cur, int flag)
 	if (flag == 4)
 		par->p_x++;
 	draw_map(par);
-
 }
 
 void	move_right(t_param *par)
@@ -52,7 +51,7 @@ void	move_right(t_param *par)
 			return ;
 		}
 		par->move++;
-		ft_printf("move = %d\n",par->move);
+		ft_printf("move = %d\n", par->move);
 		if (cur->line[par->p_x] != 'E')
 			cur->line[par->p_x] = '0';
 		cur->line[par->p_x + 1] = 'P';
@@ -79,7 +78,7 @@ void	move_left(t_param *par)
 			return ;
 		}
 		par->move++;
-		ft_printf("move = %d\n",par->move);
+		ft_printf("move = %d\n", par->move);
 		if (cur->line[par->p_x] != 'E')
 			cur->line[par->p_x] = '0';
 		cur->line[par->p_x - 1] = 'P';
@@ -108,7 +107,7 @@ void	move_up(t_param *par)
 			return ;
 		}
 		par->move++;
-		ft_printf("move = %d\n",par->move);
+		ft_printf("move = %d\n", par->move);
 		if (cur->line[par->p_x] != 'E')
 			cur->line[par->p_x] = '0';
 		cur->pre->line[par->p_x] = 'P';
@@ -137,7 +136,7 @@ void	move_down(t_param *par)
 			return ;
 		}
 		par->move++;
-		ft_printf("move = %d\n",par->move);
+		ft_printf("move = %d\n", par->move);
 		if (cur->line[par->p_x] != 'E')
 			cur->line[par->p_x] = '0';
 		cur->next->line[par->p_x] = 'P';

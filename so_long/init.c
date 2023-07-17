@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:43:44 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/17 13:31:27 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/17 13:36:39 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ int	is_border(t_param *par, int wi)
 		}
 		cur = cur->next;
 	}
-	return 0;
+	return (0);
 }
 
-int is_rectangle(t_param *par, int wi)
+int	is_rectangle(t_param *par, int wi)
 {
-	t_map *cur;
+	t_map	*cur;
 	int		cur_len;
 
 	cur = par->map;
@@ -79,18 +79,18 @@ int is_rectangle(t_param *par, int wi)
 				cur = cur->next;
 				continue ;
 			}
-			return 1;
+			return (1);
 		}
 		cur = cur->next;
 	}
-	return 0;
+	return (0);
 }
 
-void min_pec_check(t_param *par, int *p, int *e, int *c)
+void	min_pec_check(t_param *par, int *p, int *e, int *c)
 {
-	t_map *cur;
-	int i;
-	int	p_he;
+	t_map	*cur;
+	int		i;
+	int		p_he;
 
 	p_he = 0;
 	cur = par->map;
@@ -115,10 +115,10 @@ void min_pec_check(t_param *par, int *p, int *e, int *c)
 	}
 }
 
-int check_end(t_param *par)
+int	check_end(t_param *par)
 {
-	t_map *cur;
-	int i;
+	t_map	*cur;
+	int		i;
 
 	i = 0;
 	cur = par->map;
@@ -128,7 +128,7 @@ int check_end(t_param *par)
 		while (i < par->wi_cnt)
 		{
 			if (cur->line[i] == 'C')
-				return 0;
+				return (0);
 			i++;
 		}
 		cur = cur->next;

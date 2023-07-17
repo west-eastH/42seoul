@@ -6,15 +6,15 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:41:29 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/17 11:44:52 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/17 13:50:51 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void read_map(t_param *par, t_map *cur)
+void	read_map(t_param *par, t_map *cur)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < par->wi_cnt)
@@ -38,14 +38,15 @@ void read_map(t_param *par, t_map *cur)
 	}
 }
 
-void draw_map(t_param *par)
+void	draw_map(t_param *par)
 {
-	int i;
-	int j;
-	t_map *cur;
+	int		i;
+	int		j;
+	t_map	*cur;
+
 	i = 0;
 	cur = par->map;
- 	while (i < par->he_cnt)
+	while (i < par->he_cnt)
 	{
 		j = 0;
 		read_map(par, cur);
@@ -60,11 +61,11 @@ void draw_map(t_param *par)
 	par->y = 0;
 }
 
-char **map_cpy(t_param *par)
+char	**map_cpy(t_param *par)
 {
-	char **result;
-	int	i;
-	t_map *cur;
+	char	**result;
+	int		i;
+	t_map	*cur;
 
 	cur = par->map;
 	i = 0;
@@ -80,12 +81,13 @@ char **map_cpy(t_param *par)
 		i++;
 	}
 	result[i] = NULL;
-	return result;
+	return (result);
 }
-char *make_empty_str(char *st)
+
+char	*make_empty_str(char *st)
 {
-	char *result;
-	int i;
+	char	*result;
+	int		i;
 
 	i = 0;
 	result = (char *)malloc(ft_strlen(st) + 1);
@@ -95,7 +97,7 @@ char *make_empty_str(char *st)
 		i++;
 	}
 	result[i] = 0;
-	return result;
+	return (result);
 }
 
 void	set_dxy(int *dx, int *dy)

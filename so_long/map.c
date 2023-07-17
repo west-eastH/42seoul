@@ -6,16 +6,16 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:44:35 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/17 13:16:59 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/17 13:51:08 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void push_map(t_param *par, char *st)
+void	push_map(t_param *par, char *st)
 {
-	t_map *temp;
-	t_map *cur;
+	t_map	*temp;
+	t_map	*cur;
 
 	temp = (t_map *)malloc(sizeof(t_map));
 	if (!temp)
@@ -38,7 +38,7 @@ void push_map(t_param *par, char *st)
 	return ;
 }
 
-int map_init(t_param *par)
+int	map_init(t_param *par)
 {
 	char	*st;
 	int		he;
@@ -64,7 +64,7 @@ int map_init(t_param *par)
 	return (map_error_check(par, ft_strlen(par->map->line) - 1, he));
 }
 
-int route_check(t_param *par, char **map)
+int	route_check(t_param *par, char **map)
 {
 	char	**vis;
 	int		i;
@@ -95,10 +95,10 @@ int route_check(t_param *par, char **map)
 
 int	map_error_check(t_param *par, int wi, int he)
 {
-	int p;
-	int e;
-	int c;
-	char **copy_map;
+	int		p;
+	int		e;
+	int		c;
+	char	**copy_map;
 
 	p = 0;
 	e = 0;
@@ -107,15 +107,14 @@ int	map_error_check(t_param *par, int wi, int he)
 	par->he_cnt = he;
 	if (is_border(par, wi) || wi < 3 || he < 3
 		|| is_rectangle(par, wi) || check_map(par))
-		return 1;
+		return (1);
 	min_pec_check(par, &p, &e, &c);
 	copy_map = map_cpy(par);
 	if (p != 1 || e != 1 || c < 1 || route_check(par, copy_map))
-		return 1;
+		return (1);
 	par->win = mlx_new_window(par->mlx, par->win_wi, par->win_he, "so_long");
 	draw_map(par);
-	return 0;
-
+	return (0);
 }
 
 int	dfs(t_stack **stack, char **map, char **vis, int *nxy)
@@ -129,18 +128,14 @@ int	dfs(t_stack **stack, char **map, char **vis, int *nxy)
 	set_dxy(dx, dy);
 	while (!is_empty(*stack))
 	{
-		cur_x = top_stack(*stack)->x;
-		cur_y = top_stack(*stack)->y;
+		set_cur(&cur_x, &cur_y, *stack);
 		pop_stack(stack);
 		dir = 0;
 		while (dir++ < 4)
 		{
 			nxy[0] = cur_x + dx[dir - 1];
 			nxy[1] = cur_y + dy[dir - 1];
-			if (nxy[0] < 1 || nxy[0] >= nxy[2]
-				|| nxy[1] < 1 || nxy[1] >= nxy[3])
-				continue ;
-			if (vis[nxy[1]][nxy[0]] == '1' || map[nxy[1]][nxy[0]] == '1')
+			if (nxy_check(nxy, map, vis))
 				continue ;
 			if (map[nxy[1]][nxy[0]] == 'E')
 				return (0);
