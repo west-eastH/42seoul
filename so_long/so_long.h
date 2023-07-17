@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/15 19:58:24 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/17 13:21:46 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <fcntl.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include "mlx.h"
 
 typedef struct s_map
 {
@@ -42,7 +42,8 @@ typedef struct s_param
 	void	*g;
 	void	*w;
 	void	*p;
-	void	*e;
+	void	*e1;
+	void	*e2;
 	int		fd;
 	int		x;
 	int		y;
@@ -104,4 +105,42 @@ long long	ft_atoi(const char *str);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /////////////////////////////////////////////////////////
+void	move_exit(t_param *par, t_map *cur, int flag);
+void	move_right(t_param *par);
+void	move_left(t_param *par);
+void	move_up(t_param *par);
+void	move_down(t_param *par);
+
+
+void	push_map(t_param *par, char *st);
+int	map_init(t_param *par);
+int route_check(t_param *par, char **map);
+int	map_error_check(t_param *par, int wi, int he);
+int	dfs(t_stack **stack, char **map, char **vis, int *nxy);
+
+void read_map(t_param *par, t_map *cur);
+void draw_map(t_param *par);
+char **map_cpy(t_param *par);
+char *make_empty_str(char *st);
+void	set_dxy(int *dx, int *dy);
+
+void	push_back(t_stack **stack, int y, int x);
+int is_empty(t_stack *stack);
+t_stack *top_stack(t_stack *stack);
+int	stack_size(t_stack *stack);
+void	pop_stack(t_stack **stack);
+
+void	init(t_param *par);
+int	is_border(t_param *par, int wi);
+int is_rectangle(t_param *par, int wi);
+void min_pec_check(t_param *par, int *p, int *e, int *c);
+int check_end(t_param *par);
+
+void	free_map(t_map *map);
+void	free_copy_map(char	**map);
+int key_hook(int keycode, t_param *par);
+int ft_close(void);
+int	check_map(t_param *par);
+
+
 #endif
