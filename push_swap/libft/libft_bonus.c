@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_bonus.c                                      :+:      :+:    :+:   */
+/*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 04:57:55 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 20:20:42 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/05 15:17:22 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "../push_swap.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -46,25 +46,24 @@ char	*ft_strdup(const char *s1)
 	return (temp);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2, size_t s2_len)
 {
-	size_t	s1_len;
-	size_t	s2_len;
 	char	*temp;
+	size_t	s1_len;
 	size_t	i;
 	size_t	j;
 
 	i = 0;
+	if (!s1)
+		return (ft_strdup(s2));
 	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	temp = (char *)malloc(s1_len + s2_len + 1);
+	temp = (char *)malloc(s1_len + s2_len + 2);
 	if (!temp)
-		return (0);
-	while (s1[i])
-	{
-		temp[i] = s1[i];
-		i++;
-	}
+		return (NULL);
+	while (s1[i++])
+		temp[i - 1] = s1[i - 1];
+	free(s1);
+	temp[i - 1] = ' ';
 	j = 0;
 	while (s2[j])
 	{
@@ -73,6 +72,32 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	temp[i + j] = 0;
 	return (temp);
+}
+
+long long	ft_atoi(const char *str)
+{
+	int			i;
+	long long	res;
+	int			sign;
+
+	sign = 1;
+	res = 0;
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res *= 10;
+		res += str[i] - '0';
+		i++;
+	}
+	return (sign * res);
 }
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)

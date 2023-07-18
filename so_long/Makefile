@@ -11,7 +11,7 @@ CFLAG		= -Wall -Wextra -Werror
 RM			= rm -f
 
 MANDATORY	= main.c ft_printf/ft_format.c ft_printf/ft_printf.c ft_printf/ft_putnbr.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c libft.c init.c manage_stack.c map_utils.c map.c move.c map_utils2.c
-BONUS		= main_bonus.c ft_printf/ft_format.c ft_printf/ft_printf.c ft_printf/ft_putnbr.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c libft_bonus.c init_bonus.c manage_stack_bonus.c map_utils_bonus.c map_bonus.c move_bonus.c map_utils2_bonus.c so_long_utils_bonus.c
+BONUS		= main_bonus.c ft_printf/ft_format_bonus.c ft_printf/ft_printf_bonus.c ft_printf/ft_putnbr_bonus.c get_next_line/get_next_line_bonus.c get_next_line/get_next_line_utils_bonus.c libft_bonus.c init_bonus.c manage_stack_bonus.c map_utils_bonus.c map_bonus.c move_bonus.c map_utils2_bonus.c so_long_utils_bonus.c
 
 SRCS		= $(MANDATORY)
 SRCS_BONUS	= $(BONUS)

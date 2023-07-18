@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 19:39:09 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 20:22:13 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <stdarg.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include <errno.h>
-# include <stdio.h>
 # include "mlx.h"
 
 typedef struct s_map
