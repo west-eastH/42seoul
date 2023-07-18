@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_utils.c                                    :+:      :+:    :+:   */
+/*   so_long_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:43:09 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 17:46:00 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 18:04:04 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	free_map(t_map *map)
 {
@@ -84,3 +84,17 @@ char	*move_to_char(int n)
 	return (result);
 }
 
+int	check_move(char c, t_param *par, t_map *cur, int flag)
+{
+	if (c == 'E')
+	{
+		move_exit(par, cur, flag);
+		return (1);
+	}
+	if (c == 'M')
+	{
+		ft_printf("YOU'RE DEAD!!\n");
+		exit(0);
+	}
+	return (0);
+}

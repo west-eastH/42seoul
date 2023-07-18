@@ -6,11 +6,11 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:11:47 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/12 15:40:03 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 18:04:41 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "../so_long_bonus.h"
 
 int	gnl_ft_backup(t_list **lst, int fd, char *buffer, int size)
 {

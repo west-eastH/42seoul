@@ -6,11 +6,11 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:44:55 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/12 15:40:05 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 18:04:45 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "../so_long_bonus.h"
 
 size_t	gnl_ft_strlen(const char *s)
 {

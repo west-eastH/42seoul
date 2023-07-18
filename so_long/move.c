@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:28:33 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/17 13:51:46 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 17:58:01 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	move_exit(t_param *par, t_map *cur, int flag)
 {
 	if (check_end(par))
 	{
-		ft_printf("end\n");
+		ft_printf("END\n");
 		exit(0);
 	}
 	par->move++;

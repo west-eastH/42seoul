@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:35:03 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 17:42:51 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 18:05:05 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 #define KEY_ESC			53
 #define KEY_W				13
@@ -71,7 +71,6 @@ int	main(void)
 		free_map(par.map);
 		return (0);
 	}
-	ft_printf("move = %d\n", par.move);
 	mlx_key_hook(par.win, key_hook, &par);
 	mlx_hook(par.win, PRESS_RED_BUTTON, 0, ft_close, 0);
 	mlx_loop_hook(par.mlx, frame, &par);
