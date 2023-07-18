@@ -6,15 +6,15 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:43:44 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 18:29:49 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 19:53:52 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init(t_param *par)
+void	init(t_param *par, char *map)
 {
-	par->fd = open("maps/map.ber", O_RDONLY);
+	par->fd = open(map, O_RDONLY);
 	par->mlx = mlx_init();
 	par->x = 0;
 	par->y = 0;

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 18:20:16 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 19:39:51 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ t_stack				*top_stack(t_stack *stack);
 int					stack_size(t_stack *stack);
 void				pop_stack(t_stack **stack);
 
-void				init(t_param *par);
+void				init(t_param *par, char *map);
 int					is_border(t_param *par, int wi);
 int					is_rectangle(t_param *par, int wi);
 void				min_pec_check(t_param *par, int *p, int *e, int *c);

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:35:03 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 18:05:05 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 19:40:26 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,13 @@ int	frame(t_param *par)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	t_param		par;
 
-	init(&par);
+	if (argc != 2)
+		return (0);
+	init(&par, argv[1]);
 	if (par.fd <= 0)
 		return (0);
 	if (map_init(&par))
