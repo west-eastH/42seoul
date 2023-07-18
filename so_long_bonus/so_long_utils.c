@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:43:09 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 17:42:14 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 17:46:00 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,20 @@ void	free_copy_map(char	**map)
 
 char	*move_print(t_param *par)
 {
-	char *result;
-	char *move_cnt;
+	char	*result;
+	char	*move_cnt;
 
 	move_cnt = move_to_char(par->move);
 	result = ft_strjoin("move = ", move_cnt);
 	free(move_cnt);
-	return result;
+	return (result);
 }
 
-char *move_to_char(int n)
+char	*move_to_char(int n)
 {
-	char *result;
-	int len;
-	int temp;
+	char	*result;
+	int		len;
+	int		temp;
 
 	len = 1;
 	temp = n;
@@ -81,6 +81,6 @@ char *move_to_char(int n)
 		len--;
 	}
 	result[len] = n % 10 + '0';
-	return result;
+	return (result);
 }
 
