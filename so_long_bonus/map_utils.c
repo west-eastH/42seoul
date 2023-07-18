@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:41:29 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/17 15:02:40 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 12:44:59 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	read_map(t_param *par, t_map *cur)
 		}
 		if (cur->line[i] == 'C')
 			mlx_put_image_to_window(par->mlx, par->win, par->c, par->x, par->y);
+		if (cur->line[i] == 'M')
+			mlx_put_image_to_window(par->mlx, par->win, par->m, par->x, par->y);
 		par->x += par->img_wi;
 		i++;
 	}

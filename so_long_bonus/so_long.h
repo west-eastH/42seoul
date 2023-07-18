@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 17:39:19 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 17:42:45 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ typedef struct s_param
 {
 	void	*mlx;
 	void	*win;
+	int		frame;
 	void	*c;
 	void	*g;
 	void	*w;
 	void	*p;
+	void	*m;
 	void	*e1;
 	void	*e2;
 	int		fd;
@@ -99,6 +101,7 @@ int					ft_printf(const char *st, ...);
 
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s1);
+char				*ft_strjoin(char const *s1, char const *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 
 void				move_exit(t_param *par, t_map *cur, int flag);
@@ -138,4 +141,9 @@ int					ft_close(void);
 int					check_map(t_param *par);
 int					nxy_check(int *nxy, char **map, char **vis);
 void				set_cur(int *cur_x, int *cur_y, t_stack *stack);
+int					frame(t_param *par);
+void				monster_frame(t_param *par);
+void				player_frame(t_param *par);
+char				*move_print(t_param *par);
+char				*move_to_char(int n);
 #endif

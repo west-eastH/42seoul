@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:35:03 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/17 15:02:34 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 17:42:51 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,41 +18,6 @@
 #define KEY_A				0
 #define KEY_D				2
 #define PRESS_RED_BUTTON	17
-
-void	free_map(t_map *map)
-{
-	t_map	*cur;
-	t_map	*temp;
-
-	cur = map;
-	if (cur == NULL)
-		return ;
-	while (cur)
-	{
-		temp = cur->next;
-		free(cur->line);
-		cur->line = NULL;
-		free(cur);
-		cur = temp;
-	}
-}
-
-void	free_copy_map(char	**map)
-{
-	int		i;
-	char	*temp;
-
-	i = 0;
-	while (map[i])
-	{
-		temp = map[i];
-		free(temp);
-		temp = NULL;
-		i++;
-	}
-	free(map);
-	map = NULL;
-}
 
 int	key_hook(int keycode, t_param *par)
 {
@@ -77,12 +42,27 @@ int	ft_close(void)
 	exit(0);
 }
 
+int	frame(t_param *par)
+{
+	char	*move_str;
+
+	move_str = move_print(par);
+	par->frame = par->frame % 44;
+	par->frame += 1;
+	monster_frame(par);
+	player_frame(par);
+	draw_map(par);
+	mlx_string_put(par->mlx, par->win, 50, 50, 0x00FF0000, move_str);
+	free(move_str);
+	return (0);
+}
+
 int	main(void)
 {
 	t_param		par;
 
 	init(&par);
-	if (par.fd < 0)
+	if (par.fd <= 0)
 		return (0);
 	if (map_init(&par))
 	{
@@ -94,6 +74,7 @@ int	main(void)
 	ft_printf("move = %d\n", par.move);
 	mlx_key_hook(par.win, key_hook, &par);
 	mlx_hook(par.win, PRESS_RED_BUTTON, 0, ft_close, 0);
+	mlx_loop_hook(par.mlx, frame, &par);
 	mlx_loop(par.mlx);
 	return (0);
 }

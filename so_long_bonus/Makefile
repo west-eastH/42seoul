@@ -5,7 +5,7 @@ CFLAG		= -Wall -Wextra -Werror
 
 RM			= rm -f
 
-SRCS		= main.c ft_printf/ft_format.c ft_printf/ft_printf.c ft_printf/ft_putnbr.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c libft.c init.c manage_stack.c map_utils.c map.c move.c map_utils2.c
+SRCS			= main.c ft_printf/ft_format.c ft_printf/ft_printf.c ft_printf/ft_putnbr.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c libft.c init.c manage_stack.c map_utils.c map.c move.c map_utils2.c so_long_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

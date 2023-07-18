@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:43:44 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/17 15:02:20 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 15:30:51 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init(t_param *par)
 {
-	par->fd = open("map/map.ber", O_RDONLY);
+	par->fd = open("./map/map_bonus.ber", O_RDONLY);
 	par->mlx = mlx_init();
 	par->x = 0;
 	par->y = 0;
@@ -26,11 +26,13 @@ void	init(t_param *par)
 	par->w = mlx_xpm_file_to_image(par->mlx,
 			"img/w.xpm", &par->img_wi, &par->img_he);
 	par->p = mlx_xpm_file_to_image(par->mlx,
-			"img/p.xpm", &par->img_wi, &par->img_he);
+			"img/p1.xpm", &par->img_wi, &par->img_he);
 	par->e1 = mlx_xpm_file_to_image(par->mlx,
 			"img/e1.xpm", &par->img_wi, &par->img_he);
 	par->e2 = mlx_xpm_file_to_image(par->mlx,
 			"img/e2.xpm", &par->img_wi, &par->img_he);
+	par->m = mlx_xpm_file_to_image(par->mlx,
+			"img/m1.xpm", &par->img_wi, &par->img_he);
 	par->map = NULL;
 }
 

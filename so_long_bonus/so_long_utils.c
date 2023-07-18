@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   so_long_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 13:35:03 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/17 15:02:34 by dongseo          ###   ########.fr       */
+/*   Created: 2023/07/18 15:43:09 by dongseo           #+#    #+#             */
+/*   Updated: 2023/07/18 17:42:14 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-#define KEY_ESC			53
-#define KEY_W				13
-#define KEY_S				1
-#define KEY_A				0
-#define KEY_D				2
-#define PRESS_RED_BUTTON	17
 
 void	free_map(t_map *map)
 {
@@ -54,46 +47,40 @@ void	free_copy_map(char	**map)
 	map = NULL;
 }
 
-int	key_hook(int keycode, t_param *par)
+char	*move_print(t_param *par)
 {
-	if (keycode == 53)
+	char *result;
+	char *move_cnt;
+
+	move_cnt = move_to_char(par->move);
+	result = ft_strjoin("move = ", move_cnt);
+	free(move_cnt);
+	return result;
+}
+
+char *move_to_char(int n)
+{
+	char *result;
+	int len;
+	int temp;
+
+	len = 1;
+	temp = n;
+	while (temp > 9)
 	{
-		mlx_destroy_window(par->mlx, par->win);
-		exit(0);
+		temp /= 10;
+		len++;
 	}
-	if (keycode == KEY_D)
-		move_right(par);
-	if (keycode == KEY_A)
-		move_left(par);
-	if (keycode == KEY_W)
-		move_up(par);
-	if (keycode == KEY_S)
-		move_down(par);
-	return (0);
-}
-
-int	ft_close(void)
-{
-	exit(0);
-}
-
-int	main(void)
-{
-	t_param		par;
-
-	init(&par);
-	if (par.fd < 0)
-		return (0);
-	if (map_init(&par))
+	result = (char *)malloc(len + 1);
+	result[len] = 0;
+	len--;
+	while (n > 9)
 	{
-		ft_printf("Error\n");
-		ft_printf("Map Error\n");
-		free_map(par.map);
-		return (0);
+		result[len] = n % 10 + '0';
+		n /= 10;
+		len--;
 	}
-	ft_printf("move = %d\n", par.move);
-	mlx_key_hook(par.win, key_hook, &par);
-	mlx_hook(par.win, PRESS_RED_BUTTON, 0, ft_close, 0);
-	mlx_loop(par.mlx);
-	return (0);
+	result[len] = n % 10 + '0';
+	return result;
 }
+
