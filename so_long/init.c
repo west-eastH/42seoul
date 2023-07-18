@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:43:44 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/17 15:02:20 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 18:29:49 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init(t_param *par)
 {
-	par->fd = open("map/map.ber", O_RDONLY);
+	par->fd = open("maps/map.ber", O_RDONLY);
 	par->mlx = mlx_init();
 	par->x = 0;
 	par->y = 0;

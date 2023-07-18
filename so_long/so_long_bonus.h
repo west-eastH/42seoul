@@ -6,12 +6,12 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 18:05:39 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/18 18:20:16 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_BONUS_H
-# define SO_LONG__BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <unistd.h>
 # include <stdarg.h>
@@ -146,4 +146,5 @@ void				monster_frame(t_param *par);
 void				player_frame(t_param *par);
 char				*move_print(t_param *par);
 char				*move_to_char(int n);
+int					check_move(char c, t_param *par, t_map *cur, int flag);
 #endif
