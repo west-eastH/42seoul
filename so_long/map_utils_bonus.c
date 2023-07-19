@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:41:29 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 18:05:14 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/19 12:30:09 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,12 @@ void	read_map(t_param *par, t_map *cur)
 void	draw_map(t_param *par)
 {
 	int		i;
-	int		j;
 	t_map	*cur;
 
 	i = 0;
 	cur = par->map;
 	while (i < par->he_cnt)
 	{
-		j = 0;
 		read_map(par, cur);
 		par->x = 0;
 		par->y += par->img_he;
