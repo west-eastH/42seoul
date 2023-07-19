@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 13:35:03 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/18 19:38:25 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/19 12:37:43 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	main(int argc, char *argv[])
 	if (map_init(&par))
 	{
 		ft_printf("Error\n");
-		ft_printf("Map Error\n");
+		perror("Map Error");
 		free_map(par.map);
 		return (0);
 	}
