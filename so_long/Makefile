@@ -28,7 +28,7 @@ bonus :
 	make WITH_BONUS=1 all
 
 $(NAME) : $(OBJS)
-		$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+		$(CC) $(OBJS) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o : %.c $(INCLUDES)
 	$(CC) $(CFLAG) -Imlx -c $< -o $@
