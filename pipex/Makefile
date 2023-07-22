@@ -7,23 +7,26 @@ RM			= rm -f
 
 LIBS 		= ./libft/libft.a
 SRCS		= main.c
+INCLUDES	= pipex.h
 
 OBJS = $(SRCS:.c=.o)
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
+		@cd libft && $(MAKE)
 		$(CC) $(CFLAG) $(OBJS) $(LIBS) -o $(NAME)
 
-%.o : %.c $(INCLUDES)
+%.o : %.c
 	$(CC) $(CFLAG) -c $< -o $@
 
 clean :
 	$(RM) $(SRCS:.c=.o)
+	@cd libft && $(MAKE) clean
 
 fclean : clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(LIBS)
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean

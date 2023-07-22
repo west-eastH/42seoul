@@ -6,11 +6,11 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:01:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/05 18:16:50 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/22 10:33:40 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 size_t	ft_strlen(const char *s)
 {

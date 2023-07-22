@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_format.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:23:13 by dongseo           #+#    #+#             */
-/*   Updated: 2023/05/20 18:35:53 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/22 10:33:47 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 ssize_t	ft_printf_c(char c)
 {
