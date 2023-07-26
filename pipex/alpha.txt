@@ -1,6 +1,0 @@
-a.out
-alpha.txt
-main.c
-newfile
-words.txt
-words2.txt

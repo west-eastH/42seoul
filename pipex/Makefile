@@ -6,7 +6,7 @@ CFLAG		= -Wall -Wextra -Werror
 RM			= rm -f
 
 LIBS 		= ./libft/libft.a
-SRCS		= main.c
+SRCS		= pipex.c pipex_utils.c
 INCLUDES	= pipex.h
 
 OBJS = $(SRCS:.c=.o)
