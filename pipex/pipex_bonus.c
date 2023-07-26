@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/26 20:08:43 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/26 19:41:36 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_perror(char *msg)
 int	main(int argc, char *argv[], char **envp)
 {
 	int		fd[2];
-	pid_t	pid, pid2;
+	pid_t	pid;
 	int		status;
 
 	if (argc < 5)
@@ -66,9 +66,12 @@ int	main(int argc, char *argv[], char **envp)
 		ft_perror("fork error");
 	else if (pid == 0)
 		first_child(fd, argv, envp);
-	pid2 = fork();
-	if (pid2 == 0)
-		second_child(fd, argv, envp);
+	else
+	{
+		pid = fork();
+		if (pid == 0)
+			second_child(fd, argv, envp);
+	}
 	while (argc-- - 3)
 		wait(&status);
 	exit(0);

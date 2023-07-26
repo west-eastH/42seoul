@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:41:29 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/19 12:29:56 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/26 16:50:58 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ char	*make_empty_str(char *st)
 
 	i = 0;
 	result = (char *)malloc(ft_strlen(st) + 1);
+	if (!result)
+		exit(1);
 	while (st[i])
 	{
 		result[i] = '0';
