@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:28:11 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/26 20:47:14 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/27 14:31:00 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,46 @@ void	ft_execve(char **cmd, char **envp)
 	}
 	free(split);
 	split = NULL;
-	perror("path error");
+	perror("command error");
 	exit (1);
+}
+
+void	ft_close(int cnt, int *fd[])
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (cnt > 1)
+	{
+		while (i < cnt - 1)
+		{
+			j = 0;
+			while (j < 2)
+			{
+				close(fd[i][j]);
+				j++;
+			}
+			i++;
+		}
+	}
+}
+
+int	**make_pipe(int cnt)
+{
+	int	i;
+	int	**result;
+
+	result = (int **)malloc(sizeof(int *) * (cnt));
+	if (!result)
+		ft_perror("malloc error");
+	i = 0;
+	while (i < cnt)
+	{
+		result[i] = (int *)malloc(sizeof(int) * 2);
+		if (!result[i])
+			ft_perror("malloc error");
+		i++;
+	}
+	return (result);
 }

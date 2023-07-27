@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:28:11 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/26 20:47:14 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/27 14:26:24 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ void	ft_execve(char **cmd, char **envp)
 	}
 	free(split);
 	split = NULL;
-	perror("path error");
+	perror("command error");
 	exit (1);
 }
