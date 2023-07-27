@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:28:11 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/27 14:31:00 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/27 14:35:29 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,15 @@ void	ft_close(int cnt, int *fd[])
 	int	j;
 
 	i = 0;
-	if (cnt > 1)
+	while (i < cnt - 1)
 	{
-		while (i < cnt - 1)
+		j = 0;
+		while (j < 2)
 		{
-			j = 0;
-			while (j < 2)
-			{
-				close(fd[i][j]);
-				j++;
-			}
-			i++;
+			close(fd[i][j]);
+			j++;
 		}
+		i++;
 	}
 }
 

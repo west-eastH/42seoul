@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/27 14:27:05 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/27 14:33:15 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	first_child(int *fd[], char *argv[], char **envp);
 void	middle_child(int *fd[], char *argv[], char **envp, int i);
 void	last_child(int *fd[], char *argv[], char **envp, int i);
 void	ft_perror(char *msg);
-void	make_pipe(int cnt);
+void	ft_close(int cnt, int *fd[]);
+int		**make_pipe(int cnt);
 #endif

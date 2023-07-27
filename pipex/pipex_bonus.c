@@ -6,11 +6,11 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/27 14:31:36 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/27 14:36:06 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	first_child(int *fd[], char *argv[], char **envp)
 {
@@ -80,7 +80,6 @@ int	main(int argc, char *argv[], char **envp)
 	pid_t	pid;
 	int		status;
 	int		i;
-	int j;
 
 	if (argc < 5)
 		return (0);
@@ -102,7 +101,7 @@ int	main(int argc, char *argv[], char **envp)
 			middle_child(fd, argv, envp, i);
 		i++;
 	}
-	ft_close(argc - 4, fd);
+	ft_close(argc - 3, fd);
 	while (argc-- - 3)
 		wait(&status);
 	exit(0);
