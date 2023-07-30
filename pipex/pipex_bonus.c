@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/30 21:07:17 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/30 23:07:34 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ int	ft_wait(int argc, int **fd, int is_here_doc, char *temp)
 {
 	int	status;
 
+	ft_close(argc - 3, fd);
+	while (argc-- - 3)
+		wait(&status);
 	if (is_here_doc)
 	{
 		if (unlink("temp.txt") < 0)
 			ft_perror("unlink error");
 		free(temp);
 	}
-	ft_close(argc - 3, fd);
-	while (argc-- - 3)
-		wait(&status);
 	exit(0);
 }
 

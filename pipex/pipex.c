@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/30 20:02:42 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/30 23:17:10 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char *argv[], char **envp)
 	int		i;
 
 	if (argc != 5)
-		return (0);
+		ft_perror("argc error");
 	fd = make_pipe(argc - 4);
 	i = 0;
 	while (i < argc - 3)
