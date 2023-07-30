@@ -6,67 +6,11 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/27 14:36:06 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/30 20:59:18 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
-
-void	first_child(int *fd[], char *argv[], char **envp)
-{
-	int		in_fd;
-	char	**cmd;
-
-	close(fd[0][0]);
-	in_fd = open(argv[1], O_RDONLY);
-	if (in_fd < 0)
-		ft_perror("file open error");
-	cmd = ft_split(argv[2], ' ');
-	dup2(in_fd, 0);
-	dup2(fd[0][1], 1);
-	close(in_fd);
-	close(fd[0][1]);
-	if (argv[2][0] == '/')
-		execve(cmd[0], cmd, envp);
-	ft_execve(cmd, envp);
-}
-
-void	middle_child(int *fd[], char *argv[], char **envp, int i)
-{
-	char	**cmd;
-
-	ft_close(i, fd);
-	close(fd[i - 1][1]);
-	close(fd[i][0]);
-	cmd = ft_split(argv[i + 2], ' ');
-	dup2(fd[i - 1][0], 0);
-	close(fd[i - 1][0]);
-	dup2(fd[i][1], 1);
-	close(fd[i][1]);
-	if (argv[i + 2][0] == '/')
-		execve(cmd[0], cmd, envp);
-	ft_execve(cmd, envp);
-}
-
-void	last_child(int *fd[], char *argv[], char **envp, int i)
-{
-	int		out;
-	char	**cmd;
-
-	ft_close(i, fd);
-	close(fd[i - 1][1]);
-	cmd = ft_split(argv[i + 2], ' ');
-	out = open(argv[i + 3], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (out < 0)
-		ft_perror("file open error");
-	dup2(fd[i - 1][0], 0);
-	close(fd[i - 1][0]);
-	dup2(out, 1);
-	close(out);
-	if (argv[i + 2][0] == '/')
-		execve(cmd[0], cmd, envp);
-	ft_execve(cmd, envp);
-}
 
 void	ft_perror(char *msg)
 {
@@ -74,35 +18,95 @@ void	ft_perror(char *msg)
 	exit(1);
 }
 
-int	main(int argc, char *argv[], char **envp)
+int	ft_wait(int argc, int **fd, int is_here_doc, char *temp)
 {
-	int		**fd;
-	pid_t	pid;
-	int		status;
-	int		i;
+	int	status;
 
-	if (argc < 5)
-		return (0);
-	fd = make_pipe(argc - 4);
-	i = 0;
-	while (i < argc - 3)
+	if (is_here_doc)
 	{
-		if (i < argc - 4)
-			if (pipe(fd[i]) < 0)
-				ft_perror("pipe error");
-		pid = fork();
-		if (pid < 0)
-			ft_perror("fork error");
-		else if (pid == 0 && i == 0)
-			first_child(fd, argv, envp);
-		else if (pid == 0 && i == argc - 4)
-			last_child(fd, argv, envp, i);
-		else if (pid == 0)
-			middle_child(fd, argv, envp, i);
-		i++;
+		if (unlink("temp.txt") < 0)
+			ft_perror("unlink error");
+		free(temp);
 	}
 	ft_close(argc - 3, fd);
 	while (argc-- - 3)
 		wait(&status);
 	exit(0);
+}
+
+void	make_temp(char *argv[])
+{
+	size_t	limit_len;
+	int		temp;
+	char	*str;
+
+	limit_len = ft_strlen(argv[2]);
+	temp = open("temp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (temp < 0)
+		ft_perror("file open error");
+	str = get_next_line(0);
+	if (str == NULL)
+		ft_perror("input is null");
+	while (!(ft_strncmp(str, argv[2], limit_len) == 0
+			&& str[limit_len] == '\n'))
+	{
+		write(temp, str, ft_strlen(str));
+		free(str);
+		str = get_next_line(0);
+	}
+	free(str);
+	close(temp);
+}
+
+void	ft_here_doc(int*argc, char *argv[], t_idx *idx)
+{
+	int	i;
+
+	if (*argc < 5)
+		perror("argc error");
+	idx->is_here_doc = 0;
+	if (ft_strncmp(argv[1], "here_doc", 9) != 0)
+		return ;
+	if (*argc < 6)
+		ft_perror("argc error");
+	make_temp(argv);
+	i = 2;
+	argv[1] = ft_strdup("temp.txt");
+	if (!argv[1])
+		ft_perror("malloc error");
+	while (i < *argc)
+	{
+		argv[i] = argv[i + 1];
+		i++;
+	}
+	*argc = *argc - 1;
+	idx->is_here_doc = 1;
+}
+
+int	main(int argc, char *argv[], char **envp)
+{
+	int		**fd;
+	pid_t	pid;
+	t_idx	idx;
+
+	ft_here_doc(&argc, argv, &idx);
+	fd = make_pipe(argc - 4);
+	idx.i = 0;
+	while (idx.i < argc - 3)
+	{
+		if (idx.i < argc - 4)
+			if (pipe(fd[idx.i]) < 0)
+				ft_perror("pipe error");
+		pid = fork();
+		if (pid < 0)
+			ft_perror("fork error");
+		else if (pid == 0 && idx.i == 0)
+			first_child(fd, argv, envp);
+		else if (pid == 0 && idx.i == argc - 4)
+			last_child(fd, argv, envp, &idx);
+		else if (pid == 0)
+			middle_child(fd, argv, envp, idx.i);
+		idx.i++;
+	}
+	ft_wait(argc, fd, idx.is_here_doc, argv[1]);
 }

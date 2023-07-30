@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/26 19:20:59 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/30 20:24:54 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
+void	first_child(int *fd[], char *argv[], char **envp);
+void	middle_child(int *fd[], char *argv[], char **envp, int i);
+void	last_child(int *fd[], char *argv[], char **envp, int i);
+
 char	*set_path(char **envp);
 char	*ft_cmdjoin(char const *s1, char const *s2);
 void	ft_execve(char **cmd, char **envp);
-void	child_process(int fd[2], char *argv[], char **envp);
-void	parent_process(int fd[2], char *argv[], char **envp);
+void	ft_close(int cnt, int *fd[]);
+int		**make_pipe(int cnt);
 void	ft_perror(char *msg);
+int		ft_wait(int argc, int **fd);
 #endif

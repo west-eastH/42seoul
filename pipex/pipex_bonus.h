@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/27 14:33:15 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/30 20:27:23 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,46 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+typedef struct s_list
+{
+	int				fd;
+	char			*st;
+	struct s_list	*next;
+}t_list;
+
+typedef struct s_idx
+{
+	int	i;
+	int	is_here_doc;
+}t_idx;
+
+size_t	gnl_ft_strlen(const char *s);
+char	*gnl_ft_strdup(char *s1, size_t len);
+char	*gnl_ft_strjoin(char *s1, char *s2, size_t s2_len);
+t_list	*gnl_ft_find_fd(t_list *lst, int fd);
+int		gnl_ft_backup(t_list **lst, int fd, char *buffer, int size);
+
+int		gnl_is_line(char *backup);
+char	*gnl_split(int fd, t_list **lst, int idx);
+char	*gnl_no_line(int fd, t_list **lst, int size);
+char	*get_next_line(int fd);
+void	gnl_ft_free(t_list **lst, int fd);
+
+void	first_child(int *fd[], char *argv[], char **envp);
+void	middle_child(int *fd[], char *argv[], char **envp, int i);
+void	last_child(int *fd[], char *argv[], char **envp, t_idx *idx);
+
 char	*set_path(char **envp);
 char	*ft_cmdjoin(char const *s1, char const *s2);
 void	ft_execve(char **cmd, char **envp);
 void	ft_close(int cnt, int *fd[]);
-void	first_child(int *fd[], char *argv[], char **envp);
-void	middle_child(int *fd[], char *argv[], char **envp, int i);
-void	last_child(int *fd[], char *argv[], char **envp, int i);
-void	ft_perror(char *msg);
-void	ft_close(int cnt, int *fd[]);
 int		**make_pipe(int cnt);
+void	ft_perror(char *msg);
+int		ft_wait(int argc, int **fd, int is_here_doc, char *temp);
+void	make_temp(char *argv[]);
+void	ft_here_doc(int*argc, char *argv[], t_idx *idx);
 #endif

@@ -1,8 +1,1 @@
-test
-test
-test
-
-dghhdfthtdfhfhlp'l'op'o'
-
-
-lqwdwqdqwdwqdwq
+./pipex here_doc LIMITER cmd cmd1 file
