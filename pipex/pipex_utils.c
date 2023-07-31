@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:28:11 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/30 20:25:53 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/31 10:41:58 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_execve(char **cmd, char **envp)
 		if (access(result, X_OK) == 0)
 		{
 			if (execve(result, cmd, envp) < 0)
-				exit(1);
+				ft_perror("execve error");
 		}
 		free(result);
 		free(split[i]);
@@ -81,8 +81,7 @@ void	ft_execve(char **cmd, char **envp)
 	}
 	free(split);
 	split = NULL;
-	perror("command error");
-	exit (1);
+	ft_perror("command error");
 }
 
 void	ft_close(int cnt, int *fd[])

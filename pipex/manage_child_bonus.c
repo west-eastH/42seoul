@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:18:39 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/30 21:07:03 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/31 10:37:23 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	first_child(int *fd[], char *argv[], char **envp)
 	close(in_fd);
 	close(fd[0][1]);
 	if (argv[2][0] == '/')
-		execve(cmd[0], cmd, envp);
+		if (execve(cmd[0], cmd, envp) < 0)
+			ft_perror("execve error");
 	ft_execve(cmd, envp);
 }
 
@@ -44,7 +45,8 @@ void	middle_child(int *fd[], char *argv[], char **envp, int i)
 	dup2(fd[i][1], 1);
 	close(fd[i][1]);
 	if (argv[i + 2][0] == '/')
-		execve(cmd[0], cmd, envp);
+		if (execve(cmd[0], cmd, envp) < 0)
+			ft_perror("execve error");
 	ft_execve(cmd, envp);
 }
 
@@ -67,6 +69,7 @@ void	last_child(int *fd[], char *argv[], char **envp, t_idx *idx)
 	dup2(out, 1);
 	close(out);
 	if (argv[idx->i + 2][0] == '/')
-		execve(cmd[0], cmd, envp);
+		if (execve(cmd[0], cmd, envp) < 0)
+			ft_perror("execve error");
 	ft_execve(cmd, envp);
 }

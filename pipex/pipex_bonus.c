@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/30 23:07:34 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/07/31 10:31:54 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_here_doc(int*argc, char *argv[], t_idx *idx)
 	int	i;
 
 	if (*argc < 5)
-		perror("argc error");
+		ft_perror("argc error");
 	idx->is_here_doc = 0;
 	if (ft_strncmp(argv[1], "here_doc", 9) != 0)
 		return ;
