@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:18:39 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/31 10:37:23 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/01 18:03:57 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,31 @@ void	last_child(int *fd[], char *argv[], char **envp, t_idx *idx)
 		if (execve(cmd[0], cmd, envp) < 0)
 			ft_perror("execve error");
 	ft_execve(cmd, envp);
+}
+
+void	ft_execve(char **cmd, char **envp)
+{
+	char	**split;
+	int		i;
+	char	*result;
+	char	*path;
+
+	path = set_path(envp);
+	split = ft_split(path + 5, ':');
+	i = 0;
+	while (split[i])
+	{
+		result = ft_cmdjoin(split[i], cmd[0]);
+		if (access(result, X_OK) == 0)
+		{
+			if (execve(result, cmd, envp) < 0)
+				ft_perror("execve error");
+		}
+		free(result);
+		free(split[i]);
+		i++;
+	}
+	free(split);
+	split = NULL;
+	ft_perror("command error");
 }

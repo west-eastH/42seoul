@@ -6,11 +6,11 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:28:11 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/31 10:41:32 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/01 18:14:12 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 char	*set_path(char **envp)
 {
@@ -57,33 +57,6 @@ char	*ft_cmdjoin(char const *s1, char const *s2)
 	return (temp);
 }
 
-void	ft_execve(char **cmd, char **envp)
-{
-	char	**split;
-	int		i;
-	char	*result;
-	char	*path;
-
-	path = set_path(envp);
-	split = ft_split(path + 5, ':');
-	i = 0;
-	while (split[i])
-	{
-		result = ft_cmdjoin(split[i], cmd[0]);
-		if (access(result, X_OK) == 0)
-		{
-			if (execve(result, cmd, envp) < 0)
-				ft_perror("execve error");
-		}
-		free(result);
-		free(split[i]);
-		i++;
-	}
-	free(split);
-	split = NULL;
-	ft_perror("command error");
-}
-
 void	ft_close(int cnt, int *fd[])
 {
 	int	i;
@@ -119,4 +92,22 @@ int	**make_pipe(int cnt)
 		i++;
 	}
 	return (result);
+}
+
+int	temp_open(char *argv[])
+{
+	int		fd;
+	char	*old_temp;
+
+	fd = open (argv[1], O_WRONLY | O_CREAT | O_EXCL, 0644);
+	while (fd < 0)
+	{
+		old_temp = argv[1];
+		argv[1] = ft_strjoin(old_temp, "_");
+		if (!argv[1])
+			ft_perror("malloc error");
+		free(old_temp);
+		fd = open(argv[1], O_WRONLY | O_CREAT | O_EXCL, 0644);
+	}
+	return (fd);
 }

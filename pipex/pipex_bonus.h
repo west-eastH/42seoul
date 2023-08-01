@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/31 10:30:55 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/01 18:03:45 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,13 @@ void	gnl_ft_free(t_list **lst, int fd);
 void	first_child(int *fd[], char *argv[], char **envp);
 void	middle_child(int *fd[], char *argv[], char **envp, int i);
 void	last_child(int *fd[], char *argv[], char **envp, t_idx *idx);
+void	ft_execve(char **cmd, char **envp);
 
 char	*set_path(char **envp);
 char	*ft_cmdjoin(char const *s1, char const *s2);
-void	ft_execve(char **cmd, char **envp);
 void	ft_close(int cnt, int *fd[]);
 int		**make_pipe(int cnt);
+int		temp_open(char *argv[]);
 
 void	ft_perror(char *msg);
 int		ft_wait(int argc, int **fd, int is_here_doc, char *temp);
