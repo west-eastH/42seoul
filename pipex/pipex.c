@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/01 18:13:36 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/02 20:31:12 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,21 @@ void	ft_perror(char *msg)
 	exit(1);
 }
 
-int	ft_wait(int argc, int **fd)
+int	ft_wait(int argc, int **fd, char *result)
 {
 	int	status;
 
 	ft_close(argc - 3, fd);
 	while (argc-- - 3)
+	{
 		wait(&status);
+		if (status != 0)
+		{
+			if (unlink(result) < 0)
+				ft_perror("unlink");
+			exit(status);
+		}
+	}
 	exit(0);
 }
 
@@ -35,17 +43,17 @@ int	main(int argc, char *argv[], char **envp)
 	int		i;
 
 	if (argc != 5)
-		ft_perror("argc error");
+		ft_perror("argc");
 	fd = make_pipe(argc - 4);
 	i = 0;
 	while (i < argc - 3)
 	{
 		if (i < argc - 4)
 			if (pipe(fd[i]) < 0)
-				ft_perror("pipe error");
+				ft_perror("pipe");
 		pid = fork();
 		if (pid < 0)
-			ft_perror("fork error");
+			ft_perror("fork");
 		else if (pid == 0 && i == 0)
 			first_child(fd, argv, envp);
 		else if (pid == 0 && i == argc - 4)
@@ -54,5 +62,5 @@ int	main(int argc, char *argv[], char **envp)
 			middle_child(fd, argv, envp, i);
 		i++;
 	}
-	ft_wait(argc, fd);
+	ft_wait(argc, fd, argv[argc - 1]);
 }

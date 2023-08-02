@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/01 18:12:45 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/02 20:31:46 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,32 @@ void	ft_perror(char *msg)
 	exit(1);
 }
 
-int	ft_wait(int argc, int **fd, int is_here_doc, char *temp)
+int	ft_wait(int argc, int **fd, int is_here_doc, char *argv[])
 {
-	int	status;
+	int		status;
+	char	*result;
 
+	result = ft_strdup(argv[argc - 1]);
+	if (!result)
+		ft_perror("malloc");
 	ft_close(argc - 3, fd);
 	while (argc-- - 3)
+	{
 		wait(&status);
+		if (status != 0)
+		{
+			if (unlink(result) < 0)
+				ft_perror("unlink");
+			exit(status);
+		}
+	}
 	if (is_here_doc)
 	{
-		if (unlink(temp) < 0)
-			ft_perror("unlink error");
-		free(temp);
+		if (unlink(argv[1]) < 0)
+			ft_perror("unlink");
+		free(argv[1]);
 	}
+	free(result);
 	exit(0);
 }
 
@@ -43,7 +56,7 @@ void	make_temp(char *argv[])
 	limit_len = ft_strlen(argv[2]);
 	argv[1] = ft_strdup("temp");
 	if (!argv[1])
-		ft_perror("malloc error");
+		ft_perror("malloc");
 	fd = temp_open(argv);
 	str = get_next_line(0);
 	while (str == NULL)
@@ -58,7 +71,7 @@ void	make_temp(char *argv[])
 			str = get_next_line(0);
 	}
 	free(str);
-	close(fd);
+	file_close(fd);
 }
 
 void	ft_here_doc(int*argc, char *argv[], t_idx *idx)
@@ -66,12 +79,12 @@ void	ft_here_doc(int*argc, char *argv[], t_idx *idx)
 	int	i;
 
 	if (*argc < 5)
-		ft_perror("argc error");
+		ft_perror("argc");
 	idx->is_here_doc = 0;
 	if (ft_strncmp(argv[1], "here_doc", 9) != 0)
 		return ;
 	if (*argc < 6)
-		ft_perror("argc error");
+		ft_perror("argc");
 	make_temp(argv);
 	i = 2;
 	while (i < *argc)
@@ -96,10 +109,10 @@ int	main(int argc, char *argv[], char **envp)
 	{
 		if (idx.i < argc - 4)
 			if (pipe(fd[idx.i]) < 0)
-				ft_perror("pipe error");
+				ft_perror("pipe");
 		pid = fork();
 		if (pid < 0)
-			ft_perror("fork error");
+			ft_perror("fork");
 		else if (pid == 0 && idx.i == 0)
 			first_child(fd, argv, envp);
 		else if (pid == 0 && idx.i == argc - 4)
@@ -108,5 +121,5 @@ int	main(int argc, char *argv[], char **envp)
 			middle_child(fd, argv, envp, idx.i);
 		idx.i++;
 	}
-	ft_wait(argc, fd, idx.is_here_doc, argv[1]);
+	ft_wait(argc, fd, idx.is_here_doc, argv);
 }

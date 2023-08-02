@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:18:39 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/31 10:39:02 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/02 20:15:06 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,24 @@ void	first_child(int *fd[], char *argv[], char **envp)
 	int		in_fd;
 	char	**cmd;
 
-	close(fd[0][0]);
+	file_close(fd[0][0]);
 	in_fd = open(argv[1], O_RDONLY);
 	if (in_fd < 0)
-		ft_perror("file open error");
-	cmd = ft_split(argv[2], ' ');
-	dup2(in_fd, 0);
-	dup2(fd[0][1], 1);
-	close(in_fd);
-	close(fd[0][1]);
+		ft_perror("file open");
+	if (is_group(argv[2]))
+	{
+		cmd = ft_split(argv[2], '"');
+		cmd[0] = ft_strtrim(cmd[0], " ");
+	}
+	else
+		cmd = ft_split(argv[2], ' ');
+	ft_dup2(in_fd, 0);
+	ft_dup2(fd[0][1], 1);
+	file_close(in_fd);
+	file_close(fd[0][1]);
 	if (argv[2][0] == '/')
 		if (execve(cmd[0], cmd, envp) < 0)
-			ft_perror("execve error");
+			ft_perror("execve");
 	ft_execve(cmd, envp);
 }
 
@@ -37,16 +43,22 @@ void	middle_child(int *fd[], char *argv[], char **envp, int i)
 	char	**cmd;
 
 	ft_close(i, fd);
-	close(fd[i - 1][1]);
-	close(fd[i][0]);
-	cmd = ft_split(argv[i + 2], ' ');
-	dup2(fd[i - 1][0], 0);
-	close(fd[i - 1][0]);
-	dup2(fd[i][1], 1);
-	close(fd[i][1]);
+	file_close(fd[i - 1][1]);
+	file_close(fd[i][0]);
+	if (is_group(argv[i + 2]))
+	{
+		cmd = ft_split(argv[i + 2], '"');
+		cmd[0] = ft_strtrim(cmd[0], " ");
+	}
+	else
+		cmd = ft_split(argv[i + 2], ' ');
+	ft_dup2(fd[i - 1][0], 0);
+	file_close(fd[i - 1][0]);
+	ft_dup2(fd[i][1], 1);
+	file_close(fd[i][1]);
 	if (argv[i + 2][0] == '/')
 		if (execve(cmd[0], cmd, envp) < 0)
-			ft_perror("execve error");
+			ft_perror("execve");
 	ft_execve(cmd, envp);
 }
 
@@ -56,17 +68,64 @@ void	last_child(int *fd[], char *argv[], char **envp, int i)
 	char	**cmd;
 
 	ft_close(i, fd);
-	close(fd[i - 1][1]);
-	cmd = ft_split(argv[i + 2], ' ');
-	out = open(argv[i + 3], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	file_close(fd[i - 1][1]);
+	if (is_group(argv[i + 2]))
+	{
+		cmd = ft_split(argv[i + 2], '"');
+		cmd[0] = ft_strtrim(cmd[0], " ");
+	}
+	else
+		cmd = ft_split(argv[i + 2], ' ');
+	out = file_open(argv[i + 3], 0);
 	if (out < 0)
-		ft_perror("file open error");
-	dup2(fd[i - 1][0], 0);
-	close(fd[i - 1][0]);
-	dup2(out, 1);
-	close(out);
+		ft_perror("file open");
+	ft_dup2(fd[i - 1][0], 0);
+	file_close(fd[i - 1][0]);
+	ft_dup2(out, 1);
+	file_close(out);
 	if (argv[i + 2][0] == '/')
 		if (execve(cmd[0], cmd, envp) < 0)
-			ft_perror("execve error");
+			ft_perror("execve");
 	ft_execve(cmd, envp);
+}
+
+int	is_group(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == 34 || str[i] == 39)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	ft_execve(char **cmd, char **envp)
+{
+	char	**split;
+	int		i;
+	char	*result;
+	char	*path;
+
+	path = set_path(envp);
+	split = ft_split(path + 5, ':');
+	i = 0;
+	while (split[i])
+	{
+		result = ft_cmdjoin(split[i], cmd[0]);
+		if (access(result, X_OK) == 0)
+		{
+			if (execve(result, cmd, envp) < 0)
+				ft_perror("execve");
+		}
+		free(result);
+		free(split[i]);
+		i++;
+	}
+	free(split);
+	split = NULL;
+	ft_perror("command");
 }

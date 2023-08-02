@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/01 18:17:27 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/02 20:29:48 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,18 @@
 void	first_child(int *fd[], char *argv[], char **envp);
 void	middle_child(int *fd[], char *argv[], char **envp, int i);
 void	last_child(int *fd[], char *argv[], char **envp, int i);
+int		is_group(char *str);
+void	ft_execve(char **cmd, char **envp);
 
 char	*set_path(char **envp);
 char	*ft_cmdjoin(char const *s1, char const *s2);
-void	ft_execve(char **cmd, char **envp);
 void	ft_close(int cnt, int *fd[]);
 int		**make_pipe(int cnt);
 
 void	ft_perror(char *msg);
-int		ft_wait(int argc, int **fd);
+int		ft_wait(int argc, int **fd, char *result);
+
+void	ft_dup2(int fd, int fd2);
+void	file_close(int fd);
+int		file_open(char *file, int is_here_doc);
 #endif

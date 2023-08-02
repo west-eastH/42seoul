@@ -6,13 +6,13 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:43:29 by dongseo           #+#    #+#             */
-/*   Updated: 2023/03/27 18:32:32 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/02 18:27:49 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	find_start(char const *s1, char const *set, size_t *len)
+static size_t	find_start(char *s1, char const *set, size_t *len)
 {
 	size_t	i;
 	size_t	j;
@@ -39,7 +39,7 @@ static size_t	find_start(char const *s1, char const *set, size_t *len)
 	return (i);
 }
 
-static size_t	find_end(char const *s1, char const *set, size_t *len)
+static size_t	find_end(char *s1, char const *set, size_t *len)
 {
 	size_t	i;
 	size_t	j;
@@ -65,7 +65,7 @@ static size_t	find_end(char const *s1, char const *set, size_t *len)
 }
 
 static char	*insert_result(char *result, size_t start,
-							size_t end, char const *s1)
+							size_t end, char *s1)
 {
 	size_t	i;
 
@@ -77,10 +77,11 @@ static char	*insert_result(char *result, size_t start,
 		i++;
 	}
 	result[i] = 0;
+	free(s1);
 	return (result);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char const *set)
 {
 	char	*result;
 	size_t	len;

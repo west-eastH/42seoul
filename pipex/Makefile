@@ -10,8 +10,8 @@ CFLAG		= -Wall -Wextra -Werror
 RM			= rm -f
 
 LIBS 		= ./libft/libft.a
-SRCS		= pipex.c pipex_utils.c manage_child.c
-SRCS_BONUS	= pipex_bonus.c pipex_utils_bonus.c manage_child_bonus.c get_next_line/get_next_line_bonus.c get_next_line/get_next_line_utils_bonus.c
+SRCS		= pipex.c pipex_utils.c manage_child.c manage_file.c
+SRCS_BONUS	= pipex_bonus.c pipex_utils_bonus.c manage_child_bonus.c manage_file_bonus.c get_next_line/get_next_line_bonus.c get_next_line/get_next_line_utils_bonus.c
 
 ifdef WITH_BONUS
 	OBJS = $(SRCS_BONUS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 19:28:59 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/25 03:47:43 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/02 18:31:24 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*ft_init(char *s_cpy, char c, size_t len, size_t *word_cnt)
 	i = 0;
 	while (i < len)
 	{
-		if (s_cpy[i] == c)
+		if (s_cpy[i] == c || s_cpy[i] == 34 || s_cpy[i] == 39)
 			s_cpy[i] = 0;
 		i++;
 	}

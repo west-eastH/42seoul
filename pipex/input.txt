@@ -1,1 +1,0 @@
-./pipex here_doc LIMITER cmd cmd1 file

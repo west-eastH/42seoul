@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:28:11 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/01 18:14:12 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/02 20:00:46 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*set_path(char **envp)
 	}
 	result = ft_strdup(envp[i - 1]);
 	if (!result)
-		ft_perror("malloc error");
+		ft_perror("malloc");
 	return (result);
 }
 
@@ -42,7 +42,7 @@ char	*ft_cmdjoin(char const *s1, char const *s2)
 	s2_len = ft_strlen(s2);
 	temp = (char *)malloc(s1_len + s2_len + 2);
 	if (!temp)
-		ft_perror("malloc error");
+		ft_perror("malloc");
 	while (s1[i])
 	{
 		temp[i] = s1[i];
@@ -68,7 +68,7 @@ void	ft_close(int cnt, int *fd[])
 		j = 0;
 		while (j < 2)
 		{
-			close(fd[i][j]);
+			file_close(fd[i][j]);
 			j++;
 		}
 		i++;
@@ -82,13 +82,13 @@ int	**make_pipe(int cnt)
 
 	result = (int **)malloc(sizeof(int *) * (cnt));
 	if (!result)
-		ft_perror("malloc error");
+		ft_perror("malloc");
 	i = 0;
 	while (i < cnt)
 	{
 		result[i] = (int *)malloc(sizeof(int) * 2);
 		if (!result[i])
-			ft_perror("malloc error");
+			ft_perror("malloc");
 		i++;
 	}
 	return (result);
@@ -105,7 +105,7 @@ int	temp_open(char *argv[])
 		old_temp = argv[1];
 		argv[1] = ft_strjoin(old_temp, "_");
 		if (!argv[1])
-			ft_perror("malloc error");
+			ft_perror("malloc");
 		free(old_temp);
 		fd = open(argv[1], O_WRONLY | O_CREAT | O_EXCL, 0644);
 	}
