@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 23:57:22 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/10 15:43:13 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/02 21:35:03 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	check_sort(t_stack *stack_a, t_stack *stack_b)
 	if (stack_b->size != 0)
 	{
 		ft_printf("KO\n");
-		free_stack(stack_a, stack_b);
 		return ;
 	}
 	cur = stack_a->tail->pre;
@@ -88,11 +87,9 @@ void	check_sort(t_stack *stack_a, t_stack *stack_b)
 		if (cur->data > cur->pre->data)
 		{
 			ft_printf("KO\n");
-			free_stack(stack_a, stack_b);
 			return ;
 		}
 		cur = cur->pre;
 	}
-	free_stack(stack_a, stack_b);
 	ft_printf("OK\n");
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 05:27:34 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/05 17:27:40 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/02 21:44:14 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,11 @@ int	stack_init(int argc, char *argv[], t_stack *stack_a, t_stack *stack_b)
 	char	**split_str;
 	int		i;
 
-	if (!join_argv(argc, argv))
-		return (1);
-	split_str = ft_split(join_argv(argc, argv));
+	split_str = ft_join_split(argc, argv);
 	if (is_int(split_str) || is_dup(split_str)
 		|| init(stack_a) || init(stack_b))
 	{
-		free(split_str);
+		ft_free(split_str);
 		return (1);
 	}
 	i = 0;
@@ -97,11 +95,11 @@ int	stack_init(int argc, char *argv[], t_stack *stack_a, t_stack *stack_b)
 	{
 		if (push_front(stack_a, ft_atoi(split_str[i - 1])))
 		{
-			free(split_str);
+			ft_free(split_str);
 			return (1);
 		}
 	}
-	free(split_str);
+	ft_free(split_str);
 	return (0);
 }
 

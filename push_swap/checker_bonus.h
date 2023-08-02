@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/08 14:08:37 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/02 21:43:40 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,7 @@ int					check_push(char *command, t_stack *stack_a,
 int					check_rotate(char *command, t_stack *stack_a,
 						t_stack *stack_b);
 void				check_sort(t_stack *stack_a, t_stack *stack_b);
+
+void				ft_free(char **str);
+char				**ft_join_split(int argc, char *argv[]);
 #endif

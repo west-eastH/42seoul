@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 03:59:46 by dongseo           #+#    #+#             */
-/*   Updated: 2023/07/30 19:01:29 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/02 21:45:19 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	checker(char *command, t_stack *stack_a, t_stack *stack_b)
 		}
 		command = get_next_line(0);
 	}
+	free(command);
 	return (0);
 }
 
