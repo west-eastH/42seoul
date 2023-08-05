@@ -6,18 +6,17 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:43:29 by dongseo           #+#    #+#             */
-/*   Updated: 2023/03/27 18:32:32 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/03 13:47:29 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	find_start(char const *s1, char const *set, size_t *len)
+static size_t	find_start(char *s1, char const *set, size_t *len)
 {
 	size_t	i;
 	size_t	j;
 	size_t	ft_len;
-
 	ft_len = ft_strlen(s1);
 	i = 0;
 	while (i < ft_len)
@@ -39,7 +38,7 @@ static size_t	find_start(char const *s1, char const *set, size_t *len)
 	return (i);
 }
 
-static size_t	find_end(char const *s1, char const *set, size_t *len)
+static size_t	find_end(char *s1, char const *set, size_t *len)
 {
 	size_t	i;
 	size_t	j;
@@ -65,7 +64,7 @@ static size_t	find_end(char const *s1, char const *set, size_t *len)
 }
 
 static char	*insert_result(char *result, size_t start,
-							size_t end, char const *s1)
+							size_t end, char *s1)
 {
 	size_t	i;
 
@@ -77,10 +76,11 @@ static char	*insert_result(char *result, size_t start,
 		i++;
 	}
 	result[i] = 0;
+	free(s1);
 	return (result);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char const *set)
 {
 	char	*result;
 	size_t	len;
@@ -103,16 +103,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (0);
 	return (insert_result(result, start, end, s1));
 }
-
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main()
-{
-    char s1[] = "qwqwgww qweqwfqwf qw qwe ";
-    //printf("%s", strtrim(s1, "q e"));
-    printf("%s", ft_strtrim(s1, "q e"));
-	return 0;
-}
-*/

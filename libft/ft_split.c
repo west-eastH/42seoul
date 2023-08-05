@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 19:28:59 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/25 03:47:43 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/03 13:32:16 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,22 +114,3 @@ char	**ft_split(char const *s, char c)
 	free(s_cpy);
 	return (result);
 }
-/* 
-#include <stdio.h>
-#include <string.h>
-int main ()
-{
-	char **temp;
-	char *s = " hel loq wdkqwp kdkqwd[ k[qwk d!";
-	char c = ' ';
-	temp = ft_split(s,c);
-	while(*temp)
-	{
-		printf("%s\n",*temp);
-		temp++;
-	}
-	int i;
-	i = 0;
-	return 0;
-}
- */
