@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:05:18 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/02 21:43:29 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/05 11:36:32 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ char	**ft_join_split(int argc, char *argv[])
 
 	temp = join_argv(argc, argv);
 	if (!temp)
+	{
+		write(2, "Error\n", 6);
 		exit (1);
+	}
 	result = ft_split(temp);
 	free(temp);
 	return (result);
