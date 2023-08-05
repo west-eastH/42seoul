@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/02 21:43:46 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/05 17:00:33 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,5 @@ void				push_a_to_b(t_stack *stack_a, t_stack *stack_b);
 
 void				ft_free(char **str);
 char				**ft_join_split(int argc, char *argv[]);
+int					is_empty(char *str);
 #endif

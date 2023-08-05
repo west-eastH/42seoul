@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 05:27:34 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/05 11:35:54 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/05 16:46:09 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,17 @@ char	*join_argv(int argc, char *argv[])
 
 	i = 1;
 	result = NULL;
-	while (i < argc)
+	while (i++ < argc)
 	{
-		if (ft_strlen(argv[i]) == 0)
+		if (ft_strlen(argv[i - 1]) == 0)
 		{
 			if (result)
 				free(result);
 			return (NULL);
 		}
-		result = ft_strjoin(result, argv[i], ft_strlen(argv[i]));
+		result = ft_strjoin(result, argv[i - 1], ft_strlen(argv[i - 1]));
 		if (result == NULL)
 			return (NULL);
-		i++;
 	}
 	i = 0;
 	while (result[i++])
@@ -75,6 +74,7 @@ char	*join_argv(int argc, char *argv[])
 		if ((result[i - 1] < 9 || result[i - 1] > 13) && result[i - 1] != 32)
 			return (result);
 	}
+	free(result);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 03:59:46 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/05 15:09:29 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/05 17:43:41 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,23 @@ int	main(int argc, char *argv[])
 	t_stack	*stack_b;
 
 	if (argc < 2)
-		return (0);
+		exit(1);
 	stack_a = (t_stack *)malloc(sizeof(t_stack));
 	if (!stack_a)
-		return (0);
+		exit(1);
 	stack_b = (t_stack *)malloc(sizeof(t_stack));
 	if (!stack_b)
 	{
 		free(stack_a);
-		return (0);
+		exit(1);
 	}
 	if (stack_init(argc, argv, stack_a, stack_b))
 	{
 		write(2, "Error\n", 6);
 		free(stack_a);
 		free(stack_b);
-		return (1);
+		exit(1);
 	}
 	push_swap(stack_a, stack_b);
-	return (0);
+	exit(0);
 }

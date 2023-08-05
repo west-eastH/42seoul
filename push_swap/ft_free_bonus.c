@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:05:18 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/05 11:36:18 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/05 17:27:12 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,23 @@ char	**ft_join_split(int argc, char *argv[])
 	result = ft_split(temp);
 	free(temp);
 	return (result);
+}
+
+int	is_empty(char *str)
+{
+	int		i;
+	size_t	len;
+
+	len = ft_strlen(str);
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		{
+			i++;
+			continue ;
+		}
+		return (0);
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 03:59:46 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/05 15:10:36 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/05 17:40:53 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ int	main(int argc, char *argv[])
 	{
 		write(2, "Error\n", 6);
 		free_stack(stack_a, stack_b);
-		return (1);
+		exit(1);
 	}
 	command = get_next_line(0);
 	if (checker(command, stack_a, stack_b))
-		return (0);
+		exit(1);
 	check_sort(stack_a, stack_b);
-	return (0);
+	exit(0);
 }
