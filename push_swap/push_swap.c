@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 03:59:46 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/05 11:37:07 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/05 15:09:29 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	main(int argc, char *argv[])
 		write(2, "Error\n", 6);
 		free(stack_a);
 		free(stack_b);
-		return (0);
+		return (1);
 	}
 	push_swap(stack_a, stack_b);
 	return (0);
