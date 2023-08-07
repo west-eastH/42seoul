@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/07 13:15:59 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 14:40:13 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char *argv[], char **envp)
 
 	if (argc != 5)
 		ft_perror("argc");
-	fd = make_pipe(argc - 4);
+	fd = make_pipe(argc - 4, argv);
 	i = 0;
 	while (i < argc - 3)
 	{

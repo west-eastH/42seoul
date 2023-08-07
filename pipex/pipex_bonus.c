@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/07 13:30:03 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 14:45:48 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(int argc, char *argv[], char **envp)
 	t_idx	idx;
 
 	ft_here_doc(&argc, argv, &idx);
-	fd = make_pipe(argc - 4);
+	fd = make_pipe(argc - 4, argv);
 	idx.i = 0;
 	while (idx.i < argc - 3)
 	{

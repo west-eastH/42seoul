@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/02 20:29:13 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 14:44:54 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_execve(char **cmd, char **envp);
 char	*set_path(char **envp);
 char	*ft_cmdjoin(char const *s1, char const *s2);
 void	ft_close(int cnt, int *fd[]);
-int		**make_pipe(int cnt);
+int		**make_pipe(int cnt, char *argv[]);
 int		temp_open(char *argv[]);
 
 void	ft_perror(char *msg);

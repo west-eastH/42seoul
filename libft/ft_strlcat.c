@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:30:47 by dongseo           #+#    #+#             */
-/*   Updated: 2023/03/27 17:23:54 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 13:48:52 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	dst[dest_len + i] = 0;
 	return (dest_len + src_len);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-int main()
-{
-	char *dest = 0;
-    char src[7] = "Hell";
-	printf("intput\n");
-    printf("ft_strlcat count: %zu\n", ft_strlcat(dest, src, 16));
-	printf("dest :%s\n", dest);
-	printf("------------------------\n");
-	char *dest1 = 0;
-    char src1[7] = "Hell";
-	printf("ouput\n");
-    printf("strlcat count: %zu\n", strlcat(dest1, src1, 16));
-	printf("dest :%s\n", dest1);
-}
-*/

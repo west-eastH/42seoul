@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:18:39 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/07 13:13:52 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 14:47:26 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	first_child(int *fd[], char *argv[], char **envp)
 	file_close(fd[0][0]);
 	in_fd = open(argv[1], O_RDONLY);
 	if (in_fd < 0)
-		ft_perror("file open error");
+		ft_perror("file open");
 	if (is_group(argv[2]))
 	{
 		cmd = ft_split(argv[2], '"');
@@ -34,7 +34,7 @@ void	first_child(int *fd[], char *argv[], char **envp)
 	file_close(fd[0][1]);
 	if (argv[2][0] == '/')
 		if (execve(cmd[0], cmd, envp) < 0)
-			ft_perror("execve error");
+			ft_perror("execve");
 	ft_execve(cmd, envp);
 }
 
@@ -58,7 +58,7 @@ void	middle_child(int *fd[], char *argv[], char **envp, int i)
 	file_close(fd[i][1]);
 	if (argv[i + 2][0] == '/')
 		if (execve(cmd[0], cmd, envp) < 0)
-			ft_perror("execve error");
+			ft_perror("execve");
 	ft_execve(cmd, envp);
 }
 
@@ -78,14 +78,14 @@ void	last_child(int *fd[], char *argv[], char **envp, t_idx *idx)
 		cmd = ft_split(argv[idx->i + 2], ' ');
 	out = file_open(argv[idx->i + 3], idx->is_here_doc);
 	if (out < 0)
-		ft_perror("file open error");
+		ft_perror("file open");
 	ft_dup2(fd[idx->i - 1][0], 0);
 	file_close(fd[idx->i - 1][0]);
 	ft_dup2(out, 1);
 	file_close(out);
 	if (argv[idx->i + 2][0] == '/')
 		if (execve(cmd[0], cmd, envp) < 0)
-			ft_perror("execve error");
+			ft_perror("execve");
 	ft_execve(cmd, envp);
 }
 

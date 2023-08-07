@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:23:29 by dongseo           #+#    #+#             */
-/*   Updated: 2023/06/25 05:37:25 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 13:48:49 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	temp[i + j] = 0;
 	return (temp);
 }
-
-/* 
-#include <stdio.h>
-#include <string.h>
-
-int main ()
-{
-	printf("%s\n", ft_strjoin("aaaa", "bbbb"));
-	printf("%s\n", ft_strjoin("", "bbbb"));
-	printf("%s\n", ft_strjoin("aaaa", ""));
-	printf("%s\n", ft_strjoin("", ""));
-	return 0;
-}
- */

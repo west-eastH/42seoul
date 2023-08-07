@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/07 12:16:31 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 14:41:39 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_execve(char **cmd, char **envp);
 char	*set_path(char **envp);
 char	*ft_cmdjoin(char const *s1, char const *s2);
 void	ft_close(int cnt, int *fd[]);
-int		**make_pipe(int cnt);
+int		**make_pipe(int cnt, char *argv[]);
 
 void	ft_perror(char *msg);
 int		ft_wait(int argc, int **fd);
