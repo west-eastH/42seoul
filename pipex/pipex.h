@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/02 20:29:48 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 12:16:31 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_close(int cnt, int *fd[]);
 int		**make_pipe(int cnt);
 
 void	ft_perror(char *msg);
-int		ft_wait(int argc, int **fd, char *result);
+int		ft_wait(int argc, int **fd);
 
 void	ft_dup2(int fd, int fd2);
 void	file_close(int fd);

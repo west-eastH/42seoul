@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/02 20:31:46 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 13:18:11 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,13 @@ void	ft_perror(char *msg)
 int	ft_wait(int argc, int **fd, int is_here_doc, char *argv[])
 {
 	int		status;
-	char	*result;
 
-	result = ft_strdup(argv[argc - 1]);
-	if (!result)
-		ft_perror("malloc");
 	ft_close(argc - 3, fd);
 	while (argc-- - 3)
 	{
 		wait(&status);
 		if (status != 0)
-		{
-			if (unlink(result) < 0)
-				ft_perror("unlink");
 			exit(status);
-		}
 	}
 	if (is_here_doc)
 	{
@@ -43,7 +35,6 @@ int	ft_wait(int argc, int **fd, int is_here_doc, char *argv[])
 			ft_perror("unlink");
 		free(argv[1]);
 	}
-	free(result);
 	exit(0);
 }
 

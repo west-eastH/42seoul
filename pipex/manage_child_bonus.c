@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_child_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:18:39 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/02 20:13:14 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 13:13:52 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void	ft_execve(char **cmd, char **envp)
 	char	*result;
 	char	*path;
 
+	if (cmd[0] == NULL)
+		ft_perror("command is null");
 	path = set_path(envp);
 	split = ft_split(path + 5, ':');
 	i = 0;
@@ -119,7 +121,7 @@ void	ft_execve(char **cmd, char **envp)
 		if (access(result, X_OK) == 0)
 		{
 			if (execve(result, cmd, envp) < 0)
-				ft_perror("execve error");
+				ft_perror("execve");
 		}
 		free(result);
 		free(split[i]);
@@ -127,5 +129,5 @@ void	ft_execve(char **cmd, char **envp)
 	}
 	free(split);
 	split = NULL;
-	ft_perror("command error");
+	ft_perror("command");
 }
