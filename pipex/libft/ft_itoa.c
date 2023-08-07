@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 20:59:37 by dongseo           #+#    #+#             */
-/*   Updated: 2023/03/27 18:30:00 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 13:31:58 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,3 @@ char	*ft_itoa(int n)
 	}
 	return (result);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main ()
-{
-	int num = -2147483648;
-	printf("%s", ft_itoa(num));
-	return 0;
-}
-*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:27:39 by dongseo           #+#    #+#             */
-/*   Updated: 2023/03/27 17:23:07 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 13:31:52 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 		i++;
 	return (ptr1[i] - ptr2[i]);
 }
-
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main ()
-{
-	char *s1 = "zabcddefgss";
-	char *s2 = "abczdefgss";
-	
-	printf("strncmp --> %d\n", memcmp(s1, s2, 6));
-	printf("ft_strncmp --> %d\n", ft_memcmp(s1, s2, 6));
-	return 0;
-}
-*/

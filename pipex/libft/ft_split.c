@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 19:28:59 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/02 18:31:24 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 13:31:27 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,22 +114,3 @@ char	**ft_split(char const *s, char c)
 	free(s_cpy);
 	return (result);
 }
-/* 
-#include <stdio.h>
-#include <string.h>
-int main ()
-{
-	char **temp;
-	char *s = " hel loq wdkqwp kdkqwd[ k[qwk d!";
-	char c = ' ';
-	temp = ft_split(s,c);
-	while(*temp)
-	{
-		printf("%s\n",*temp);
-		temp++;
-	}
-	int i;
-	i = 0;
-	return 0;
-}
- */

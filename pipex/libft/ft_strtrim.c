@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:43:29 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/02 18:27:49 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 13:30:57 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,16 +104,3 @@ char	*ft_strtrim(char *s1, char const *set)
 		return (0);
 	return (insert_result(result, start, end, s1));
 }
-
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main()
-{
-    char s1[] = "qwqwgww qweqwfqwf qw qwe ";
-    //printf("%s", strtrim(s1, "q e"));
-    printf("%s", ft_strtrim(s1, "q e"));
-	return 0;
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/07 13:18:11 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 13:30:03 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ int	ft_wait(int argc, int **fd, int is_here_doc, char *argv[])
 	int		status;
 
 	ft_close(argc - 3, fd);
-	while (argc-- - 3)
-	{
-		wait(&status);
-		if (status != 0)
-			exit(status);
-	}
 	if (is_here_doc)
 	{
 		if (unlink(argv[1]) < 0)
 			ft_perror("unlink");
 		free(argv[1]);
+	}
+	while (argc-- - 3)
+	{
+		wait(&status);
+		if (status != 0)
+			exit(status);
 	}
 	exit(0);
 }
@@ -50,16 +50,12 @@ void	make_temp(char *argv[])
 		ft_perror("malloc");
 	fd = temp_open(argv);
 	str = get_next_line(0);
-	while (str == NULL)
-		str = get_next_line(0);
-	while (!(ft_strncmp(str, argv[2], limit_len) == 0
+	while (str && !(ft_strncmp(str, argv[2], limit_len) == 0
 			&& str[limit_len] == '\n'))
 	{
 		write(fd, str, ft_strlen(str));
 		free(str);
 		str = get_next_line(0);
-		while (str == NULL)
-			str = get_next_line(0);
 	}
 	free(str);
 	file_close(fd);
