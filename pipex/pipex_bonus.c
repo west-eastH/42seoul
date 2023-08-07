@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/07 14:45:48 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/07 16:48:05 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ int	ft_wait(int argc, int **fd, int is_here_doc, char *argv[])
 	int		status;
 
 	ft_close(argc - 3, fd);
+	while (argc-- - 3)
+	{
+		wait(&status);
+		if (status != 0)
+			break ;
+	}
 	if (is_here_doc)
 	{
 		if (unlink(argv[1]) < 0)
 			ft_perror("unlink");
 		free(argv[1]);
 	}
-	while (argc-- - 3)
-	{
-		wait(&status);
-		if (status != 0)
-			exit(status);
-	}
-	exit(0);
+	exit(status);
 }
 
 void	make_temp(char *argv[])
