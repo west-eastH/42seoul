@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/07 14:40:13 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/09 17:30:58 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,21 @@ void	ft_perror(char *msg)
 	exit(1);
 }
 
-int	ft_wait(int argc, int **fd)
+int	ft_wait(int argc, int **fd, char *argv[])
 {
 	int	status;
+	int	last;
 
+	last = argc - 1;
 	ft_close(argc - 3, fd);
 	while (argc-- - 3)
 	{
 		wait(&status);
-		if (status != 0)
-			exit(status);
+	}
+	if (access(argv[1], R_OK) != 0)
+	{
+		if (unlink(argv[last]) < 0)
+			ft_perror("unlink");
 	}
 	exit(0);
 }
@@ -40,7 +45,7 @@ int	main(int argc, char *argv[], char **envp)
 
 	if (argc != 5)
 		ft_perror("argc");
-	fd = make_pipe(argc - 4, argv);
+	fd = make_pipe(argc - 4);
 	i = 0;
 	while (i < argc - 3)
 	{
@@ -58,5 +63,5 @@ int	main(int argc, char *argv[], char **envp)
 			middle_child(fd, argv, envp, i);
 		i++;
 	}
-	ft_wait(argc, fd);
+	ft_wait(argc, fd, argv);
 }

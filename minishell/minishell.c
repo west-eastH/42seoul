@@ -1,24 +1,41 @@
+#include <signal.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <unistd.h>
 #include <stdlib.h>
 
-int	main(void)
+void handler(int signum)
 {
-	char	*str;
+    if (signum != SIGINT)
+        return;
+    printf("ctrl + c\n");
+    rl_on_new_line();
+    rl_replace_line("", 1);
+    rl_redisplay();
+}
 
-	while (1)
-	{
-		str = readline("prompt : ");
-		if (!str)
-			break ;
-		rl_on_new_line();
-		rl_replace_line("replace line\n", 1);
-		rl_redisplay();
-		printf("\n");
-		add_history(str);
-		free(str);
-	}
-	system("leaks a.out; rm -rf a.out");
-	return (0);
+int main(void)
+{
+    int ret;
+    char *line;
+
+    signal(SIGINT, handler);
+    while (1)
+    {
+        line = readline("input> ");
+        if (line)
+        {
+            if (ret)
+                printf("output> %s\n", line);
+            add_history(line);
+            free(line);
+            line = NULL;
+        }
+        else
+        {
+            printf("ctrl + d\n");
+        }
+    }
+    return (0);
 }
