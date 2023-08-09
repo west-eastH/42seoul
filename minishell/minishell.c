@@ -1,19 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 16:55:42 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/07 16:56:02 by dongseo          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdlib.h>
 
-#include "minishell.h"
-
-int main ()
+int	main(void)
 {
-	ft_printf("hello");
+	char	*str;
+
+	while (1)
+	{
+		str = readline("prompt : ");
+		if (!str)
+			break ;
+		rl_on_new_line();
+		rl_replace_line("replace line\n", 1);
+		rl_redisplay();
+		printf("\n");
+		add_history(str);
+		free(str);
+	}
+	system("leaks a.out; rm -rf a.out");
 	return (0);
 }
