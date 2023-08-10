@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:18:39 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/07 13:13:10 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/10 13:14:03 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,23 +111,22 @@ void	ft_execve(char **cmd, char **envp)
 	char	*path;
 
 	if (cmd[0] == NULL)
-		ft_perror("command is null");
+		command_error();
 	path = set_path(envp);
 	split = ft_split(path + 5, ':');
 	i = 0;
-	while (split[i])
+	while (split[i++])
 	{
-		result = ft_cmdjoin(split[i], cmd[0]);
+		result = ft_cmdjoin(split[i - 1], cmd[0]);
 		if (access(result, X_OK) == 0)
 		{
 			if (execve(result, cmd, envp) < 0)
 				ft_perror("execve");
 		}
 		free(result);
-		free(split[i]);
-		i++;
+		free(split[i - 1]);
 	}
 	free(split);
 	split = NULL;
-	ft_perror("command");
+	command_error();
 }

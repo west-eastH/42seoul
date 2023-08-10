@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/09 17:32:08 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/10 13:13:42 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <errno.h>
 # include "libft/libft.h"
 
 void	first_child(int *fd[], char *argv[], char **envp);
@@ -30,9 +31,10 @@ void	ft_close(int cnt, int *fd[]);
 int		**make_pipe(int cnt);
 
 void	ft_perror(char *msg);
-int		ft_wait(int argc, int **fd, char *argv[]);
+int		ft_wait(int argc, int **fd, int pid);
 
 void	ft_dup2(int fd, int fd2);
 void	file_close(int fd);
 int		file_open(char *file, int is_here_doc);
+void	command_error(void);
 #endif

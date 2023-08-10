@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/09 17:30:58 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/10 13:35:26 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@ void	ft_perror(char *msg)
 	exit(1);
 }
 
-int	ft_wait(int argc, int **fd, char *argv[])
+int	ft_wait(int argc, int **fd, int last_pid)
 {
 	int	status;
-	int	last;
+	int	exit_num;
 
-	last = argc - 1;
 	ft_close(argc - 3, fd);
 	while (argc-- - 3)
 	{
-		wait(&status);
+		if (waitpid(-1, &status, 0) == last_pid)
+		{
+			if (WIFSIGNALED(status))
+				exit_num = WTERMSIG(status);
+			else if (WIFEXITED(status))
+				exit_num = WEXITSTATUS(status);
+		}
 	}
-	if (access(argv[1], R_OK) != 0)
-	{
-		if (unlink(argv[last]) < 0)
-			ft_perror("unlink");
-	}
-	exit(0);
+	exit(exit_num);
 }
 
 int	main(int argc, char *argv[], char **envp)
@@ -63,5 +63,5 @@ int	main(int argc, char *argv[], char **envp)
 			middle_child(fd, argv, envp, i);
 		i++;
 	}
-	ft_wait(argc, fd, argv);
+	ft_wait(argc, fd, pid);
 }

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:25:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/09 13:54:01 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/10 13:35:21 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,20 @@ void	ft_perror(char *msg)
 	exit(1);
 }
 
-int	ft_wait(int argc, int **fd, int is_here_doc, char *argv[])
+int	ft_wait(int argc, char *argv[], int is_here_doc, int last_pid)
 {
 	int		status;
+	int		exit_num;
 
-	ft_close(argc - 3, fd);
 	while (argc-- - 3)
 	{
-		wait(&status);
-		if (status != 0)
-			break ;
+		if (waitpid(-1, &status, 0) == last_pid)
+		{
+			if (WIFSIGNALED(status))
+				exit_num = WTERMSIG(status);
+			else if (WIFEXITED(status))
+				exit_num = WEXITSTATUS(status);
+		}
 	}
 	if (is_here_doc)
 	{
@@ -35,7 +39,7 @@ int	ft_wait(int argc, int **fd, int is_here_doc, char *argv[])
 			ft_perror("unlink");
 		free(argv[1]);
 	}
-	exit(status);
+	exit(exit_num);
 }
 
 void	make_temp(char *argv[])
@@ -90,7 +94,7 @@ int	main(int argc, char *argv[], char **envp)
 	t_idx	idx;
 
 	ft_here_doc(&argc, argv, &idx);
-	fd = make_pipe(argc - 4, argv);
+	fd = make_pipe(argc - 4);
 	idx.i = 0;
 	while (idx.i < argc - 3)
 	{
@@ -108,5 +112,6 @@ int	main(int argc, char *argv[], char **envp)
 			middle_child(fd, argv, envp, idx.i);
 		idx.i++;
 	}
-	ft_wait(argc, fd, idx.is_here_doc, argv);
+	ft_close(argc - 3, fd);
+	ft_wait(argc, argv, idx.is_here_doc, pid);
 }

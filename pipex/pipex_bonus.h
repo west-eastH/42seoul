@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/07 14:44:54 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/10 13:37:02 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_list
 
 typedef struct s_idx
 {
-	int	i;
-	int	is_here_doc;
+	int		i;
+	int		is_here_doc;
 }t_idx;
 
 size_t	gnl_ft_strlen(const char *s);
@@ -56,15 +56,16 @@ void	ft_execve(char **cmd, char **envp);
 char	*set_path(char **envp);
 char	*ft_cmdjoin(char const *s1, char const *s2);
 void	ft_close(int cnt, int *fd[]);
-int		**make_pipe(int cnt, char *argv[]);
+int		**make_pipe(int cnt);
 int		temp_open(char *argv[]);
 
 void	ft_perror(char *msg);
-int		ft_wait(int argc, int **fd, int is_here_doc, char *argv[]);
+int		ft_wait(int argc, char *argv[], int is_here_doc, int last_pid);
 void	make_temp(char *argv[]);
 void	ft_here_doc(int*argc, char *argv[], t_idx *idx);
 
 void	ft_dup2(int fd, int fd2);
 void	file_close(int fd);
 int		file_open(char *file, int is_here_doc);
+void	command_error(void);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_file_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 19:51:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/02 20:13:31 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/10 13:13:24 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,10 @@ int	file_open(char *file, int is_here_doc)
 	else
 		out = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	return (out);
+}
+
+void	command_error(void)
+{
+	write(2, "command : command not found\n", 28);
+	exit(127);
 }

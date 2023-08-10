@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:28:11 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/09 17:18:06 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/10 13:30:36 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ int	**make_pipe(int cnt)
 	int	i;
 	int	**result;
 
-	/* if (access(argv[1], R_OK) != 0)
-		ft_perror("file open"); */
 	result = (int **)malloc(sizeof(int *) * (cnt));
 	if (!result)
 		ft_perror("malloc");
