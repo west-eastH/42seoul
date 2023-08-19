@@ -1,0 +1,13 @@
+Makefile
+README.md
+cat
+e
+lexer
+libft
+ls
+main.c
+main.o
+minishell
+minishell.h
+parser
+test

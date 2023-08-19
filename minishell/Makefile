@@ -1,39 +1,62 @@
+#-------------------------------------------
+
+BLACK       =   "\033[0;30m"
+GRAY        =   "\033[1;30m"
+RED         =   "\033[1;31m"
+GREEN       =   "\033[0;32m"
+YELLOW      =   "\033[1;33m"
+PURPLE      =   "\033[0;35m"
+CYAN        =   "\033[1;36m"
+WHITE       =   "\033[1;37m"
+EOC         =   "\033[0;0m"
+LINE_CLEAR  =   "\x1b[1A\x1b[M"
+
+#-------------------------------------------
+
 NAME = minishell
-INCLUDES	= minishell.h
-CC			= cc
-CFLAG		= -Wall -Wextra -Werror
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g
+SRCS = ./main.c \
+		./lexer/lexer.c \
+		./parser/parser.c \
 
-RM			= rm -f
-
-LIBS 		= ./libft/libft.a
-SRCS		= minishell.c
-SRCS_BONUS	= 
-
-ifdef WITH_BONUS
-	OBJS = $(SRCS_BONUS:.c=.o)
-else
-	OBJS = $(SRCS:.c=.o)
-endif
+OBJS = $(SRCS:.c=.o)
+# LINKING_FLAG = -lreadline -L${HOME}/homebrew/opt/readline/lib
+# COMFILE_FLAGS = -I${HOME}/homebrew/opt/readline/include
+LINKING_FLAG	= -lreadline -L${HOME}/goinfre/.brew/opt/readline/lib
+COMFILE_FLAGS	= -I${HOME}/goinfre/.brew/opt/readline/include
+# LINKING_FLAG	= -lreadline -L${HOME}/.brew/opt/readline/lib
+# COMFILE_FLAGS	= -I${HOME}/.brew/opt/readline/include
+LIBFT = ./libft/libft.a
 
 all : $(NAME)
 
-bonus : 
-	make WITH_BONUS=1 all
+$(NAME) : $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) $(LINKING_FLAG) -o $(NAME) $^
+	@echo $(GREEN)"\n==========================================================\n"$(EOC)
+	@echo $(YELLOW)"                    MINISHELL IS READY"$(EOC)
+	@echo $(GREEN)"\n==========================================================\n"$(EOC)
 
-$(NAME) : $(OBJS)
-		@cd libft && $(MAKE)
-		$(CC) $(CFLAG) $(OBJS) $(LIBS) -o $(NAME)
+$(LIBFT) :
+	@cd libft ; $(MAKE)
+	@echo $(GREEN)"\n==========================================================\n"$(EOC)
+	@echo $(YELLOW)"                     LIBFT.A CREATED"$(EOC)
+	@echo $(GREEN)"\n==========================================================\n"$(EOC)
+	@sleep 1
 
-%.o : %.c $(INCLUDES)
-	$(CC) $(CFLAG) -c $< -o $@
+%.o : %.c
+	@$(CC) $(CFLAGS) $(COMFILE_FLAGS) -c $< -o $@
 
 clean :
-	$(RM) $(SRCS_BONUS:.c=.o) $(SRCS:.c=.o)
-	@cd libft && $(MAKE) clean
+	rm -f $(OBJS)
+	cd libft ; $(MAKE) clean
 
 fclean : clean
-	$(RM) $(NAME) $(LIBS)
+	rm -f $(NAME)
+	cd libft ; $(MAKE) fclean
 
-re : fclean all
+re :
+	$(MAKE) fclean
+	$(MAKE) all
 
-.PHONY : all clean fclean re
+.PHONY : all bonus clean fclean re
