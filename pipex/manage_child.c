@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:18:39 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/21 15:00:10 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/21 15:40:33 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	ft_execve(char **cmd, char **envp)
 	char	*result;
 	char	*path;
 
-	if (cmd[0] == NULL)
+	if (cmd[0] == NULL || !cmd)
 		command_error(cmd);
 	path = set_path(envp);
 	split = ft_split(path + 5, ':');

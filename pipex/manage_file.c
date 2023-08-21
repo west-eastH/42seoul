@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 19:51:50 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/21 15:03:06 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/21 15:42:09 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ void	command_error(char **cmd)
 	char	*temp;
 	int		i;
 
+	if (cmd[0] == NULL || !cmd)
+	{
+		write(2, " : command not found\n", 21);
+		exit(127);
+	}
 	i = 0;
 	temp = 0;
 	while (cmd[i])
@@ -54,6 +59,6 @@ void	command_error(char **cmd)
 		i++;
 	}
 	write(2, temp, ft_strlen(temp));
-	write(2, ": command not found\n", 28);
+	write(2, ": command not found\n", 21);
 	exit(127);
 }

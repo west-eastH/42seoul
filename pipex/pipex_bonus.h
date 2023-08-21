@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/10 13:37:02 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/21 20:03:56 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ void	ft_here_doc(int*argc, char *argv[], t_idx *idx);
 void	ft_dup2(int fd, int fd2);
 void	file_close(int fd);
 int		file_open(char *file, int is_here_doc);
-void	command_error(void);
+void	command_error(char **cmd);
 #endif
