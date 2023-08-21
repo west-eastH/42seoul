@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 19:51:50 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/10 13:13:20 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/21 15:03:06 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,19 @@ int	file_open(char *file, int is_here_doc)
 	return (out);
 }
 
-void	command_error(void)
+void	command_error(char **cmd)
 {
-	write(2, "command : command not found\n", 28);
+	char	*temp;
+	int		i;
+
+	i = 0;
+	temp = 0;
+	while (cmd[i])
+	{
+		temp = ft_strjoin(temp, cmd[i]);
+		i++;
+	}
+	write(2, temp, ft_strlen(temp));
+	write(2, ": command not found\n", 28);
 	exit(127);
 }

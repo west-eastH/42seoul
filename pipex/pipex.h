@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:52:57 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/10 13:13:42 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/08/21 15:00:53 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ int		ft_wait(int argc, int **fd, int pid);
 void	ft_dup2(int fd, int fd2);
 void	file_close(int fd);
 int		file_open(char *file, int is_here_doc);
-void	command_error(void);
+void	command_error(char **cmd);
 #endif
