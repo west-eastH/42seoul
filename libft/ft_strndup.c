@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/18 17:56:00 by dongseo           #+#    #+#             */
-/*   Updated: 2023/08/07 13:48:09 by dongseo          ###   ########.fr       */
+/*   Created: 2023/03/19 16:03:09 by dongseo           #+#    #+#             */
+/*   Updated: 2023/08/19 22:32:37 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+char	*ft_strndup(const char *s1, size_t n)
 {
+	char	*temp;
 	size_t	i;
 
-	if (dst == NULL && src == NULL)
+	temp = (char *)malloc(n + 1);
+	if (!temp)
 		return (NULL);
-	if (dst < src)
+	i = 0;
+	while (s1[i] && i < n)
 	{
-		i = 0;
-		while (i < len)
-		{
-			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-			i++;
-		}
+		temp[i] = s1[i];
+		i++;
 	}
-	else
-	{
-		i = len;
-		while (i > 0)
-		{
-			((unsigned char *)dst)[i - 1] = ((unsigned char *)src)[i - 1];
-			i--;
-		}
-	}
-	return (dst);
+	temp[i] = 0;
+	return (temp);
 }
