@@ -1,0 +1,1164 @@
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	echo $USER
+[B]	export test="ab cd"
+[C]	echo "$test"asd'$test'
+[D]	dflklkj
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	export A="'$USER'"
+[B]	export
+[C]	echo $A
+[D]	export test="$USER"
+[E]	echo $test
+[@]	------------------------------
+
+[A]	export A="$USER   'abc'"
+[B]	env
+[C]	echo aa$A
+[D]	echo aa$A'   ''a'
+[E]	echo $A$A
+[@]	------------------------------
+
+[A]	export A="$USER  'abc'"
+[B]	echo $A'a'
+[C]	echo $A"$A"
+[@]	------------------------------
+
+[A]	export test="$USER    'abc'"
+[B]	echo $test"$test"
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	cmd1 cmd2 cmd3
+[B]	echo $+
+[C]	echo $
+[D]	echo $a
+[E]	echo $+
+[@]	------------------------------
+
+[A]	echo hello '|' grep h
+[B]	ec"""ho""" hello
+[C]	ec"'ho'" hello
+[D]	ec'ho' hello
+[E]	echo 'hhello"man'
+[F]	export aa=bb=cc
+[G]	echo aa
+[H]	echo $aa
+[I]	echo "hello\nman
+[J]	echo "hello\nman"
+[K]	echo hello\nman
+[L]	echo "hello'man"
+[M]	echo "hello'man\""
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	echo "hello'man\""
+[@]	------------------------------
+
+[A]	    
+[B]	                                  
+[C]	 
+[D]	 
+[E]	" "
+[F]	export A=" abc "
+[G]	cat aa$A'a'
+[H]	cat $A
+[@]	------------------------------
+
+[A]	export A="ab cd"
+[@]	------------------------------
+
+[A]	export A=
+[B]	env
+[@]	------------------------------
+
+[A]	export A="hello world"
+[@]	------------------------------
+
+[A]	export A=
+[B]	export
+[C]	env
+[D]	clear
+[E]	echo $A
+[@]	------------------------------
+
+[A]	export test=" a b c d "
+[B]	cd $test
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	hello wolrd
+[@]	------------------------------
+
+[A]	export test=User
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	env
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	export test=" hello "
+[B]	cat asdf$test
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	export test=
+[A]	export test=
+[@]	------------------------------
+
+[A]	export test=
+[B]	env
+[B]	env
+[C]	export test=" ab cd ef "
+[C]	export test=" ab cd ef "
+[D]	env
+[D]	env
+[E]	echo $test
+[E]	echo $test
+[F]	cat $test
+[F]	cat $test
+[G]	asdf
+[G]	asdf
+[H]	cat "$test"
+[H]	cat "$test"
+[I]	cat '$test'
+[I]	cat '$test'
+[@]	------------------------------
+
+[A]	export test=" ab cd ef "
+[B]	cat $test
+[C]	echo '$test'
+[D]	echo $$
+[J]	echo $$
+[K]	echo "$"
+[L]	echo $
+[E]	echo $
+[F]	echo $asdf
+[M]	echo $asdf
+[G]	echo '$adsf'
+[N]	echo '$asdf;
+[O]	echo '$asdf'
+[@]	------------------------------
+
+[A]	export test=" ab cd ef "
+[B]	cat $test
+[C]	echo '$test"
+[D]	echo '$test'
+[@]	------------------------------
+
+[A]	export test="ab cd "
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	echo '$test'
+[@]	------------------------------
+
+[A]	tt
+[B]	"qqqq
+[C]	"\"
+[D]	"\"ww
+[E]	"ttttttt\
+[F]	tttt\
+[@]	------------------------------
+
+[A]	"\
+[B]	"\"
+[C]	make
+[@]	------------------------------
+
+[A]	"\"
+[B]	'\'
+[C]	'\|'
+[D]	\|
+[E]	"q\"
+[F]	\'
+[G]	\"
+[H]	'\'
+[I]	'\'
+[J]	'\'
+[K]	'\'
+[L]	'\'
+[@]	------------------------------
+
+[A]	"\"
+[B]	"\""
+[C]	"\'"
+[D]	'\"'
+[@]	------------------------------
+
+[A]	'\"'
+[@]	------------------------------
+
+[A]	'"'
+[B]	'\"'
+[C]	
+[D]	"\'"
+[E]	"\'"
+[F]	"\""
+[G]	echo \$USER
+[H]	echo '\$USER'
+[@]	------------------------------
+
+[A]	echo \'\$USER\'
+[B]	echo '\$USER'
+[C]	echo '\$USER'
+[D]	echo '\$USER'echo \'\$USER\'
+[E]	echo \'\$USER\'
+[@]	------------------------------
+
+[A]	echo \'$PATH\'
+[B]	echo \'\$PATH\'
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	< q
+[B]	make
+[@]	------------------------------
+
+[A]	qqq
+[B]	weweqw
+[C]	< qq
+[D]	<< gff
+[E]	< www
+[F]	< pipe.c < qqq
+[G]	< main.c <qqq
+[@]	------------------------------
+
+[A]	ww
+[B]	ddd
+[C]	zzzzzd
+[D]	qdwqwd
+[E]	qdwdqwd
+[F]	www
+[@]	------------------------------
+
+[A]	zz
+[B]	echo test
+[C]	echo tqq
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	tes
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	< qq
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	test
+[B]	echo hello
+[C]	hello
+[@]	------------------------------
+
+[A]	wd
+[@]	------------------------------
+
+[A]	
+[B]	hello
+[C]	echo hello
+[D]	asdf
+[E]	"asdfasdfasdfassdffsa asdf
+[F]	"asdfasdfkjhasdjhadsjfhaskdfj
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	test
+[B]	qwd
+[@]	------------------------------
+
+[A]	"asdfasdfasdf asdfasdf
+[B]	"asdadsdafadf 
+[C]	"asdfasldkjfasdkljfalskdj ''asdf asdf asdf
+[D]	<infile cmd | cmd >outfile
+[E]	 cmd | cmd >outfile
+[F]	|
+[G]	|
+[H]	|
+[I]	cmd | cmd
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	echo $USER
+[B]	echo $USER
+[C]	echo $USER
+[@]	------------------------------
+
+[A]	$USER
+[B]	qwd
+[C]	wqdoi
+[D]	sdpocsdpoc
+[E]	qwdwqdwqrtesrt
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[A]	test
+[B]	wwwd
+[C]	qq
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	$USER
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	ww
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	$USER
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	www
+[@]	------------------------------
+
+[A]	rr
+[B]	$USER
+[C]	$USER
+[D]	$USER
+[E]	ww
+[F]	mkae
+[@]	------------------------------
+
+[A]	ww
+[B]	zz
+[C]	$USER
+[@]	------------------------------
+
+[A]	$USER
+[B]	dd
+[@]	------------------------------
+
+[A]	$USER
+[B]	ww
+[C]	qq
+[@]	------------------------------
+
+[A]	test
+[B]	$USER
+[@]	------------------------------
+
+[A]	tttt
+[@]	------------------------------
+
+[A]	test
+[B]	qqq
+[C]	$USER
+[D]	echo $USER
+[@]	------------------------------
+
+[A]	wwww
+[B]	test
+[@]	------------------------------
+
+[A]	HELLO WORLD
+[B]	test
+[C]	$USER
+[D]	$USER
+[E]	$USER
+[F]	echo $USER
+[G]	echo -n $USER
+[H]	echo -n $PATH
+[I]	asdlfkjasfdklj
+[J]	"asdf"
+[K]	"asdfasdf
+[L]	export test=asdf
+[M]	echo $test
+[N]	export test="  asdf   "
+[O]	cd $test
+[P]	cd $test
+[Q]	cd $test
+[@]	------------------------------
+
+[A]	test
+[B]	www
+[C]	qqqq
+[D]	ttt www
+[@]	------------------------------
+
+[A]	$USER
+[@]	------------------------------
+
+[A]	$USER
+[@]	------------------------------
+
+[A]	$USER
+[@]	------------------------------
+
+[A]	$USER
+[@]	------------------------------
+
+[A]	$USER
+[@]	------------------------------
+
+[A]	$USER
+[B]	export test="  ab cd ef "
+[C]	env
+[D]	echo $test
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	test
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	< qq
+[B]	rr
+[C]	rse
+[D]	tesr
+[E]	< qq
+[F]	rgr
+[G]	rsvreb
+[H]	wefwef
+[@]	------------------------------
+
+[A]	< aaaa
+[B]	<infile cmd | cmd >outfile
+[C]	<a cmd | cmd >outfile
+[D]	> a > b>c
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	<< a << b
+[@]	------------------------------
+
+[A]	<a
+[B]	<a <b <<limit
+[@]	------------------------------
+
+[A]	>foo >bar >>foobar
+[B]	>foo >bar <<foobar
+[@]	------------------------------
+
+[A]	<foo <bar <<foobar
+[@]	------------------------------
+
+[A]	<a <b <<foobar
+[@]	------------------------------
+
+[A]	<< $USER
+[B]	export
+[C]	clear
+[D]	export test="  a  b c "
+[E]	< $test
+[@]	------------------------------
+
+[A]	export test=" a b c"
+[@]	------------------------------
+
+[A]	<< $test
+[B]	export $test="     a        b    "
+[C]	< $test
+[D]	< $test
+[E]	< $test
+[F]	< "$test"
+[G]	make
+[@]	------------------------------
+
+[A]	< $test
+[B]	echo $test
+[C]	export test="a"
+[D]	<$test
+[E]	export test="a b c"
+[@]	------------------------------
+
+[A]	<<<
+[@]	------------------------------
+
+[A]	export test="a b c d"
+[B]	<$test
+[@]	------------------------------
+
+[A]	export USER=" a b c
+[B]	export USER=" a b c "
+[C]	< $USER
+[D]	< "$USER"
+[E]	< $USER
+[F]	< $USER
+[G]	< $USER
+[H]	< "$USER"
+[I]	< "$USER"
+[J]	< "$USER"
+[K]	< $USER
+[L]	< "$USER"
+[@]	------------------------------
+
+[A]	< t
+[B]	< $test
+[C]	$test
+[D]	export test="tttt"
+[E]	$test
+[F]	< q
+[G]	test
+[H]	< rr
+[I]	< $tt
+[@]	------------------------------
+
+[A]	< q
+[B]	< test
+[C]	< $test
+[D]	make
+[@]	------------------------------
+
+[A]	< q
+[@]	------------------------------
+
+[A]	< q
+[B]	< test
+[@]	------------------------------
+
+[A]	ddd
+[B]	< qq
+[C]	$test
+[D]	< $test
+[E]	export test="tttttt"
+[F]	< $test
+[G]	$test
+[@]	------------------------------
+
+[A]	ww
+[B]	< qqq
+[C]	< $test
+[D]	export test="tttt aaaa aqqq"
+[@]	------------------------------
+
+[A]	export test="   a     b        c"
+[B]	echo $test
+[C]	export test="   a     b        c        "
+[D]	echo $test
+[E]	export test="   a     b        cddd        "
+[F]	echo $test
+[G]	< $test
+[H]	< "$test"
+[@]	------------------------------
+
+[A]	export test="a        b          c"
+[B]	echo $test
+[C]	echo "$test"
+[D]	< $test
+[E]	< "$test"
+[@]	------------------------------
+
+[A]	tt
+[B]	make
+[@]	------------------------------
+
+[A]	ww
+[B]	tewqd
+[C]	echo q
+[D]	echo tes
+[@]	------------------------------
+
+[A]	dd
+[B]	< int
+[C]	< a cat > out | cat
+[@]	------------------------------
+
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	> cat
+[B]	< cat cat > test
+[C]	< cat cat | test
+[D]	< cat cat | cat test
+[@]	------------------------------
+
+[A]	ls > test
+[B]	> test2
+[C]	ls
+[D]	echo tes
+[D]	echo tes
+[E]	make
+[F]	ls
+[G]	ls
+[H]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[B]	ddd
+[C]	ls
+[D]	ls
+[E]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	env
+[A]	env
+[@]	------------------------------
+
+[A]	ls
+[B]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[B]	d
+[B]	d
+[C]	ls
+[@]	------------------------------
+
+[A]	ls
+[B]	ls
+[C]	d
+[C]	d
+[D]	
+[E]	s
+[E]	s
+[F]	
+[G]	z
+[G]	z
+[D]	da
+[D]	da
+[E]	c
+[E]	c
+[H]	dwd
+[H]	dwd
+[I]	s
+[I]	s
+[J]	
+[@]	------------------------------
+
+[A]	ls > test
+[@]	------------------------------
+
+[A]	ls > test
+[@]	------------------------------
+
+[A]	ls > test333
+[@]	------------------------------
+
+[A]	ls > test2
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls > test
+[@]	------------------------------
+
+[A]	< test cat > test2
+[@]	------------------------------
+
+[A]	
+[B]	< test cat > test4444
+[C]	
+[@]	------------------------------
+
+[A]	ls
+[B]	
+[C]	ls
+[D]	
+[E]	ls
+[F]	
+[G]	ls
+[H]	
+[I]	ls
+[J]	
+[K]	
+[L]	
+[M]	
+[N]	
+[O]	t
+[O]	t
+[P]	
+[Q]	ls
+[P]	ls
+[@]	------------------------------
+
+[A]	<< test > test
+[B]	make
+[@]	------------------------------
+
+[A]	make
+[@]	------------------------------
+
+[A]	<< test > test
+[B]	<< test cat > test
+[@]	------------------------------
+
+[A]	ls > test
+[B]	<< test cat > test2
+[C]	echo 123 | cat > test2
+[C]	echo 123 | cat > test2
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	echo qq
+[A]	echo qq
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls
+[B]	
+[C]	
+[D]	
+[E]	
+[F]	
+[G]	
+[H]	
+[I]	ls
+[J]	ls
+[K]	ls
+[L]	ls
+[M]	ls
+[N]	ls
+[O]	
+[P]	ls | grep a
+[Q]	
+[R]	ls |grep 
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	echo test |
+[B]	echo test | cat
+[B]	echo test | cat
+[C]	echo test | cat > test
+[C]	echo test | cat > test
+[@]	------------------------------
+
+[A]	echo t
+[A]	echo t
+[@]	------------------------------
+
+[A]	echo tes
+[B]	echo tes
+[C]	echo tes
+[D]	echo tes
+[E]	echo test > ttt
+[F]	echo okok | greo o > ttest
+[[[FFF]	]	]	echo okok | greo o > ttest
+echo okok | greo o > ttestecho okok | greo o > ttest
+
+[G]	echo okok | greo o 
+[G]	echo okok | greo o 
+[G]	echo okok | greo o 
+[G]	echo okok | greo o 
+[H]	
+[I]	
+[J]	
+[K]	
+[@]	------------------------------
+
+[A]	echo okok | grep o > ttest
+[A]	echo okok | grep o > ttest
+[B]	[
+[@]	------------------------------
+
+[A]	echo tttttttttt | cat
+[A]	echo tttttttttt | cat
+[@]	------------------------------
+
+[A]	ls |grep a > ttest
+[B]	ls | grep t >ttest
+[C]	
+[D]	
+[E]	
+[@]	------------------------------
+
+[A]	ls
+[B]	ls > ttest
+[C]	ls | grep c > ttest
+[@]	------------------------------
+
+[A]	ls | grep t > test
+[@]	------------------------------
+
+[A]	ls
+[B]	ls | grep t
+[C]	ls | grep t > test
+[@]	------------------------------
+
+[A]	ls
+[@]	------------------------------
+
+[A]	ls | ls
+[B]	ls
+[C]	ls 
+[D]	ls | ls | ls
+[E]	ls | ls | ls | ls | ls | ls
+[F]	make
+[G]	make
+[H]	make
+[@]	------------------------------
+
+[A]	ls | ls | ls
+[@]	------------------------------
+
+[A]	ls | < test ls | < test2 ls  
+[B]	echo ttt | cat
+[B]	echo ttt | cat
+[@]	------------------------------
+
+[A]	echo qqqqq
+[B]	echo qqqqq | cat
+[B]	echo qqqqq | cat
+[@]	------------------------------
+
+[A]	echo qqq | cat
+[A]	echo qqq | cat
+[@]	------------------------------
+
+[A]	echo t
+[B]	echo t | cat
+[C]	echo t | cat > test
+[D]	
+[@]	------------------------------
+
+[A]	echo tttt
+[B]	echo tttt | cat > test
+[C]	
+[@]	------------------------------
+
+[A]	echo tt > test
+[B]	echo tt > test
+[C]	echo tt > test
+[D]	echo tt > test
+[E]	echo tt > test
+[F]	echo tt > test
+[G]	echo tt > test
+[H]	echo tt > test
+[I]	echo tt > test
+[J]	echo tt > test
+[K]	echo tt | cat > tt
+[L]	
+[M]	echo tttttt | cat > tt
+[N]	echo tttttt | cat > tt
+[O]	echo tttttt | cat > tt
+[P]	echo tttttt | cat > tt
+[Q]	echo tttttt | cat > tt
+[@]	------------------------------
+
+[A]	echo ttttt | cat > ttt
+[@]	------------------------------
+
+[A]	echo tttt | cat > ttt
+[@]	------------------------------
+
+[A]	echo tttt | cat > test2222222
+[B]	
+[C]	echo tttt | cat > test2222222
+[D]	ls | grep a > test
+[E]	ls | grep a > test
+[F]	ls
+[G]	ls
+[H]	ls
+[I]	ls
+[J]	ls
+[K]	ls
+[L]	ls
+[M]	ls
+[N]	ls
+[O]	ls
+[P]	ls
+[Q]	ls
+[R]	ls
+[S]	ls
+[T]	ls
+[U]	ls
+[V]	ls
+[W]	ls
+[X]	lsl
+[Y]	ls
+[Z]	ls
+[[]	ls
+[\]	ls
+[]]	
+[^]	ls
+[_]	
+[@]	------------------------------
+
+[A]	ls
+[B]	ls
+[C]	ls
+[D]	ls
+[E]	ls
+[F]	ls
+[G]	ls
+[H]	ls
+[I]	ls
+[J]	ls
+[K]	ls
+[L]	ls
+[M]	ls
+[@]	------------------------------
+
+[A]	ls
+[B]	ls
+[C]	ls
+[D]	ls
+[E]	ls
+[F]	
+[@]	------------------------------
+
+[A]	ls
+[B]	ls
+[C]	ls
+[D]	ls
+[E]	ls
+[F]	ls
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	ls
+[B]	ls
+[C]	ls
+[D]	ls
+[E]	l
+[F]	sl
+[G]	sl
+[H]	sls
+[I]	ls
+[J]	ls
+[K]	ls
+[L]	ls
+[M]	ls
+[N]	ls
+[O]	ls
+[P]	ls
+[Q]	ls
+[R]	ls | ls | ls
+[S]	ls | ls | ls
+[T]	ls | ls | ls
+[U]	ls | ls | ls
+[@]	------------------------------
+
+[A]	ls|ls|ls|ls
+[@]	------------------------------
+
+[A]	ls | ls | ls
+[@]	------------------------------
+
+[A]	ls | ls | ls
+[@]	------------------------------
+
+[A]	ls | ls | ls
+[B]	ls | ls | ls
+[C]	ls | ls | ls
+[D]	ls | ls | ls
+[E]	ls | ls | ls
+[F]	
+[G]	ls | ls | ls
+[H]	ls | ls | ls
+[I]	ls | ls | ls
+[J]	ls | ls | ls
+[K]	ls | ls | ls
+[L]	ls | ls | ls
+[M]	ls | ls | ls
+[N]	ls | ls | ls
+[O]	ls | ls | ls
+[P]	ls | ls | ls
+[Q]	ls | ls | ls
+[R]	ls | ls | ls
+[@]	------------------------------
+
+[A]	ls | ls | ls
+[B]	ls | ls | ls
+[C]	ls | ls | ls
+[D]	ls | ls | ls
+[E]	ls | ls | ls
+[F]	ls | ls | ls
+[G]	ls | ls | ls
+[H]	ls | ls | ls
+[I]	ls | ls | ls
+[J]	ls | ls | ls
+[K]	ls | ls | ls
+[L]	ls | ls | ls
+[M]	ls | ls | ls
+[N]	ls | ls | ls
+[O]	ls | ls | ls
+[P]	ls | ls | ls
+[Q]	ls | ls | ls
+[R]	ls | ls | ls
+[S]	ls | ls | ls
+[T]	ls | ls | ls
+[U]	ls | ls | ls
+[V]	ls | ls | ls
+[W]	ls | ls | ls
+[X]	ls | ls | ls
+[Y]	ls | ls | ls
+[Z]	ls | ls | ls
+[[]	ls | ls | ls
+[\]	ls | ls | ls
+[]]	ls | ls | ls
+[^]	ls | ls | ls
+[_]	ls | ls | ls
+[`]	ls | ls | ls
+[a]	ls | ls | ls
+[b]	ls | ls | ls
+[c]	ls | ls | ls
+[d]	ls | ls | ls
+[@]	------------------------------
+
+[A]	ls > test
+[@]	------------------------------
+
+[A]	ls
+[B]	ls
+[C]	ls
+[D]	ls
+[E]	ls | ls | ls | ls
+[F]	ls | cat tetttttttt
+[G]	ls | cat >tetttttttt
+[H]	ls | cat tetttttttt
+[I]	ls | cat tetttttttt
+[J]	ls | cat tetttttttt
+[K]	ls | cat tetttttttt
+[L]	ls | cat tetttttttt
+[M]	ls | cat tetttttttt
+[N]	ls | cat tetttttttt
+[O]	ls | cat tetttttttt
+[P]	ls | cat tetttttttt
+[Q]	ls | cat tetttttttt
+[@]	------------------------------
+
+[A]	ls | ls | ls
+[@]	------------------------------
+
+[@]	------------------------------
+
+[A]	ls | ls | ls
+[@]	------------------------------
+
+[A]	ls | ls | ls | ls
