@@ -6,7 +6,7 @@
 /*   By: yusekim <yusekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 17:21:24 by yusekim           #+#    #+#             */
-/*   Updated: 2023/09/05 17:41:24 by yusekim          ###   ########.fr       */
+/*   Updated: 2023/09/10 12:22:07 by yusekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ void	write_heredoc(t_redir *temp, t_package *pack, int fd, int len)
 int	detact_exitcode(int temp)
 {
 	if (g_exit_status)
-	{
-		g_exit_status = temp;
 		return (1);
-	}
 	else
 	{
 		g_exit_status = temp;
