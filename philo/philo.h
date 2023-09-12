@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 12:12:23 by yusekim           #+#    #+#             */
-/*   Updated: 2023/09/12 15:09:43 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/09/12 17:33:20 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,25 @@
 
 typedef struct s_info
 {
-	int				fork;
+	int				philo_num;
 	int				die;
-	int				eat;
+	int				time_eat;
 	int				sleep;
 	int				min_cnt;
 	int				flag;
+	int				*fork;
+	pthread_mutex_t	*lock;
 	struct timeval	start_time;
 }	t_info;
 
 typedef struct s_philo
 {
 	int				idx;
-	struct timeval	life;
+	struct timeval	after_eat;
+	int				eat_num;
 	int				left;
 	int				right;
-	struct s_philo	prev;
-	struct s_philo	next;
+	pthread_t		pthread;
 	t_info			*info;
 }	t_philo;
 #endif
