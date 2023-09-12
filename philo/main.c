@@ -1,6 +1,16 @@
-#include "philo.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
+/*   Updated: 2023/09/12 15:09:28 by dongseo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-//각 프로그램은 같은 옵션을 가져야 합니다 : 철학자의 수, 철학자의 수명, 밥을 먹는데 걸리는 시간, 잠자는 시간, [각 철학자가 최소한 밥을 먹어야 하는 횟수]
+#include "philo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -28,8 +38,13 @@ int	ft_atoi(const char *str)
 	return (sign * res);
 }
 
+void	ft_exit(char *msg)
+{
+	printf("%s\n", msg);
+	exit(0);
+}
 
-void	init(t_info *info, int argc, char *argv[])
+void	init(t_info *info, int argc, char *argv[], t_philo *philo)
 {
 	int	i;
 
@@ -37,7 +52,7 @@ void	init(t_info *info, int argc, char *argv[])
 	while (argv[i])
 	{
 		if (ft_atoi(argv[i]) < 0)
-			exit(0);
+			ft_exit("argc error");
 		i++;
 	}
 	info->fork = ft_atoi(argv[1]);
@@ -54,18 +69,32 @@ void	init(t_info *info, int argc, char *argv[])
 		info->flag = 1;
 		info->min_cnt = ft_atoi(argv[5]);
 	}
+	gettimeofday(&info->start_time, NULL);
+	init_philo(info, philo);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_info	info;
+	struct timeval	end_time;
+	t_philo philo;
+	double	diff_time;
 
 	if (argc < 5 || argc > 6)
 	{
 		printf("argc error\n");
 		return (0);
 	}
-	init(&info, argc, argv);
+	philo = 0;
+	init(&info, argc, argv, philo);
+	if (info.fork == 1)
+	{
+		usleep(info.die * 1000);
+		gettimeofday(&end_time, NULL);
+		diff_time = ((double)(end_time.tv_sec - info.start_time.tv_sec) * 1000000 + (end_time.tv_usec - info.start_time.tv_usec)) / 1000;
+		printf("%f_in_ms 1 died\n", diff_time);
+		exit(0);
+	}
 	printf("philosopher num = %d\n", info.fork);
 	printf("die = %d\n", info.die);
 	printf("eat = %d\n", info.eat);
