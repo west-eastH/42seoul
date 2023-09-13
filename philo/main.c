@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/09/12 17:35:10 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/09/13 21:58:41 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,34 +44,58 @@ void	ft_exit(char *msg)
 	exit(0);
 }
 
-void	init(t_info *info, int argc, char *argv[])
+int	init(t_info *info, int argc, char *argv[])
 {
 	int	i;
-
-	i = 1;
-	while (argv[i])
+	info->philo_num = ft_atoi(argv[1]);
+	info->time_to_die = ft_atoi(argv[2]);
+	info->time_to_eat = ft_atoi(argv[3]);
+	info->time_to_sleep = ft_atoi(argv[4]);
+	if (argc == 5)
+		info->min_cnt = 0;
+	else
+		info->min_cnt = ft_atoi(argv[5]);
+	if (info->philo_num <= 0 || info->time_to_die < 0 ||
+		info->time_to_eat < 0 || info->time_to_sleep < 0 || info->min_cnt < 0)
+		return 1;
+	info->fork = malloc(sizeof(int) * info->philo_num);
+	if (!info->fork)
+		return 1;
+	i = 0;
+	while (i < info->philo_num)
 	{
-		if (ft_atoi(argv[i]) < 0)
-			ft_exit("argc error");
+		info->fork[i] = 0;
 		i++;
 	}
-	info->philo_num = ft_atoi(argv[1]);
-	info->die = ft_atoi(argv[2]);
-	info->time_eat = ft_atoi(argv[3]);
-	info->sleep = ft_atoi(argv[4]);
-	info->fork = malloc(sizeof(int) * info->philo_num);
 	info->lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
-	if (argc == 5)
+	if (!info->lock)
+		return 1;
+	i = 0;
+	while (i < info->philo_num)
 	{
-		info->flag = 0;
-		info->min_cnt = 0;
+		pthread_mutex_init(&(info->lock[i]), NULL);
+		i++;
 	}
-	else
-	{
-		info->flag = 1;
-		info->min_cnt = ft_atoi(argv[5]);
-	}
+	pthread_mutex_init(&(info->print), NULL);
 	gettimeofday(&info->start_time, NULL);
+	return 0;
+}
+
+void	*start(void *data)
+{
+	t_philo *philo;
+
+	philo = (t_philo *)data;
+	if (philo->idx % 2 == 0)
+		usleep(1000);
+	while (1)
+	{
+		eating();
+		printf("%d philo sleep\n", philo->idx);
+		usleep(philo->info->time_to_sleep);
+		printf("%d philo thinking\n", philo->idx);
+	}
+	return NULL;
 }
 
 void	init_philo(t_info *info, t_philo philo[])
@@ -82,11 +106,12 @@ void	init_philo(t_info *info, t_philo philo[])
 	while (i < info->philo_num)
 	{
 		philo[i].idx = i;
-		philo[i].eat_num = 0;
-		philo[i].left = (i + info->philo_num - 1) % info->philo_num;
+		philo[i].eat_cnt = 0;
+		philo[i].left = i;
 		philo[i].right = (i + 1) % info->philo_num;
 		philo[i].info = info;
 		gettimeofday(&(philo[i].after_eat), NULL);
+		pthread_create(&(philo[i].pthread), NULL, start, &(philo[i]));
 		i++;
 	}
 }
@@ -96,16 +121,24 @@ int	main(int argc, char *argv[])
 	t_info	info;
 	//struct timeval	end_time;
 	t_philo *philo;
+	int		i;
 	//double	diff_time;
 
-	if (argc < 5 || argc > 6)
+	if (argc < 5 || argc > 6 || init(&info, argc, argv))
 	{
-		printf("argc error\n");
+		printf("error\n");
 		return (0);
 	}
-	init(&info, argc, argv);
 	philo = (t_philo *)malloc(sizeof(t_philo) * info.philo_num);
+	if (!philo)
+		return (1);
 	init_philo(&info, philo);
+	i = 0;
+	while (i < info.philo_num)
+	{
+		pthread_join(philo[i].pthread, NULL);
+		i++;
+	}
 	/* 
 	if (info.fork == 1)
 	{
