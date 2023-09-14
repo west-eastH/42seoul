@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/09/14 13:10:30 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/09/14 14:24:54 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	init(t_info *info, int argc, char *argv[])
 {
 	int	i;
 
+	info->flag = 0;
 	info->philo_num = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]) * 1000;
 	info->time_to_eat = ft_atoi(argv[3]) * 1000;
@@ -53,15 +54,6 @@ int	init(t_info *info, int argc, char *argv[])
 	if (info->philo_num <= 0 || info->time_to_die < 0 ||
 		info->time_to_eat < 0 || info->time_to_sleep < 0 || info->min_cnt < 0)
 		return 1;
-	info->fork = malloc(sizeof(int) * info->philo_num);
-	if (!info->fork)
-		return 1;
-	i = 0;
-	while (i < info->philo_num)
-	{
-		info->fork[i] = 0;
-		i++;
-	}
 	info->lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
 	if (!info->lock)
 		return 1;
@@ -86,7 +78,7 @@ void	philo_printf(t_philo *philo, char *msg)
 	gettimeofday(&now, NULL);
 	sec = (now.tv_sec - philo->info->start_time.tv_sec) * 1000000;
 	ms = (now.tv_usec - philo->info->start_time.tv_usec);
-    diff = (sec + ms) / 1000;
+	diff = (sec + ms) / 1000;
 	pthread_mutex_lock(&(philo->info->print));
 	printf("%dms philo %d %s", diff, philo->idx + 1, msg);
 	pthread_mutex_unlock(&(philo->info->print));
@@ -137,14 +129,43 @@ void	*start(void *data)
 	philo = (t_philo *)data;
 	if (philo->idx % 2 == 0)
 		usleep(1000);
-	while (1)
+	while (!philo->info->flag)
 	{
 		eating(philo);
+		if (philo->info->flag)
+			break ;
 		philo_printf(philo, "is sleeping\n");
 		ft_usleep(philo->info->time_to_sleep);
 		philo_printf(philo, "is thinking\n");
 	}
 	return NULL;
+}
+
+void	check_end(t_philo philo[])
+{
+	int	i;
+	int	j;
+	int	cnt;
+
+	i = 0;
+	if (!philo->info->min_cnt)
+		return ;
+	while (1)
+	{
+		j = 0;
+		cnt = 0;
+		while (j < philo[i].info->philo_num)
+		{
+			if (philo[j].eat_cnt >= philo[i].info->min_cnt)
+				cnt++;
+			j++;
+		}
+		if (cnt == philo[i].info->philo_num)
+		{
+			philo[i].info->flag = 1;
+			return ;
+		}
+	}
 }
 
 void	init_philo(t_info *info, t_philo philo[])
@@ -163,6 +184,7 @@ void	init_philo(t_info *info, t_philo philo[])
 		pthread_create(&(philo[i].pthread), NULL, start, &(philo[i]));
 		i++;
 	}
+	check_end(philo);
 }
 
 int	main(int argc, char *argv[])

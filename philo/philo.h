@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 12:12:23 by yusekim           #+#    #+#             */
-/*   Updated: 2023/09/13 21:29:26 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/09/14 14:04:23 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_info
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				min_cnt;
-	int				*fork;
+	int				flag;
 	pthread_mutex_t	*lock;
 	pthread_mutex_t	print;
 	struct timeval	start_time;
