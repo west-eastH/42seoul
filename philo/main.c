@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/09/13 21:58:41 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/09/14 13:10:30 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,14 @@ int	ft_atoi(const char *str)
 	return (sign * res);
 }
 
-void	ft_exit(char *msg)
-{
-	printf("%s\n", msg);
-	exit(0);
-}
-
 int	init(t_info *info, int argc, char *argv[])
 {
 	int	i;
+
 	info->philo_num = ft_atoi(argv[1]);
-	info->time_to_die = ft_atoi(argv[2]);
-	info->time_to_eat = ft_atoi(argv[3]);
-	info->time_to_sleep = ft_atoi(argv[4]);
+	info->time_to_die = ft_atoi(argv[2]) * 1000;
+	info->time_to_eat = ft_atoi(argv[3]) * 1000;
+	info->time_to_sleep = ft_atoi(argv[4]) * 1000;
 	if (argc == 5)
 		info->min_cnt = 0;
 	else
@@ -81,6 +76,60 @@ int	init(t_info *info, int argc, char *argv[])
 	return 0;
 }
 
+void	philo_printf(t_philo *philo, char *msg)
+{
+	struct timeval	now;
+	int				diff;
+	int				sec;
+	int				ms;
+
+	gettimeofday(&now, NULL);
+	sec = (now.tv_sec - philo->info->start_time.tv_sec) * 1000000;
+	ms = (now.tv_usec - philo->info->start_time.tv_usec);
+    diff = (sec + ms) / 1000;
+	pthread_mutex_lock(&(philo->info->print));
+	printf("%dms philo %d %s", diff, philo->idx + 1, msg);
+	pthread_mutex_unlock(&(philo->info->print));
+}
+
+
+void	ft_usleep(int time)
+{
+	struct timeval	start;
+	struct timeval	now;
+	double			sec;
+	double			ms;
+	double			diff;
+
+	gettimeofday(&start, NULL);
+	while (1)
+	{
+		usleep(10);
+		gettimeofday(&now, NULL);
+		sec = (now.tv_sec - start.tv_sec) * 1000000;
+		ms = ((double)now.tv_usec - start.tv_usec);
+		diff = sec + ms;
+		if (diff > time)
+			return ;
+	}
+}
+
+void	eating(t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->info->lock[philo->left]));
+	philo_printf(philo, "has taken a fork\n");
+	if (!pthread_mutex_lock(&(philo->info->lock[philo->right])))
+	{
+		philo_printf(philo, "has taken a fork\n");
+		philo_printf(philo, "is eating\n");
+		ft_usleep(philo->info->time_to_eat);
+		philo->eat_cnt++;
+		gettimeofday(&(philo->after_eat), NULL);
+		pthread_mutex_unlock(&(philo->info->lock[philo->right]));
+	}
+	pthread_mutex_unlock(&(philo->info->lock[philo->left]));
+}
+
 void	*start(void *data)
 {
 	t_philo *philo;
@@ -90,10 +139,10 @@ void	*start(void *data)
 		usleep(1000);
 	while (1)
 	{
-		eating();
-		printf("%d philo sleep\n", philo->idx);
-		usleep(philo->info->time_to_sleep);
-		printf("%d philo thinking\n", philo->idx);
+		eating(philo);
+		philo_printf(philo, "is sleeping\n");
+		ft_usleep(philo->info->time_to_sleep);
+		philo_printf(philo, "is thinking\n");
 	}
 	return NULL;
 }
@@ -119,10 +168,8 @@ void	init_philo(t_info *info, t_philo philo[])
 int	main(int argc, char *argv[])
 {
 	t_info	info;
-	//struct timeval	end_time;
 	t_philo *philo;
 	int		i;
-	//double	diff_time;
 
 	if (argc < 5 || argc > 6 || init(&info, argc, argv))
 	{
@@ -139,19 +186,5 @@ int	main(int argc, char *argv[])
 		pthread_join(philo[i].pthread, NULL);
 		i++;
 	}
-	/* 
-	if (info.fork == 1)
-	{
-		usleep(info.die * 1000);
-		gettimeofday(&end_time, NULL);
-		diff_time = ((double)(end_time.tv_sec - info.start_time.tv_sec) * 1000000 + (end_time.tv_usec - info.start_time.tv_usec)) / 1000;
-		printf("%f_in_ms 1 died\n", diff_time);
-		exit(0);
-	}
-	printf("philosopher num = %d\n", info.fork);
-	printf("die = %d\n", info.die);
-	printf("eat = %d\n", info.eat);
-	printf("sleep = %d\n", info.sleep);
-	printf("min_cnt = %d\n", info.min_cnt); */
 	return (0);
 }
