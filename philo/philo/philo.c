@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/09/15 14:27:54 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/09/15 14:39:53 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,34 +68,36 @@ int	is_died(t_philo *philo)
 		pthread_mutex_lock(&(philo->info->flag_lock));
 		philo->info->flag = 1;
 		pthread_mutex_unlock(&(philo->info->flag_lock));
-		return (1);
+		return 1;
 	}
-	return (0);
+	return 0;
 }
 
 void	check_end(t_philo philo[])
 {
+	int	i;
 	int	j;
 	int	cnt;
 
+	i = 0;
 	while (1)
 	{
 		j = 0;
 		cnt = 0;
-		while (j < philo[j].info->philo_num)
+		while (j < philo[i].info->philo_num)
 		{
 			if (is_died(&philo[j]))
 				return ;
 			pthread_mutex_lock(&(philo->info->eat_lock));
-			if (philo[j].eat_cnt >= philo[j].info->min_cnt)
+			if (philo[j].eat_cnt >= philo[i].info->min_cnt)
 				cnt++;
 			pthread_mutex_unlock(&(philo->info->eat_lock));
 			j++;
 		}
-		if (*philo->info->min_cnt && cnt == philo[0].info->philo_num)
+		if (philo->info->min_cnt && cnt == philo[i].info->philo_num)
 		{
 			pthread_mutex_lock(&(philo->info->flag_lock));
-			philo[0].info->flag = 1;
+			philo[i].info->flag = 1;
 			pthread_mutex_unlock(&(philo->info->flag_lock));
 			return ;
 		}
@@ -108,12 +110,6 @@ int	main(int argc, char *argv[])
 	t_philo	*philo;
 	int		i;
 
-	argc = 5;
-	argv[0] = "test";
-	argv[1] = "2";
-	argv[2] = "410";
-	argv[3] = "200";
-	argv[4] = "200";
 	if (argc < 5 || argc > 6 || init(&info, argc, argv))
 	{
 		printf("error\n");
