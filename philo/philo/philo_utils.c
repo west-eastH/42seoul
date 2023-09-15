@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:55:20 by dongseo           #+#    #+#             */
-/*   Updated: 2023/09/15 13:57:53 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/09/15 14:42:33 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	init(t_info *info, int argc, char *argv[])
 		info->min_cnt = 0;
 	else
 		info->min_cnt = ft_atoi(argv[5]);
-	if (info->philo_num <= 0 || info->time_to_die < 0 ||
-		info->time_to_eat < 0 || info->time_to_sleep < 0 || info->min_cnt < 0)
+	if (info->philo_num <= 0 || info->time_to_die < 0 \
+	|| info->time_to_eat < 0 || info->time_to_sleep < 0 || info->min_cnt < 0)
 		return (1);
 	info->lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
 	if (!info->lock)
@@ -85,7 +85,6 @@ void	philo_printf(t_philo *philo, char *msg)
 	pthread_mutex_unlock(&(philo->info->flag_lock));
 	pthread_mutex_unlock(&(philo->info->print));
 }
-
 
 void	ft_usleep(int time)
 {
