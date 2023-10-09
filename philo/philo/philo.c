@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/10/09 14:38:33 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/10/09 14:45:24 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,14 @@ int	is_died(t_philo *philo)
 	ms = (now.tv_usec - philo->after_eat.tv_usec);
 	diff = (sec + ms) / 1000;
 	if (diff > philo->info->time_to_die)
+	{
+
+		philo_printf(philo, "died\n");
+		pthread_mutex_lock(&(philo->info->flag_lock));
+		philo->info->flag = 1;
+		pthread_mutex_unlock(&(philo->info->flag_lock));
 		return (1);
+	}
 	return (0);
 }
 
@@ -82,13 +89,7 @@ void	check_end(t_philo philo[])
 		while (j < philo[0].info->philo_num)
 		{
 			if (is_died(&philo[j]))
-			{
-				philo_printf(&(philo[j]), "died\n");
-				pthread_mutex_lock(&(philo->info->flag_lock));
-				philo[0].info->flag = 1;
-				pthread_mutex_unlock(&(philo->info->flag_lock));
 				return ;
-			}
 			pthread_mutex_lock(&(philo->info->eat_lock));
 			if (philo[j].eat_cnt >= philo[0].info->min_cnt)
 				cnt++;
