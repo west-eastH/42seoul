@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 12:12:23 by yusekim           #+#    #+#             */
-/*   Updated: 2023/09/15 13:59:14 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/10/09 14:32:24 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,15 @@ typedef struct s_philo
 	t_info			*info;
 }	t_philo;
 
-int		ft_atoi(const char *str);
+void	mutex_init(t_info *info);
 int		init(t_info *info, int argc, char *argv[]);
+void	init_philo(t_info *info, t_philo philo[]);
+int		ft_atoi(const char *str);
 void	philo_printf(t_philo *philo, char *msg);
 void	ft_usleep(int time);
-void	init_philo(t_info *info, t_philo philo[]);
 void	eating(t_philo *philo);
 void	*start(void *data);
 int		is_died(t_philo *philo);
 void	check_end(t_philo philo[]);
+
 #endif
