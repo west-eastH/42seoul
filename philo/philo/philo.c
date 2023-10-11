@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/10/09 14:45:24 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/10/11 17:53:15 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	is_died(t_philo *philo)
 	diff = (sec + ms) / 1000;
 	if (diff > philo->info->time_to_die)
 	{
-
 		philo_printf(philo, "died\n");
 		pthread_mutex_lock(&(philo->info->flag_lock));
 		philo->info->flag = 1;
