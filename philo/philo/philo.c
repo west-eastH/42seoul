@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/10/11 17:53:15 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/17 14:29:14 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void	eating(t_philo *philo)
 	{
 		philo_printf(philo, "has taken a fork\n");
 		philo_printf(philo, "is eating\n");
+		gettimeofday(&(philo->after_eat), NULL);
 		pthread_mutex_lock(&(philo->info->eat_lock));
 		philo->eat_cnt++;
 		pthread_mutex_unlock(&(philo->info->eat_lock));
 		ft_usleep(philo->info->time_to_eat);
-		gettimeofday(&(philo->after_eat), NULL);
+		if (philo->idx % 2 != 0)
+			ft_usleep(5);
 		pthread_mutex_unlock(&(philo->info->lock[philo->right]));
 	}
 	pthread_mutex_unlock(&(philo->info->lock[philo->left]));
@@ -36,7 +38,7 @@ void	*start(void *data)
 
 	philo = (t_philo *)data;
 	if (philo->idx % 2 == 0)
-		usleep(1000);
+		usleep(philo->info->time_to_die / 4);
 	while (!philo->info->flag)
 	{
 		eating(philo);
@@ -65,6 +67,11 @@ int	is_died(t_philo *philo)
 	sec = (now.tv_sec - philo->after_eat.tv_sec) * 1000000;
 	ms = (now.tv_usec - philo->after_eat.tv_usec);
 	diff = (sec + ms) / 1000;
+	//---------------------------------
+	// sec = (now.tv_sec - philo->after_eat.tv_sec) * 1000;
+	// ms = (now.tv_usec/1000 - philo->after_eat.tv_usec/1000);
+	// diff = sec + ms;
+	//==================================
 	if (diff > philo->info->time_to_die)
 	{
 		philo_printf(philo, "died\n");
@@ -105,6 +112,10 @@ void	check_end(t_philo philo[])
 	}
 }
 
+void a()
+{
+	system("leaks philo");
+}
 int	main(int argc, char *argv[])
 {
 	t_info	info;
