@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 12:12:23 by yusekim           #+#    #+#             */
-/*   Updated: 2023/10/09 14:32:24 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/27 13:29:48 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,4 @@ void	eating(t_philo *philo);
 void	*start(void *data);
 int		is_died(t_philo *philo);
 void	check_end(t_philo philo[]);
-
 #endif

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/17 14:29:14 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/27 13:29:00 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,6 @@ int	is_died(t_philo *philo)
 	sec = (now.tv_sec - philo->after_eat.tv_sec) * 1000000;
 	ms = (now.tv_usec - philo->after_eat.tv_usec);
 	diff = (sec + ms) / 1000;
-	//---------------------------------
-	// sec = (now.tv_sec - philo->after_eat.tv_sec) * 1000;
-	// ms = (now.tv_usec/1000 - philo->after_eat.tv_usec/1000);
-	// diff = sec + ms;
-	//==================================
 	if (diff > philo->info->time_to_die)
 	{
 		philo_printf(philo, "died\n");
@@ -112,10 +107,6 @@ void	check_end(t_philo philo[])
 	}
 }
 
-void a()
-{
-	system("leaks philo");
-}
 int	main(int argc, char *argv[])
 {
 	t_info	info;
