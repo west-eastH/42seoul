@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:55:20 by dongseo           #+#    #+#             */
-/*   Updated: 2023/10/09 14:32:00 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:32:58 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,19 @@ void	philo_printf(t_philo *philo, char *msg)
 	int				sec;
 	int				ms;
 
+	pthread_mutex_lock(&(philo->info->flag_lock));
+	printf("flag : %d\n", philo->info->flag);
+	if (!philo->info->flag)
+	{
 	gettimeofday(&now, NULL);
 	sec = (now.tv_sec - philo->info->start_time.tv_sec) * 1000000;
 	ms = (now.tv_usec - philo->info->start_time.tv_usec);
 	diff = (sec + ms) / 1000;
-	pthread_mutex_lock(&(philo->info->print));
-	pthread_mutex_lock(&(philo->info->flag_lock));
-	if (!philo->info->flag)
+	// pthread_mutex_lock(&(philo->info->print));
 		printf("%d %d %s", diff, philo->idx + 1, msg);
 	pthread_mutex_unlock(&(philo->info->flag_lock));
-	pthread_mutex_unlock(&(philo->info->print));
+	}
+	// pthread_mutex_unlock(&(philo->info->print));
 }
 
 void	ft_usleep(int time)
@@ -77,3 +80,12 @@ void	ft_usleep(int time)
 			return ;
 	}
 }
+
+
+// sec, usec
+
+// result = sec * 1000000 + usec
+// result = (now.sec - start.sec) * 1000000 + (now.usec - start.usec)
+// - start.sec * 1000000 - start.usec
+// aaa = start.sec * 1000000 + start.usec
+// now.sec * 1000000 + now.usec - aaa;

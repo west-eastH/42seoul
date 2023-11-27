@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:25:53 by dongseo           #+#    #+#             */
-/*   Updated: 2023/10/09 14:32:16 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:05:32 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,13 @@ void	init_philo(t_info *info, t_philo philo[])
 	}
 	check_end(philo);
 }
+
+// strcut example
+// {
+// 	int fork[10];
+// }
+
+// example
+
+// fork[id]
+// fork[]

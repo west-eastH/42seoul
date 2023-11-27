@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/27 13:29:00 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:26:30 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	eating(t_philo *philo)
 		philo_printf(philo, "has taken a fork\n");
 		philo_printf(philo, "is eating\n");
 		gettimeofday(&(philo->after_eat), NULL);
+		ft_usleep(philo->info->time_to_eat);
 		pthread_mutex_lock(&(philo->info->eat_lock));
 		philo->eat_cnt++;
 		pthread_mutex_unlock(&(philo->info->eat_lock));
-		ft_usleep(philo->info->time_to_eat);
 		if (philo->idx % 2 != 0)
 			ft_usleep(5);
 		pthread_mutex_unlock(&(philo->info->lock[philo->right]));
@@ -42,17 +42,12 @@ void	*start(void *data)
 	while (!philo->info->flag)
 	{
 		eating(philo);
-		pthread_mutex_lock(&(philo->info->flag_lock));
-		if (philo->info->flag)
-		{
-			pthread_mutex_unlock(&(philo->info->flag_lock));
-			break ;
-		}
 		pthread_mutex_unlock(&(philo->info->flag_lock));
 		philo_printf(philo, "is sleeping\n");
 		ft_usleep(philo->info->time_to_sleep);
 		philo_printf(philo, "is thinking\n");
 	}
+	
 	return (NULL);
 }
 
@@ -69,9 +64,9 @@ int	is_died(t_philo *philo)
 	diff = (sec + ms) / 1000;
 	if (diff > philo->info->time_to_die)
 	{
-		philo_printf(philo, "died\n");
 		pthread_mutex_lock(&(philo->info->flag_lock));
 		philo->info->flag = 1;
+		printf("%d %d is died\n", diff, philo->idx);
 		pthread_mutex_unlock(&(philo->info->flag_lock));
 		return (1);
 	}
@@ -89,6 +84,7 @@ void	check_end(t_philo philo[])
 		cnt = 0;
 		while (j < philo[0].info->philo_num)
 		{
+			// printf("test %d\n", j);
 			if (is_died(&philo[j]))
 				return ;
 			pthread_mutex_lock(&(philo->info->eat_lock));
@@ -96,6 +92,7 @@ void	check_end(t_philo philo[])
 				cnt++;
 			pthread_mutex_unlock(&(philo->info->eat_lock));
 			j++;
+			usleep(100);
 		}
 		if (philo->info->min_cnt && cnt == philo[0].info->philo_num)
 		{
@@ -125,6 +122,7 @@ int	main(int argc, char *argv[])
 	i = 0;
 	while (i < info.philo_num)
 	{
+		// printf("here %d\n", i);
 		pthread_join(philo[i].pthread, NULL);
 		i++;
 	}
