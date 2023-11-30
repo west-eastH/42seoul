@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/30 11:35:48 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/30 11:39:46 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	eating(t_philo *philo)
 			ft_usleep(5, philo);
 		pthread_mutex_unlock(&(info->lock[(philo->idx + 1) % info->philo_num]));
 	}
+	else
+		ft_usleep(philo->info->time_to_die, philo);
 	pthread_mutex_unlock(&(philo->info->lock[philo->idx]));
 }
 
@@ -39,7 +41,7 @@ void	*start(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	if (philo->idx % 2 == 0)
+	if (philo->idx % 2 != 0)
 		ft_usleep(philo->info->time_to_die / 4, philo);
 	while (!philo->info->flag)
 	{
@@ -61,7 +63,7 @@ int	is_died(t_philo *philo)
 		pthread_mutex_lock(&(philo->info->flag_lock));
 		philo->info->flag = 1;
 		diff = get_diff(philo->info->start_time);
-		printf("%d %d died\n", diff, philo->idx);
+		printf("%d %d died\n", diff, philo->idx + 1);
 		pthread_mutex_unlock(&(philo->info->flag_lock));
 		return (1);
 	}
