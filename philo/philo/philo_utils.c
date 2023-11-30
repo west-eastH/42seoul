@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:55:20 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/30 10:40:23 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/30 11:17:26 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	ft_atoi(const char *str)
 	}
 	return (sign * res);
 }
+
 int	get_diff(struct timeval time)
 {
 	struct timeval	now;
@@ -50,6 +51,7 @@ int	get_diff(struct timeval time)
 	diff = (sec + ms) / 1000;
 	return (diff);
 }
+
 void	philo_printf(t_philo *philo, char *msg)
 {
 	int				diff;
@@ -67,28 +69,17 @@ void	ft_usleep(int time, t_philo *philo)
 {
 	struct timeval	start;
 	struct timeval	now;
-	double			sec;
-	double			ms;
 	double			diff;
+	double			target;
 
 	gettimeofday(&start, NULL);
+	target = start.tv_sec * 1000000 + start.tv_usec;
 	while (!philo->info->flag)
 	{
 		usleep(100);
 		gettimeofday(&now, NULL);
-		sec = (now.tv_sec - start.tv_sec) * 1000000;
-		ms = ((double)now.tv_usec - start.tv_usec);
-		diff = sec + ms;
+		diff = now.tv_sec * 1000000 + now.tv_usec - target;
 		if (diff > time)
 			return ;
 	}
 }
-
-
-// sec, usec
-
-// result = sec * 1000000 + usec
-// result = (now.sec - start.sec) * 1000000 + (now.usec - start.usec)
-// - start.sec * 1000000 - start.usec
-// aaa = start.sec * 1000000 + start.usec
-// now.sec * 1000000 + now.usec - aaa;

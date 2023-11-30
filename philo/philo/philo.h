@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 12:12:23 by yusekim           #+#    #+#             */
-/*   Updated: 2023/11/30 09:48:16 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/30 11:20:48 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ typedef struct s_philo
 	int				idx;
 	struct timeval	after_eat;
 	int				eat_cnt;
-	int				left;
-	int				right;
 	pthread_t		pthread;
 	t_info			*info;
 }	t_philo;

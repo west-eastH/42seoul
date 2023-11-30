@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:25:53 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/30 10:53:31 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/30 11:21:09 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	mutex_init(t_info *info)
 
 	i = 0;
 	while (i++ < info->philo_num)
-	{
 		pthread_mutex_init(&(info->lock[i - 1]), NULL);
-	}
 	pthread_mutex_init(&(info->flag_lock), NULL);
 }
 
@@ -56,8 +54,6 @@ void	init_philo(t_info *info, t_philo philo[])
 	{
 		philo[i].idx = i;
 		philo[i].eat_cnt = 0;
-		philo[i].left = i;
-		philo[i].right = (i + 1) % info->philo_num;
 		philo[i].info = info;
 		gettimeofday(&(philo[i].after_eat), NULL);
 		pthread_create(&(philo[i].pthread), NULL, start, &(philo[i]));
