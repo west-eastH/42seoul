@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/27 14:26:30 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/30 09:50:37 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ void	eating(t_philo *philo)
 	{
 		philo_printf(philo, "has taken a fork\n");
 		philo_printf(philo, "is eating\n");
+		ft_usleep(philo->info->time_to_eat, philo);
 		gettimeofday(&(philo->after_eat), NULL);
-		ft_usleep(philo->info->time_to_eat);
-		pthread_mutex_lock(&(philo->info->eat_lock));
 		philo->eat_cnt++;
-		pthread_mutex_unlock(&(philo->info->eat_lock));
 		if (philo->idx % 2 != 0)
-			ft_usleep(5);
+			ft_usleep(5, philo);
 		pthread_mutex_unlock(&(philo->info->lock[philo->right]));
 	}
 	pthread_mutex_unlock(&(philo->info->lock[philo->left]));
@@ -38,34 +36,27 @@ void	*start(void *data)
 
 	philo = (t_philo *)data;
 	if (philo->idx % 2 == 0)
-		usleep(philo->info->time_to_die / 4);
+		ft_usleep(philo->info->time_to_die / 4, philo);
 	while (!philo->info->flag)
 	{
 		eating(philo);
-		pthread_mutex_unlock(&(philo->info->flag_lock));
 		philo_printf(philo, "is sleeping\n");
-		ft_usleep(philo->info->time_to_sleep);
+		ft_usleep(philo->info->time_to_sleep, philo);
 		philo_printf(philo, "is thinking\n");
 	}
-	
 	return (NULL);
 }
 
 int	is_died(t_philo *philo)
 {
-	struct timeval	now;
 	int				diff;
-	int				sec;
-	int				ms;
 
-	gettimeofday(&now, NULL);
-	sec = (now.tv_sec - philo->after_eat.tv_sec) * 1000000;
-	ms = (now.tv_usec - philo->after_eat.tv_usec);
-	diff = (sec + ms) / 1000;
+	diff = get_diff(philo->after_eat);
 	if (diff > philo->info->time_to_die)
 	{
 		pthread_mutex_lock(&(philo->info->flag_lock));
 		philo->info->flag = 1;
+		diff = get_diff(philo->info->start_time);
 		printf("%d %d is died\n", diff, philo->idx);
 		pthread_mutex_unlock(&(philo->info->flag_lock));
 		return (1);
@@ -84,13 +75,11 @@ void	check_end(t_philo philo[])
 		cnt = 0;
 		while (j < philo[0].info->philo_num)
 		{
-			// printf("test %d\n", j);
+			usleep(10);
 			if (is_died(&philo[j]))
 				return ;
-			pthread_mutex_lock(&(philo->info->eat_lock));
 			if (philo[j].eat_cnt >= philo[0].info->min_cnt)
 				cnt++;
-			pthread_mutex_unlock(&(philo->info->eat_lock));
 			j++;
 			usleep(100);
 		}
@@ -122,7 +111,6 @@ int	main(int argc, char *argv[])
 	i = 0;
 	while (i < info.philo_num)
 	{
-		// printf("here %d\n", i);
 		pthread_join(philo[i].pthread, NULL);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:55:20 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/27 14:32:58 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/30 10:17:12 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,33 @@ int	ft_atoi(const char *str)
 	}
 	return (sign * res);
 }
-
-void	philo_printf(t_philo *philo, char *msg)
+int	get_diff(struct timeval time)
 {
 	struct timeval	now;
 	int				diff;
 	int				sec;
 	int				ms;
 
+	gettimeofday(&now, NULL);
+	sec = (now.tv_sec - time.tv_sec) * 1000000;
+	ms = (now.tv_usec - time.tv_usec);
+	diff = (sec + ms) / 1000;
+	return (diff);
+}
+void	philo_printf(t_philo *philo, char *msg)
+{
+	int				diff;
+
 	pthread_mutex_lock(&(philo->info->flag_lock));
-	printf("flag : %d\n", philo->info->flag);
 	if (!philo->info->flag)
 	{
-	gettimeofday(&now, NULL);
-	sec = (now.tv_sec - philo->info->start_time.tv_sec) * 1000000;
-	ms = (now.tv_usec - philo->info->start_time.tv_usec);
-	diff = (sec + ms) / 1000;
-	// pthread_mutex_lock(&(philo->info->print));
-		printf("%d %d %s", diff, philo->idx + 1, msg);
-	pthread_mutex_unlock(&(philo->info->flag_lock));
+		diff = get_diff(philo->info->start_time);
+		printf("%d %d %s", diff, philo->idx, msg);
 	}
-	// pthread_mutex_unlock(&(philo->info->print));
+	pthread_mutex_unlock(&(philo->info->flag_lock));
 }
 
-void	ft_usleep(int time)
+void	ft_usleep(int time, t_philo *philo)
 {
 	struct timeval	start;
 	struct timeval	now;
@@ -69,7 +72,7 @@ void	ft_usleep(int time)
 	double			diff;
 
 	gettimeofday(&start, NULL);
-	while (1)
+	while (!philo->info->flag)
 	{
 		usleep(10);
 		gettimeofday(&now, NULL);
