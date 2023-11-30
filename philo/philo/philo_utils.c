@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:55:20 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/30 10:17:12 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/30 10:40:23 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	philo_printf(t_philo *philo, char *msg)
 	if (!philo->info->flag)
 	{
 		diff = get_diff(philo->info->start_time);
-		printf("%d %d %s", diff, philo->idx, msg);
+		printf("%d %d %s", diff, philo->idx + 1, msg);
 	}
 	pthread_mutex_unlock(&(philo->info->flag_lock));
 }
@@ -74,7 +74,7 @@ void	ft_usleep(int time, t_philo *philo)
 	gettimeofday(&start, NULL);
 	while (!philo->info->flag)
 	{
-		usleep(10);
+		usleep(100);
 		gettimeofday(&now, NULL);
 		sec = (now.tv_sec - start.tv_sec) * 1000000;
 		ms = ((double)now.tv_usec - start.tv_usec);

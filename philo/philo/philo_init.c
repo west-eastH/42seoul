@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:25:53 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/30 09:47:48 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/30 10:53:31 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	init(t_info *info, int argc, char *argv[])
 {
 	info->flag = 0;
 	info->philo_num = ft_atoi(argv[1]);
-	info->time_to_die = ft_atoi(argv[2]);
+	info->time_to_die = ft_atoi(argv[2]) * 1000;
 	info->time_to_eat = ft_atoi(argv[3]) * 1000;
 	info->time_to_sleep = ft_atoi(argv[4]) * 1000;
 	if (argc == 5)

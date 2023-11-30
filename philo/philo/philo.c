@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/30 09:50:37 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/11/30 10:54:02 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	eating(t_philo *philo)
 {
+	int				diff;
+	int				sec;
+	int				ms;
+
 	pthread_mutex_lock(&(philo->info->lock[philo->left]));
 	philo_printf(philo, "has taken a fork\n");
 	if (!pthread_mutex_lock(&(philo->info->lock[philo->right])))
@@ -22,6 +26,15 @@ void	eating(t_philo *philo)
 		philo_printf(philo, "is eating\n");
 		ft_usleep(philo->info->time_to_eat, philo);
 		gettimeofday(&(philo->after_eat), NULL);
+		pthread_mutex_lock(&(philo->info->flag_lock));
+	if (!philo->info->flag)
+	{
+		sec = (philo->after_eat.tv_sec - philo->info->start_time.tv_sec) * 1000000;
+		ms = (philo->after_eat.tv_usec - philo->info->start_time.tv_usec);
+		diff = (sec + ms) / 1000;
+		printf("%d %d after\n", diff, philo->idx);
+	}
+	pthread_mutex_unlock(&(philo->info->flag_lock));
 		philo->eat_cnt++;
 		if (philo->idx % 2 != 0)
 			ft_usleep(5, philo);
