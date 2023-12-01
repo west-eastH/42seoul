@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/30 11:39:46 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/01 09:47:40 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,10 @@ void	eating(t_philo *philo)
 		ft_usleep(philo->info->time_to_eat, philo);
 		gettimeofday(&(philo->after_eat), NULL);
 		philo->eat_cnt++;
-		if (philo->idx % 2 != 0)
-			ft_usleep(5, philo);
 		pthread_mutex_unlock(&(info->lock[(philo->idx + 1) % info->philo_num]));
 	}
 	else
-		ft_usleep(philo->info->time_to_die, philo);
+		ft_usleep(philo->info->time_to_die * 2, philo);
 	pthread_mutex_unlock(&(philo->info->lock[philo->idx]));
 }
 
@@ -81,13 +79,11 @@ void	check_end(t_philo philo[])
 		cnt = 0;
 		while (j < philo[0].info->philo_num)
 		{
-			usleep(100);
 			if (is_died(&philo[j]))
 				return ;
 			if (philo[j].eat_cnt >= philo[0].info->min_cnt)
 				cnt++;
 			j++;
-			usleep(100);
 		}
 		if (philo->info->min_cnt && cnt == philo[0].info->philo_num)
 		{
@@ -96,6 +92,7 @@ void	check_end(t_philo philo[])
 			pthread_mutex_unlock(&(philo->info->flag_lock));
 			return ;
 		}
+		usleep(100);
 	}
 }
 
