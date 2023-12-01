@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 12:12:23 by yusekim           #+#    #+#             */
-/*   Updated: 2023/12/01 12:49:05 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:56:56 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		init(t_info *info, int argc, char *argv[]);
 void	init_philo(t_info *info, t_philo philo[]);
 int		ft_atoi(const char *str);
 void	philo_printf(t_philo *philo, char *msg);
-void	ft_usleep(int time, t_philo *philo);
+void	ft_usleep(long long time, t_philo *philo);
 void	eating(t_philo *philo);
 void	*start(void *data);
 int		is_died(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/01 16:51:44 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:54:29 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	check_end(t_philo philo[])
 			pthread_mutex_unlock(&(philo[j].info->cnt_lock[j]));
 			j++;
 		}
-		if (philo->info->min_cnt && cnt == philo[0].info->philo_num)
+		if (philo->info->min_cnt != -1 && cnt == philo[0].info->philo_num)
 		{
 			pthread_mutex_lock(&(philo->info->flag_lock));
 			philo[0].info->flag = 1;

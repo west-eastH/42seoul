@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:55:20 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/01 16:49:38 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:56:42 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ void	philo_printf(t_philo *philo, char *msg)
 	pthread_mutex_unlock(&(philo->info->flag_lock));
 }
 
-void	ft_usleep(int time, t_philo *philo)
+void	ft_usleep(long long time, t_philo *philo)
 {
 	struct timeval	start;
 	struct timeval	now;
-	double			diff;
-	double			target;
+	long long		diff;
+	long long		target;
 
 	gettimeofday(&start, NULL);
 	target = start.tv_sec * 1000000 + start.tv_usec;
