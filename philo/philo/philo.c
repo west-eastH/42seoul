@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/01 09:47:40 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:51:44 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,22 @@ void	eating(t_philo *philo)
 	philo_printf(philo, "has taken a fork\n");
 	if (philo->info->philo_num > 1)
 	{
-		pthread_mutex_lock(&(info->lock[(philo->idx + 1) % info->philo_num]));
-		philo_printf(philo, "has taken a fork\n");
-		philo_printf(philo, "is eating\n");
-		ft_usleep(philo->info->time_to_eat, philo);
-		gettimeofday(&(philo->after_eat), NULL);
-		philo->eat_cnt++;
-		pthread_mutex_unlock(&(info->lock[(philo->idx + 1) % info->philo_num]));
+		if (!pthread_mutex_lock(&(info->lock[(philo->idx + 1) % info->philo_num])))
+		{
+			philo_printf(philo, "has taken a fork\n");
+			philo_printf(philo, "is eating\n");
+			ft_usleep(philo->info->time_to_eat * 1000, philo);
+			pthread_mutex_lock(&(philo->info->after_lock[philo->idx]));
+			gettimeofday(&(philo->after_eat), NULL);
+			pthread_mutex_unlock(&(philo->info->after_lock[philo->idx]));
+			pthread_mutex_lock(&(philo->info->cnt_lock[philo->idx]));
+			philo->eat_cnt++;
+			pthread_mutex_unlock(&(philo->info->cnt_lock[philo->idx]));
+			pthread_mutex_unlock(&(info->lock[(philo->idx + 1) % info->philo_num]));	
+		}
 	}
 	else
-		ft_usleep(philo->info->time_to_die * 2, philo);
+		ft_usleep(philo->info->time_to_die * 1500, philo);
 	pthread_mutex_unlock(&(philo->info->lock[philo->idx]));
 }
 
@@ -40,14 +46,18 @@ void	*start(void *data)
 
 	philo = (t_philo *)data;
 	if (philo->idx % 2 != 0)
-		ft_usleep(philo->info->time_to_die / 4, philo);
+		ft_usleep(philo->info->time_to_die * 250, philo);
+	pthread_mutex_lock(&(philo->info->flag_lock));
 	while (!philo->info->flag)
 	{
+		pthread_mutex_unlock(&(philo->info->flag_lock));
 		eating(philo);
 		philo_printf(philo, "is sleeping\n");
-		ft_usleep(philo->info->time_to_sleep, philo);
+		ft_usleep(philo->info->time_to_sleep * 1000, philo);
 		philo_printf(philo, "is thinking\n");
+		pthread_mutex_lock(&(philo->info->flag_lock));
 	}
+	pthread_mutex_unlock(&(philo->info->flag_lock));
 	return (NULL);
 }
 
@@ -55,8 +65,10 @@ int	is_died(t_philo *philo)
 {
 	int				diff;
 
+	pthread_mutex_lock(&(philo->info->after_lock[philo->idx]));
 	diff = get_diff(philo->after_eat);
-	if (diff > philo->info->time_to_die / 1000)
+	pthread_mutex_unlock(&(philo->info->after_lock[philo->idx]));
+	if (diff > philo->info->time_to_die)
 	{
 		pthread_mutex_lock(&(philo->info->flag_lock));
 		philo->info->flag = 1;
@@ -81,8 +93,10 @@ void	check_end(t_philo philo[])
 		{
 			if (is_died(&philo[j]))
 				return ;
+			pthread_mutex_lock(&(philo[j].info->cnt_lock[j]));
 			if (philo[j].eat_cnt >= philo[0].info->min_cnt)
 				cnt++;
+			pthread_mutex_unlock(&(philo[j].info->cnt_lock[j]));
 			j++;
 		}
 		if (philo->info->min_cnt && cnt == philo[0].info->philo_num)
@@ -92,7 +106,6 @@ void	check_end(t_philo philo[])
 			pthread_mutex_unlock(&(philo->info->flag_lock));
 			return ;
 		}
-		usleep(100);
 	}
 }
 

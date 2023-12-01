@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:25:53 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/30 11:21:09 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:53:04 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void	mutex_init(t_info *info)
 
 	i = 0;
 	while (i++ < info->philo_num)
+	{
 		pthread_mutex_init(&(info->lock[i - 1]), NULL);
+		pthread_mutex_init(&(info->after_lock[i - 1]), NULL);
+		pthread_mutex_init(&(info->cnt_lock[i - 1]), NULL);
+	}
 	pthread_mutex_init(&(info->flag_lock), NULL);
 }
 
@@ -26,9 +30,9 @@ int	init(t_info *info, int argc, char *argv[])
 {
 	info->flag = 0;
 	info->philo_num = ft_atoi(argv[1]);
-	info->time_to_die = ft_atoi(argv[2]) * 1000;
-	info->time_to_eat = ft_atoi(argv[3]) * 1000;
-	info->time_to_sleep = ft_atoi(argv[4]) * 1000;
+	info->time_to_die = ft_atoi(argv[2]);
+	info->time_to_eat = ft_atoi(argv[3]);
+	info->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 5)
 		info->min_cnt = 0;
 	else
@@ -39,6 +43,12 @@ int	init(t_info *info, int argc, char *argv[])
 		return (1);
 	info->lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
 	if (!info->lock)
+		return (1);
+	info->after_lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
+	if (!info->after_lock)
+		return (1);
+	info->cnt_lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
+	if (!info->cnt_lock)
 		return (1);
 	mutex_init(info);
 	gettimeofday(&info->start_time, NULL);

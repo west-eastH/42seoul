@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:55:20 by dongseo           #+#    #+#             */
-/*   Updated: 2023/11/30 11:17:26 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:49:38 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ int	ft_atoi(const char *str)
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			sign *= -1;
+			return (-1);
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res *= 10;
 		res += str[i] - '0';
+		if (res > 2147483647)
+			return (-1);
 		i++;
 	}
 	return (sign * res);
@@ -74,12 +76,17 @@ void	ft_usleep(int time, t_philo *philo)
 
 	gettimeofday(&start, NULL);
 	target = start.tv_sec * 1000000 + start.tv_usec;
+	
+	pthread_mutex_lock(&(philo->info->flag_lock));
 	while (!philo->info->flag)
 	{
+		pthread_mutex_unlock(&(philo->info->flag_lock));
 		usleep(100);
 		gettimeofday(&now, NULL);
 		diff = now.tv_sec * 1000000 + now.tv_usec - target;
 		if (diff > time)
 			return ;
+		pthread_mutex_lock(&(philo->info->flag_lock));
 	}
+	pthread_mutex_unlock(&(philo->info->flag_lock));
 }

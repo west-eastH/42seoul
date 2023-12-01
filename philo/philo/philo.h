@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 12:12:23 by yusekim           #+#    #+#             */
-/*   Updated: 2023/11/30 11:20:48 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/01 12:49:05 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@
 typedef struct s_info
 {
 	int				philo_num;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
 	int				min_cnt;
 	int				flag;
 	pthread_mutex_t	*lock;
+	pthread_mutex_t	*after_lock;
+	pthread_mutex_t	*cnt_lock;
 	pthread_mutex_t	flag_lock;
 	struct timeval	start_time;
 }	t_info;
