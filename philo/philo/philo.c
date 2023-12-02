@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/02 14:00:23 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/02 14:22:52 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,8 @@ int	main(int argc, char *argv[])
 		pthread_join(philo[i].pthread, NULL);
 		i++;
 	}
+	free(philo);
+	free(info.after_lock);
+	free(info.lock);
 	return (0);
 }

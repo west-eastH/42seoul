@@ -15,7 +15,7 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 SRCS = ./philo.c \
 		./philo_utils.c \
 		./philo_init.c \
