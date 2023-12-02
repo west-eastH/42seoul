@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:25:53 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/01 16:54:03 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/01 18:35:30 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ void	mutex_init(t_info *info)
 	pthread_mutex_init(&(info->flag_lock), NULL);
 }
 
+int	mutex_malloc(t_info *info)
+{
+	info->lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
+	if (!info->lock)
+		return (1);
+	info->after_lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
+	if (!info->after_lock)
+		return (1);
+	info->cnt_lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
+	if (!info->cnt_lock)
+		return (1);
+	return (0);
+}
+
 int	init(t_info *info, int argc, char *argv[])
 {
 	info->flag = 0;
@@ -40,18 +54,13 @@ int	init(t_info *info, int argc, char *argv[])
 		info->min_cnt = ft_atoi(argv[5]);
 		if (info->min_cnt < 0)
 			return (1);
+		else if (info->min_cnt == 0)
+			return (2);
 	}
 	if (info->philo_num <= 0 || info->time_to_die < 0
 		|| info->time_to_eat < 0 || info->time_to_sleep < 0)
 		return (1);
-	info->lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
-	if (!info->lock)
-		return (1);
-	info->after_lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
-	if (!info->after_lock)
-		return (1);
-	info->cnt_lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
-	if (!info->cnt_lock)
+	if (mutex_malloc(info))
 		return (1);
 	mutex_init(info);
 	gettimeofday(&info->start_time, NULL);

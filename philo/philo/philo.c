@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/01 16:54:29 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/02 14:00:23 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	eating(t_philo *philo)
 {
-	t_info	*info;
+	int	num;
 
-	info = philo->info;
+	num = philo->info->philo_num;
 	pthread_mutex_lock(&(philo->info->lock[philo->idx]));
 	philo_printf(philo, "has taken a fork\n");
 	if (philo->info->philo_num > 1)
 	{
-		if (!pthread_mutex_lock(&(info->lock[(philo->idx + 1) % info->philo_num])))
+		if (!pthread_mutex_lock(&(philo->info->lock[(philo->idx + 1) % num])))
 		{
 			philo_printf(philo, "has taken a fork\n");
 			philo_printf(philo, "is eating\n");
@@ -32,7 +32,7 @@ void	eating(t_philo *philo)
 			pthread_mutex_lock(&(philo->info->cnt_lock[philo->idx]));
 			philo->eat_cnt++;
 			pthread_mutex_unlock(&(philo->info->cnt_lock[philo->idx]));
-			pthread_mutex_unlock(&(info->lock[(philo->idx + 1) % info->philo_num]));	
+			pthread_mutex_unlock(&(philo->info->lock[(philo->idx + 1) % num]));
 		}
 	}
 	else
@@ -117,7 +117,8 @@ int	main(int argc, char *argv[])
 
 	if (argc < 5 || argc > 6 || init(&info, argc, argv))
 	{
-		printf("error\n");
+		if (init(&info, argc, argv) != 2)
+			printf("error\n");
 		return (0);
 	}
 	philo = (t_philo *)malloc(sizeof(t_philo) * info.philo_num);

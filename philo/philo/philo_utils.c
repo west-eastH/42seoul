@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:55:20 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/01 16:56:42 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/01 18:24:29 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	ft_usleep(long long time, t_philo *philo)
 
 	gettimeofday(&start, NULL);
 	target = start.tv_sec * 1000000 + start.tv_usec;
-	
 	pthread_mutex_lock(&(philo->info->flag_lock));
 	while (!philo->info->flag)
 	{
