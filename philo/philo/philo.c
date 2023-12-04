@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/02 14:22:52 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/04 15:18:15 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	eating(t_philo *philo)
 		{
 			philo_printf(philo, "has taken a fork\n");
 			philo_printf(philo, "is eating\n");
-			ft_usleep(philo->info->time_to_eat * 1000, philo);
 			pthread_mutex_lock(&(philo->info->after_lock[philo->idx]));
 			gettimeofday(&(philo->after_eat), NULL);
 			pthread_mutex_unlock(&(philo->info->after_lock[philo->idx]));
+			ft_usleep(philo->info->time_to_eat * 1000, philo);
 			pthread_mutex_lock(&(philo->info->cnt_lock[philo->idx]));
 			philo->eat_cnt++;
 			pthread_mutex_unlock(&(philo->info->cnt_lock[philo->idx]));
