@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 12:12:23 by yusekim           #+#    #+#             */
-/*   Updated: 2023/12/04 16:14:23 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/04 16:31:36 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_info
 	int				min_cnt;
 	sem_t			*fork;
 	sem_t			*flag;
-	sem_t			*eat;
+	sem_t			**eat_cnt;
 	struct timeval	start_time;
 }	t_info;
 
