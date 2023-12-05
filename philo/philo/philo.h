@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 12:12:23 by yusekim           #+#    #+#             */
-/*   Updated: 2023/12/04 15:20:28 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:27:29 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <string.h>
 
 typedef struct s_info
 {
@@ -26,6 +27,7 @@ typedef struct s_info
 	long long		time_to_sleep;
 	int				min_cnt;
 	int				flag;
+	int				*fork;
 	pthread_mutex_t	*lock;
 	pthread_mutex_t	*after_lock;
 	pthread_mutex_t	*cnt_lock;
@@ -53,4 +55,6 @@ void	*start(void *data);
 int		is_died(t_philo *philo);
 void	check_end(t_philo philo[]);
 int		get_diff(struct timeval time);
+void	take_up_fork(t_philo *philo, int num);
+int		free_all(t_info *info, t_philo *philo, int exit_num);
 #endif
