@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 12:12:23 by yusekim           #+#    #+#             */
-/*   Updated: 2023/12/04 16:31:36 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:50:37 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_info
 	sem_t			*fork;
 	sem_t			*flag;
 	sem_t			**eat_cnt;
-	struct timeval	start_time;
 }	t_info;
 
 typedef struct s_philo
@@ -41,16 +40,4 @@ typedef struct s_philo
 	pthread_t		pthread;
 	t_info			*info;
 }	t_philo;
-
-void	mutex_init(t_info *info);
-int		init(t_info *info, int argc, char *argv[]);
-void	init_philo(t_info *info, t_philo philo[]);
-int		ft_atoi(const char *str);
-void	philo_printf(t_philo *philo, char *msg);
-void	ft_usleep(long long time, t_philo *philo);
-void	eating(t_philo *philo);
-void	*start(void *data);
-int		is_died(t_philo *philo);
-void	check_end(t_philo philo[]);
-int		get_diff(struct timeval time);
 #endif

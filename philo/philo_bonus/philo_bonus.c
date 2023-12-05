@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 15:45:48 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/04 15:59:27 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:26:32 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,7 @@ int	main(int argc, char *argv[])
 	}
 	philo = (t_philo *)malloc(sizeof(t_philo) * info.philo_num);
 	if (!philo)
-		return (1)
-	init_philo(&info, philo);
+		return (1);
 	i = 0;
-	while (i < info.philo_num)
-	{
-		pthread_join(philo[i].pthread, NULL);
-		i++;
-	}
-	free(philo);
-	free(info.after_lock);
-	free(info.lock);
 	return (0);
 }

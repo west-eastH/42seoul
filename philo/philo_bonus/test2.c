@@ -8,8 +8,8 @@
 #include <semaphore.h>      /* sem_open(), sem_destroy(), sem_wait().. */
 #include <fcntl.h>          /* O_CREAT, O_EXEC          */
 
-int main (){
 
+int main (){
     int i;                        /*      loop variables          */
     sem_t *sem;                   /*      synch semaphore         *//*shared */
     pid_t pid;                    /*      fork pid                */
@@ -68,7 +68,6 @@ int main (){
     /******************************************************/
     else{
         sem_wait (sem);           /* P operation */
-		printf("test\n\n");
         printf ("  Child(%d) is in critical section.\n", i);
         sleep (1);
         p += i % 3;              /* increment *p by 0, 1 or 2 based on i */
