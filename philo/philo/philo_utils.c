@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:55:20 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/05 20:27:52 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/07 16:41:09 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,46 +48,26 @@ void	ft_usleep(long long time, t_philo *philo)
 
 	gettimeofday(&start, NULL);
 	target = start.tv_sec * 1000000 + start.tv_usec;
-	pthread_mutex_lock(&(philo->info->flag_lock));
-	while (!philo->info->flag)
+	while (!check_flag(philo))
 	{
-		pthread_mutex_unlock(&(philo->info->flag_lock));
 		usleep(100);
 		gettimeofday(&now, NULL);
 		diff = now.tv_sec * 1000000 + now.tv_usec - target;
 		if (diff > time)
 			return ;
-		pthread_mutex_lock(&(philo->info->flag_lock));
 	}
-	pthread_mutex_unlock(&(philo->info->flag_lock));
 }
 
-void	take_up_fork(t_philo *philo, int num)
+int	check_flag(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->info->flag_lock));
-	while (!philo->info->flag)
+	if (philo->info->flag == 0)
 	{
 		pthread_mutex_unlock(&(philo->info->flag_lock));
-		pthread_mutex_lock(&(philo->info->lock[philo->idx]));
-		if (philo->info->fork[philo->idx] == 0)
-		{
-			philo->info->fork[philo->idx] = 1;
-			pthread_mutex_lock(&(philo->info->lock[(philo->idx + 1) % num]));
-			if (philo->info->fork[(philo->idx + 1) % num] == 0)
-			{
-				philo->info->fork[(philo->idx + 1) % num] = 1;
-				philo_printf(philo, "has taken a fork\n");
-				philo_printf(philo, "has taken a fork\n");
-				return ;
-			}
-			pthread_mutex_unlock(&(philo->info->lock[philo->idx]));
-		}
-		philo->info->fork[philo->idx] = 0;
-		pthread_mutex_unlock(&(philo->info->lock[philo->idx]));
-		usleep(100);
-		pthread_mutex_lock(&(philo->info->flag_lock));
+		return (0);
 	}
 	pthread_mutex_unlock(&(philo->info->flag_lock));
+	return (1);
 }
 
 int	free_all(t_info *info, t_philo *philo, int exit_num)

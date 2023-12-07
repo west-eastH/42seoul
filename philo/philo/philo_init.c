@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:25:53 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/05 20:00:54 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/07 16:47:09 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	mutex_malloc(t_info *info)
 
 int	init(t_info *info, int argc, char *argv[])
 {
+	if (argc < 5)
+		return (1);
 	info->flag = 0;
 	info->philo_num = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);

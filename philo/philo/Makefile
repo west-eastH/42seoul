@@ -19,6 +19,7 @@ CFLAGS = -Wall -Wextra -Werror
 SRCS = ./philo.c \
 		./philo_utils.c \
 		./philo_init.c \
+		./philo_eat.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 12:12:23 by yusekim           #+#    #+#             */
-/*   Updated: 2023/12/05 20:27:29 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/07 16:45:42 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	*start(void *data);
 int		is_died(t_philo *philo);
 void	check_end(t_philo philo[]);
 int		get_diff(struct timeval time);
-void	take_up_fork(t_philo *philo, int num);
+void	take_up_fork(t_philo *philo);
 int		free_all(t_info *info, t_philo *philo, int exit_num);
+int		check_fork(t_philo *philo, int lr);
+int		check_flag(t_philo *philo);
+void	unlock_fork(t_philo *philo, int lr);
 #endif
