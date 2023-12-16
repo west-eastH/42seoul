@@ -1,4 +1,4 @@
-#include "print.h"
+#include "../../include/print.h"
 
 // [0,1]로 되어있는 rgb 값을 각각 [0, 255]에 맵핑해서 출력
 void write_color(t_color3 pixel_color)

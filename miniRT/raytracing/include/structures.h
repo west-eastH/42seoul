@@ -14,6 +14,7 @@ typedef struct s_hit_record t_hit_record;
 typedef struct s_scene t_scene;
 typedef struct s_plane t_plane;
 typedef struct s_cylinder t_cylinder;
+typedef struct s_disk t_disk;
 
 
 typedef int	t_bool;
@@ -23,6 +24,7 @@ typedef int	t_object_type;
 #define SP 0
 #define PL 1
 #define CY 2
+#define DK 3
 #define LIGHT_POINT 1
 #define EPSILON 1e-6 //0.000001
 #define LUMEN 3 //이 값을 조절하여 장면의 밝기를 조절할 수 있다.
@@ -113,5 +115,12 @@ struct s_cylinder
 	t_vec3		normal;
 	double		height;
 	double		diameter;
+};
+
+struct s_disk
+{
+	t_point3	center;
+	t_vec3		normal;
+	double		radius;
 };
 #endif

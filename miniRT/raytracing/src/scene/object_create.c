@@ -55,6 +55,19 @@ t_cylinder	*cylinder(t_point3 center, t_vec3 normal, double height, double diame
 	return (cy);
 }
 
+t_disk	*disk(t_point3 center, t_vec3 normal, double radius)
+{
+	t_disk *disk;
+
+	disk = (t_disk *)malloc(sizeof(t_disk));
+	if (!disk)
+		return (NULL);
+	disk->center = center;
+	disk->normal = vunit(normal);
+	disk->radius = radius;
+	return (disk);
+}
+
 t_light		*light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio)
 {
 	t_light *light;
