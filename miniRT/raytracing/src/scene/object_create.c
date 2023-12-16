@@ -36,19 +36,20 @@ t_plane	*plane(t_point3 point, t_vec3 normal)
 	if (!pl)
 		return (NULL);
 	pl->point = point;
-	pl->normal = normal;
+	pl->normal = vunit(normal);
 	return (pl);
 }
 
-t_cylinder	*cylinder(t_point3 point, t_vec3 normal, double height, double diameter)
+t_cylinder	*cylinder(t_point3 center, t_vec3 normal, double height, double diameter)
 {
 	t_cylinder *cy;
 
 	cy = (t_cylinder *)malloc(sizeof(t_cylinder));
 	if (!cy)
 		return (NULL);
-	cy->point = point;
-	cy->normal = normal;
+	cy->center = center;
+	cy->normal = vunit(normal);
+	// cy->normal = normal;
 	cy->height = height;
 	cy->diameter = diameter;
 	return (cy);

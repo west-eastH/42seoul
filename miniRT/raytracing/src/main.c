@@ -18,15 +18,15 @@ t_scene	*scene_init()
 	scene->canvas = canvas(400, 300);
 	scene->camera = camera(&scene->canvas, point3(0, 0, 0));
 	world = NULL;
-	oadd(&world, object(CY, cylinder(point3(0, 0, -5), vec3(0,1,0), 10, 10), color3(0, 0.5, 0)));
+	oadd(&world, object(CY, cylinder(point3(0, 0, -5), vec3(1,1,1), 4, 4), color3(0, 0.5, 0)));
 	//oadd(&world, object(SP, sphere(point3(-2, 0, -5), 2), color3(0.5, 0, 0))); //world에 구1 추가
 	//oadd(&world, object(SP, sphere(point3(0, -1000, 0), 995), color3(1, 1, 1))); 
 	//oadd(&world, object(SP, sphere(point3(2, 0, -5), 2), color3(0, 0.5, 0))); //world에 구3 추가
-	oadd(&world, object(PL, plane(point3(0, 10, 0), vec3(0,-1,0)), color3(0, 0.5, 0)));
-	oadd(&world, object(PL, plane(point3(0, -10, 0), vec3(0,1,0)), color3(1, 0, 0)));
+	//oadd(&world, object(PL, plane(point3(0, 10, 0), vec3(0,-1,0)), color3(0, 0.5, 0)));
+	//oadd(&world, object(PL, plane(point3(0, -10, 0), vec3(0,1,0)), color3(1, 0, 0)));
 	scene->world = world;
 	
-	lights = object(LIGHT_POINT, light_point(point3(0, 3, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0)); //더미 albedo
+	lights = object(LIGHT_POINT, light_point(point3(0, 0, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0)); //더미 albedo
 	scene->light = lights;
 	ka = 0.1;
 	scene->ambient = vmult(color3(1, 1, 1), ka);

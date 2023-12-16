@@ -109,7 +109,7 @@ struct s_plane
 
 struct s_cylinder
 {
-	t_point3	point;
+	t_point3	center;
 	t_vec3		normal;
 	double		height;
 	double		diameter;

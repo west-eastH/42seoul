@@ -52,12 +52,13 @@ t_bool	hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 	double discriminant; //판별식
 	double sqrtd;
 	double root;
+	double h;
 
 	cy = cy_obj->element;
-	oc = vminus(ray->orig, cy->point);
-	a = vlength2(ray->dir);
-	half_b = vdot(oc, ray->dir);
-	c = vlength2(oc) - (cy->diameter / 2);
+	oc = vminus(ray->orig, cy->center);
+	a = vlength2(vcross(cy->normal, ray->dir));
+	half_b = vdot(vcross(cy->normal, ray->dir), vcross(cy->normal, oc));
+	c = vlength2(vcross(cy->normal, oc)) - ((cy->diameter / 2) * (cy->diameter / 2));
 	discriminant = half_b * half_b - a * c;
 
 	if (discriminant < 0)
@@ -65,17 +66,17 @@ t_bool	hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 	sqrtd = sqrt(discriminant);
 	//두 실근(t) 중 tmin과 tmax 사이에 있는 근이 있는지 체크, 작은 근부터 체크
 	root = (-half_b - sqrtd) / a;
-	if (root < rec->tmin || rec->tmax < root)
+	h = vdot(vminus(ray_at(ray, root), cy->center), cy->normal);
+	if (root < rec->tmin || rec->tmax < root || (h > cy->height / 2) || -h > cy->height / 2)
 	{
 		root = (-half_b + sqrtd) / a;
-		if (root < rec->tmin || root > rec->tmax)
+		h = vdot(vminus(ray_at(ray, root), cy->center), cy->normal);
+		if (root < rec->tmin || root > rec->tmax || (h > cy->height / 2) || -h > cy->height / 2)
 			return (FALSE);
 	}
-	/* if (root != vdot(vminus(cy->point, ray->orig), cy->normal) / vdot(ray->dir, cy->normal))
-		return (FALSE); */
 	rec->t = root;
 	rec->p = ray_at(ray, root);
-	rec->normal = vec3(vminus(rec->p, cy->point).x, 0, vminus(rec->p, cy->point).z);
+	rec->normal = vunit(vminus(rec->p, vplus(cy->center, vmult(cy->normal, h))));
 	// rec의 법선벡터와 광선의 방향벡터를 비교해서 앞면인지 뒷면인지 t_bool 값으로 저장
 	set_face_normal(ray, rec);
 	rec->albedo = cy_obj->albedo;
