@@ -55,6 +55,20 @@ t_cylinder	*cylinder(t_point3 center, t_vec3 normal, double height, double diame
 	return (cy);
 }
 
+t_cone	*cone(t_point3 center, t_vec3 normal, double height, double radius)
+{
+	t_cone *cn;
+
+	cn = (t_cone *)malloc(sizeof(t_cone));
+	if (!cn)
+		return (NULL);
+	cn->center = center;
+	cn->normal = vunit(normal);
+	cn->height = height;
+	cn->radius = radius;
+	return (cn);
+}
+
 t_disk	*disk(t_point3 center, t_vec3 normal, double radius)
 {
 	t_disk *disk;

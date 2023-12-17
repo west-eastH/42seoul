@@ -11,5 +11,6 @@ t_object	*object(t_object_type type, void *element, t_color3 albedo);
 t_light		*light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio);
 t_plane		*plane(t_point3 point, t_vec3 normal);
 t_cylinder	*cylinder(t_point3 center, t_vec3 normal, double height, double diameter);
+t_cone		*cone(t_point3 center, t_vec3 normal, double height, double radius);
 t_disk		*disk(t_point3 center, t_vec3 normal, double radius);
 #endif
