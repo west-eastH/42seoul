@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:31 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/07 16:48:58 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/16 16:15:47 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(int argc, char *argv[])
 	int		i;
 	int		check;
 
-	check = init(&info, argc, argv);
+	check = init(memset(&info, 0, sizeof(info)), argc, argv);
 	if (argc < 5 || argc > 6 || check == 1)
 	{
 		printf("error\n");
