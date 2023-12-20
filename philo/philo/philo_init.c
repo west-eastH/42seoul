@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:25:53 by dongseo           #+#    #+#             */
-/*   Updated: 2023/12/07 16:47:09 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/12/20 11:04:28 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	mutex_malloc(t_info *info)
 {
 	int	i;
 
-	info->fork = malloc(sizeof(int) * info->philo_num);
+	info->fork = (int *)malloc(sizeof(int) * info->philo_num);
 	if (!info->fork)
 		return (1);
 	i = 0;
 	while (i++ < info->philo_num)
-		info->fork[i] = 0;
+		info->fork[i - 1] = 0;
 	info->lock = malloc(sizeof(pthread_mutex_t) * info->philo_num);
 	if (!info->lock)
 		return (1);
