@@ -16,6 +16,7 @@ typedef struct s_plane t_plane;
 typedef struct s_cylinder t_cylinder;
 typedef struct s_disk t_disk;
 typedef struct s_cone t_cone;
+typedef struct s_param t_param;
 
 
 typedef int	t_bool;
@@ -59,6 +60,13 @@ struct s_canvas
 	int	width;	//canvas width
 	int	height;	//canvas height
 	double	aspect_ratio;	//종황비
+};
+
+struct s_param
+{
+	void	*mlx;
+	void	*win;
+	t_scene	*scene;
 };
 
 struct s_sphere

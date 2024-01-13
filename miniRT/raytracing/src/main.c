@@ -4,6 +4,7 @@
 #include "../include/print.h"
 #include "../include/scene.h"
 #include "../include/trace.h"
+# include "mlx.h"
 
 t_scene	*scene_init()
 {
@@ -56,15 +57,22 @@ t_scene	*scene_init()
 	return (scene);
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	int i;
 	int j;
 	double u;
 	double v;
+	t_param	par;
 	t_color3 pixel_color;
 	t_scene	*scene;
+	
 
+	if (argc < 1 || argc > 3)
+		return (0);
+	init(&par, argv[1]);
+	if (par.fd < 0)
+		return (0);
 	//Scene setting;
 	scene = scene_init();
 	//렌더링
