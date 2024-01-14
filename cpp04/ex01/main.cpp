@@ -1,11 +1,11 @@
 #include "Dog.hpp"
 #include "Cat.hpp"
-/* 
+
 void a()
 {
 	system("leaks a.out");
 }
- */
+
 int main()
 {
 	//atexit(a);

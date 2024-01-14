@@ -3,33 +3,29 @@
 
 	AMateria::AMateria()
 	{
-		this->_type = std::string("Default");
-		std::cout << "AMateria constructor called" << std::endl;
+		this->_type = "default";
 	}
 	
 	AMateria::AMateria(std::string const & type)
 	{	
-		this->_type = std::string(type);
-		std::cout << "AMateria constructor called" << std::endl;
+		this->_type = type;
 	}
 	
 	AMateria::~AMateria()
 	{
-		std::cout << "AMateria Destructor called" << std::endl;
 	}
 	
 	AMateria::AMateria(const AMateria &origin)
 	{
-		this->_type = std::string(origin.getType());
-		std::cout << "AMateria Copy constructor called" << std::endl;
+		this->_type = origin.getType();
 	}
 	
 	AMateria& AMateria::operator=(const AMateria &origin)
 	{
 		if (this != &origin)
 		{
-			this->_type = std::string(origin.getType());
-			std::cout << "AMateria Copy assignment operator called" << std::endl;
+			this->_type = origin.getType();
+
 		}
 		return *this;	
 	}
@@ -38,12 +34,9 @@
 	{
 		return (this->_type);
 	}
-	
-	AMateria* AMateria::clone() const
-	{
-	}
-	
+
 	void AMateria::use(ICharacter& target)
 	{
+		(void)target;
 	}
 	

@@ -5,11 +5,11 @@
 class Brain
 {
 	protected:
-		std::string *idea;
+		std::string idea[100];
 	public:
 		Brain();
 		~Brain();
 		Brain(const Brain &origin);
 		Brain& operator=(const Brain &origin);
-		std::string *getIdea() const;
+		std::string getIdea(int idx) const;
 };

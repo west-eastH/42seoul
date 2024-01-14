@@ -2,33 +2,26 @@
 
 Cure::Cure() : AMateria("cure")
 {
-	std::cout << "Cure constructor called" << std::endl;
 }
 
 Cure::Cure(std::string const & type) : AMateria(type)
 {
-	std::cout << "Cure constructor called" << std::endl;
 }
 
 Cure::~Cure()
 {
-	std::cout << "Cure Destructor called" << std::endl;
 }
 
 Cure::Cure(const Cure &origin)
 {
-	this->_type = std::string(origin.getType());
-	std::cout << "Cure Copy constructor called" << std::endl;
+	this->_type = origin.getType();
 }
 
 Cure& Cure::operator=(const Cure &origin)
 {
 	if (this != &origin)
-		{
-			this->_type = std::string(origin.getType());
-			std::cout << "Cure Copy assignment operator called" << std::endl;
-		}
-		return *this;	
+		this->_type = origin.getType();
+	return *this;	
 }
 
 Cure* Cure::clone() const
