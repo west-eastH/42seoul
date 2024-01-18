@@ -2,8 +2,14 @@
 #include "Cat.hpp"
 #include "WrongCat.hpp"
 
+void a()
+{
+	system("leaks a.out");
+}
+
 int main()
 {
+	//atexit(a);
 	const Animal* meta = new Animal();
 	const Animal* j = new Dog();
 	const Animal* i = new Cat();
@@ -19,6 +25,11 @@ int main()
 
 	meta2->makeSound();
 	k->makeSound();
+	delete i;
+	delete j;
+	delete meta;
+	delete meta2;
+	delete k;
 
 	return 0;
 }

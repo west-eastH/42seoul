@@ -2,61 +2,69 @@
 
 Character::Character()
 {
-	this->name = "default";
+	this->_name = "default";
 	for (int i = 0; i < 4; i++)
-		this->slot[i] = NULL;
+		this->_slot[i] = NULL;
 }
 
 Character::Character(std::string const & name)
 {	
-	this->name = name;
+	this->_name = name;
 	for (int i = 0; i < 4; i++)
-		this->slot[i] = NULL;
+		this->_slot[i] = NULL;
 }
 
 Character::~Character()
 {
 	for(int i = 0; i < 4; i++)
 	{
-		if (this->slot[i] != NULL)
-			delete this->slot[i];
+		if (this->_slot[i] != NULL)
+			delete this->_slot[i];
 	}
 }
 
 Character::Character(const Character &origin)
 {
-	this->name = origin.getName();
+	this->_name = origin.getName();
 	for (int i = 0; i < 4; i++)
-		this->slot[i] = origin.slot[i];
+	{
+		if (origin._slot[i] != NULL)
+			this->_slot[i] = origin._slot[i]->clone();
+		else
+			this->_slot[i] = NULL;
+	}
 }
 
 Character& Character::operator=(const Character &origin)
 {
 	if (this != &origin)
 	{
-		this->name = origin.getName();
+		this->_name = origin.getName();
 		for(int i = 0; i < 4; i++)
 		{
-			delete this->slot[i];
-			this->slot[i] = origin.slot[i];
+			if (this->_slot[i] != NULL)
+				delete this->_slot[i];
+			if (origin._slot[i] != NULL)
+				this->_slot[i] = origin._slot[i]->clone();
+			else
+				this->_slot[i] = NULL;
 		}
-
 	}
-	return *this;	
+	return *this;
 }
 
 std::string const & Character::getName() const
 {
-	return this->name;
+	return this->_name;
 }
 
 void Character::equip(AMateria* m)
 {
 	for (int i = 0; i < 4; i++)
 	{
-		if (this->slot[i] == NULL)
+		if (this->_slot[i] == NULL)
 		{
-			this->slot[i] = m;
+			this->_slot[i] = m;
 			break;
 		}
 	}
@@ -64,14 +72,15 @@ void Character::equip(AMateria* m)
 
 void Character::unequip(int idx)
 {
-	if (idx < 0 || idx > 3 || this->slot[idx] == NULL)
+	if (idx < 0 || idx > 3 || this->_slot[idx] == NULL)
 		return ;
-	this->slot[idx] = NULL;
+	Floor::addItem(this->_slot[idx]);
+	this->_slot[idx] = NULL;
 }
 
 void Character::use(int idx, ICharacter& target)
 {
-	if (idx < 0 || idx > 3 || this->slot[idx] == NULL)
+	if (idx < 0 || idx > 3 || this->_slot[idx] == NULL)
 		return ;
-	this->slot[idx]->use(target);
+	this->_slot[idx]->use(target);
 }

@@ -7,7 +7,7 @@ WrongCat::WrongCat() : WrongAnimal("WrongCat")
 
 WrongCat::~WrongCat()
 {
-	std::cout << "WrongCat Destructor called" << std::endl;
+	std::cout << "WrongCat destructor called" << std::endl;
 
 }
 

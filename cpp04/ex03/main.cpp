@@ -8,7 +8,7 @@ void a()
 
 int main()
 {
-	atexit(a);
+	//atexit(a);
 	IMateriaSource* src = new MateriaSource();
 	src->learnMateria(new Ice());
 	src->learnMateria(new Cure());
@@ -21,9 +21,8 @@ int main()
 	ICharacter* bob = new Character("bob");
 	me->use(0, *bob);
 	me->use(1, *bob);
-
 	delete bob;
 	delete me;
 	delete src;
-return 0;
+	return 0;
 }

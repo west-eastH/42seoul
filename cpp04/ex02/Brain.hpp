@@ -4,12 +4,13 @@
 
 class Brain
 {
-	protected:
-		std::string idea[100];
+	private:
+		std::string ideas[100];
 	public:
 		Brain();
 		~Brain();
 		Brain(const Brain &origin);
 		Brain& operator=(const Brain &origin);
-		std::string getIdea(int idx) const;
+		const std::string getIdea(int idx) const;
+		void setIdea(std::string const str,int idx);
 };

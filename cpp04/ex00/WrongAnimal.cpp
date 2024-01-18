@@ -14,7 +14,7 @@ WrongAnimal::WrongAnimal(std::string type)
 
 WrongAnimal::~WrongAnimal()
 {
-	std::cout << "WrongAnimal Destructor called" << std::endl;
+	std::cout << "WrongAnimal destructor called" << std::endl;
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal &origin)
@@ -33,7 +33,7 @@ WrongAnimal& WrongAnimal::operator=(const WrongAnimal &origin)
 	return *this;
 }
 
-const std::string WrongAnimal::getType() const
+const std::string& WrongAnimal::getType() const
 {
 	return this->type;
 }

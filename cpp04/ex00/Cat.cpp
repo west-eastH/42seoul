@@ -7,7 +7,7 @@ Cat::Cat() : Animal("Cat")
 
 Cat::~Cat()
 {
-	std::cout << "Cat Destructor called" << std::endl;
+	std::cout << "Cat destructor called" << std::endl;
 
 }
 

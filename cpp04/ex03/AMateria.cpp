@@ -23,10 +23,7 @@
 	AMateria& AMateria::operator=(const AMateria &origin)
 	{
 		if (this != &origin)
-		{
 			this->_type = origin.getType();
-
-		}
 		return *this;	
 	}
 	

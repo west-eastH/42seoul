@@ -21,6 +21,7 @@ SRCS =	main.cpp \
 		Cure.cpp \
 		Character.cpp \
 		MateriaSource.cpp \
+		Floor.cpp \
 
 
 OBJS = $(SRCS:.cpp=.o)

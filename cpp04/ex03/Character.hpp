@@ -7,9 +7,9 @@
 
 class Character : public ICharacter
 {
-	protected:
-		std::string name;
-		AMateria* slot[4];
+	private:
+		std::string _name;
+		AMateria* _slot[4];
 	public:
 		Character();
 		Character(std::string const & name);
