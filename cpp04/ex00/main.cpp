@@ -15,6 +15,7 @@ int main()
 	const Animal* i = new Cat();
 	const WrongAnimal* meta2 = new WrongAnimal();
 	const WrongAnimal* k = new WrongCat();
+	std::cout << "===================================" << std::endl;
 
 	std::cout << j->getType() << " " << std::endl;
 	std::cout << i->getType() << " " << std::endl;
@@ -25,6 +26,7 @@ int main()
 
 	meta2->makeSound();
 	k->makeSound();
+	std::cout << "===================================" << std::endl;
 	delete i;
 	delete j;
 	delete meta;

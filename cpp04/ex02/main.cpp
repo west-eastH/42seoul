@@ -26,6 +26,7 @@ int main()
 	delete j;
 	/* Cat test1;
 	Cat test2 = test1;
+	std::cout << "===================================" << std::endl;
 	for (int i = 0; i < 5; i++)
 	{
 		test1.getBrain()->setIdea("test", i);
@@ -34,7 +35,8 @@ int main()
 	{
 		std::cout << test1.getBrain()->getIdea(i) << std::endl;
 		std::cout << test2.getBrain()->getIdea(i) << std::endl;
-	}
- */
+	} 
+	std::cout << "===================================" << std::endl; */
+
 	return 0;
 }
