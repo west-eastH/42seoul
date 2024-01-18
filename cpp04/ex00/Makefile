@@ -29,9 +29,9 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@$(CXX) $(CXXFLAGS) -o $(NAME) $^
-	@echo $(GREEN)"\n==========================================================\n"$(EOC)
-	@echo $(YELLOW)"                    CPP04 EX00 IS READY"$(EOC)
-	@echo $(GREEN)"\n==========================================================\n"$(EOC)
+	@echo $(GREEN)"\n====================================================\n"$(EOC)
+	@echo $(YELLOW)"                    CPP IS READY"$(EOC)
+	@echo $(GREEN)"\n====================================================\n"$(EOC)
 
 %.o : %.cpp
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
