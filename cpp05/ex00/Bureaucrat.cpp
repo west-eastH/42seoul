@@ -17,9 +17,8 @@ Bureaucrat::~Bureaucrat() throw()
 {
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& origin)
+Bureaucrat::Bureaucrat(const Bureaucrat& origin) : _name(origin._name), _grade(origin._grade)
 {
-	this->_grade = origin._grade;
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& origin)

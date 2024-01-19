@@ -1,27 +1,46 @@
 #pragma once
 #include <iostream>
+#include "Bureaucrat.hpp"
 
 class Form
 {
 	private:
 		const std::string _name;
 		bool _isSigned;
-		const unsigned int signGrade;
-		const unsigned int executeGrade;
-		Form(const Form& origin);
+		const unsigned int _signGrade;
+		const unsigned int _executeGrade;
 		Form& operator=(const Form& origin);
 
 	public:
 		Form();
-		~Form();
+		Form(std::string const name, unsigned int signGrade, unsigned int executeGrade);
+		Form(const Form& origin);
+		~Form() throw();
+
+		const std::string& getName() const;
+		unsigned int getIsSigned() const;
+		unsigned int getSignGrade() const;
+		unsigned int getExecuteGrade() const;
+
+		void beSigned(const Bureaucrat& Bureaucrat);
+		
 		class GradeTooLowException : public std::exception
 		{
+			private:
+				std::string _msg;
 			public:
+				GradeTooLowException(const std::string msg);
+				~GradeTooLowException() throw();
 				virtual const char* what() const throw();
 		};
 		class GradeTooHighException : public std::exception
 		{
+			private:
+				std::string _msg;
 			public:
+				GradeTooHighException(const std::string msg);
+				~GradeTooHighException() throw();
 				virtual const char* what() const throw();
 		};
 };
+//std::ostream	&operator<<(std::ostream &out, const Form &ref);
