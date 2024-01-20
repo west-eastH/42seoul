@@ -39,16 +39,31 @@ unsigned int Bureaucrat::getGrade() const
 
 void Bureaucrat::increaseGrade()
 {
-	if (this->_grade == 1)
-		throw Bureaucrat::GradeTooHighException();
-	this->_grade--;
+	try
+	{
+		if (this->_grade == 1)
+			throw Bureaucrat::GradeTooHighException();
+		this->_grade--;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
 }
 
 void Bureaucrat::decreaseGrade()
 {
-	if (this->_grade == 150)
-		throw Bureaucrat::GradeTooLowException();
-	this->_grade++;
+	try
+	{
+		if (this->_grade == 150)
+			throw Bureaucrat::GradeTooLowException();
+		this->_grade++;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()

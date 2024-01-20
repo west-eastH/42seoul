@@ -4,9 +4,14 @@ int main ()
 {
 	try
 	{
-		Form f1;
-		Bureaucrat b1;
+		Form f1("testF1", 120, 120);
+		std::cout << f1 << std::endl;
+		Bureaucrat b1("testB1", 100);
 		f1.beSigned(b1);
+		std::cout << f1 << std::endl;
+		Form f2("testF2", 1, 1);
+		f2.beSigned(b1);
+		std::cout << f2 << std::endl;
 	}
 	catch(const std::exception& e)
 	{

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <exception>
 
+class Form;
 class Bureaucrat
 {
 	private:
@@ -18,7 +19,7 @@ class Bureaucrat
 		unsigned int getGrade() const;
 		void increaseGrade();
 		void decreaseGrade();
-		void signForm(const std::string formName) const;
+		void signForm(Form& form) const;
 
 		class GradeTooLowException : public std::exception
 		{

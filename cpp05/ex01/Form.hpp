@@ -21,6 +21,7 @@ class Form
 		unsigned int getIsSigned() const;
 		unsigned int getSignGrade() const;
 		unsigned int getExecuteGrade() const;
+		void setIsSigned(bool isSigned);
 
 		void beSigned(const Bureaucrat& Bureaucrat);
 		
@@ -43,4 +44,4 @@ class Form
 				virtual const char* what() const throw();
 		};
 };
-//std::ostream	&operator<<(std::ostream &out, const Form &ref);
+std::ostream	&operator<<(std::ostream &out, const Form &ref);
