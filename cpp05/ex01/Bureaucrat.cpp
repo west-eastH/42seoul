@@ -1,5 +1,5 @@
 #include "Bureaucrat.hpp"
-
+#include "Form.hpp"
 Bureaucrat::Bureaucrat() : _name("default"), _grade(150)
 {
 }
@@ -47,7 +47,7 @@ void Bureaucrat::increaseGrade()
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << RED << e.what() << RESET << std::endl;
 	}
 	
 }
@@ -62,7 +62,7 @@ void Bureaucrat::decreaseGrade()
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << RED << e.what() << RESET << std::endl;
 	}
 }
 

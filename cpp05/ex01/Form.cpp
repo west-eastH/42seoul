@@ -79,6 +79,6 @@ const char* Form::GradeTooLowException::what() const throw()
 
 std::ostream	&operator<<(std::ostream &out, const Form &ref)
 {
-	out << ref.getName() << ", form status - " << ref.getIsSigned() << " signGrade - " << ref.getSignGrade() << " executeGrade - " << ref.getExecuteGrade();
+	out << ref.getName() << ", form status : " << ref.getIsSigned() << " signGrade : " << ref.getSignGrade() << " executeGrade : " << ref.getExecuteGrade();
 	return out;
 }
