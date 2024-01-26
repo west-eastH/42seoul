@@ -1,4 +1,4 @@
-#include "Form.hpp"
+#include "AForm.hpp"
 
 Form::Form() : _name("default"), _isSigned(0), _signGrade(100), _executeGrade(100)
 {
@@ -62,6 +62,7 @@ void Form::beSigned(const Bureaucrat& Bureaucrat)
 	{
 		std::cerr << RED << e.what() << RESET << '\n';
 	}
+	
 }
 
 Form::GradeTooLowException::GradeTooLowException(const std::string msg) : _msg(msg)
