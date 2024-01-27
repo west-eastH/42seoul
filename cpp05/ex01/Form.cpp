@@ -4,7 +4,7 @@ Form::Form() : _name("default"), _isSigned(0), _signGrade(100), _executeGrade(10
 {
 }
 
-Form::Form(std::string const name, unsigned int signGrade, unsigned int executeGrade) : _name(name), _isSigned(0), _signGrade(signGrade), _executeGrade(executeGrade)
+Form::Form(std::string const name, int signGrade, int executeGrade) : _name(name), _isSigned(0), _signGrade(signGrade), _executeGrade(executeGrade)
 {
 	if (signGrade < 1 || _executeGrade < 1)
 		throw Form::GradeTooHighException(this->_name + " form's grade is too High");
@@ -32,17 +32,17 @@ const std::string& Form::getName() const
 	return this->_name;
 }
 
-unsigned int Form::getIsSigned() const
+int Form::getIsSigned() const
 {
 	return this->_isSigned;
 }
 
-unsigned int Form::getSignGrade() const
+int Form::getSignGrade() const
 {
 	return this->_signGrade;
 }
 
-unsigned int Form::getExecuteGrade() const
+int Form::getExecuteGrade() const
 {
 	return this->_executeGrade;
 }
@@ -54,14 +54,10 @@ void Form::setIsSigned(bool isSigned)
 
 void Form::beSigned(const Bureaucrat& Bureaucrat)
 {
-	try
-	{
-		Bureaucrat.signForm(*this);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << RED << e.what() << RESET << '\n';
-	}
+	
+	if (Bureaucrat.getGrade() > _signGrade)
+		throw Form::GradeTooLowException(Bureaucrat.getName() + " Bureaucrat couldn’t sign " + _name + " Form. because " + Bureaucrat.getName() + "'s grade is too Low.");
+	setIsSigned(1);
 }
 
 Form::GradeTooLowException::GradeTooLowException(const std::string msg) : _msg(msg)

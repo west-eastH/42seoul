@@ -7,20 +7,20 @@ class Form
 	private:
 		const std::string _name;
 		bool _isSigned;
-		const unsigned int _signGrade;
-		const unsigned int _executeGrade;
+		const int _signGrade;
+		const int _executeGrade;
 		Form& operator=(const Form& origin);
 
 	public:
 		Form();
-		Form(std::string const name, unsigned int signGrade, unsigned int executeGrade);
+		Form(std::string const name, int signGrade, int executeGrade);
 		Form(const Form& origin);
 		~Form() throw();
 
 		const std::string& getName() const;
-		unsigned int getIsSigned() const;
-		unsigned int getSignGrade() const;
-		unsigned int getExecuteGrade() const;
+		int getIsSigned() const;
+		int getSignGrade() const;
+		int getExecuteGrade() const;
 		void setIsSigned(bool isSigned);
 
 		void beSigned(const Bureaucrat& Bureaucrat);

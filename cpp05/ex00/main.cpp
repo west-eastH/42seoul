@@ -12,7 +12,7 @@ int main ()
 		std::cout << c << std::endl;
 		c.increaseGrade();
 		std::cout << c << std::endl;
-		std::cout << "==========error=========" << std::endl;
+		std::cout << std::endl << "==========error=========" << std::endl << std::endl;
 		c.increaseGrade();
 		std::cout << c << std::endl;
 		Bureaucrat d("test4444", 150);
@@ -26,7 +26,7 @@ int main ()
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << std::endl;
+		std::cerr << RED << e.what() << RESET << std::endl;
 	}
 	return 0;
 }

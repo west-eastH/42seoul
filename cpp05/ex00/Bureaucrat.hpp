@@ -2,20 +2,23 @@
 #include <iostream>
 #include <exception>
 
+#define RED "\033[1;31m"
+#define RESET "\033[0;0m"
+
 class Bureaucrat
 {
 	private:
 		const std::string _name;
-		unsigned int _grade;
+		int _grade;
 		Bureaucrat& operator=(const Bureaucrat& origin);
 	public:
 		Bureaucrat();
-		Bureaucrat(std::string const name, unsigned int grade);
+		Bureaucrat(std::string const name, int grade);
 		Bureaucrat(const Bureaucrat& origin);
 		~Bureaucrat() throw();
 
 		const std::string& getName() const;
-		unsigned int getGrade() const;
+		int getGrade() const;
 		void increaseGrade();
 		void decreaseGrade();
 		
