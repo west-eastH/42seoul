@@ -73,7 +73,9 @@ AForm::GradeTooLowException::~GradeTooLowException() throw(){}
 AForm::GradeTooHighException::~GradeTooHighException() throw(){}
 const char* AForm::GradeTooHighException::what() const throw()
 {
-	return this->_msg.c_str();
+	std::string test = "ttt";
+	std::string ss = _msg + test;
+	return ss.c_str();
 }
 const char* AForm::GradeTooLowException::what() const throw()
 {
