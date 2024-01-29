@@ -6,7 +6,7 @@ int main (int argc, char *argv[])
 		return 1;
 	try
 	{
-		ScalarConverter::convert(argv[1]);
+		ScalarConverter::convert(static_cast<std::string>(argv[1]));
 	}
 	catch(const int e)
 	{

@@ -12,11 +12,11 @@ EOC         =   "\033[0;0m"
 LINE_CLEAR  =   "\x1b[1A\x1b[M"
 
 #-------------------------------------------
-NAME = convert
+NAME = a.out
 CXX	= c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 SRCS =	main.cpp \
-		ScalarConverter.cpp \
+		Serialize.cpp \
 
 
 OBJS = $(SRCS:.cpp=.o)
