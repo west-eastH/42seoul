@@ -8,10 +8,10 @@ class ShrubberyCreationForm : public AForm
 private:
 	const std::string _target;
 	ShrubberyCreationForm();
+	ShrubberyCreationForm(const ShrubberyCreationForm& orign);
 	ShrubberyCreationForm& operator=(const ShrubberyCreationForm& origin);
 public:
 	ShrubberyCreationForm(const std::string target);
-	ShrubberyCreationForm(const ShrubberyCreationForm& orign);
 	virtual ~ShrubberyCreationForm() throw();
 
 	void createAsciiTree() const;

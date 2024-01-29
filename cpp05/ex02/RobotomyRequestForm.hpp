@@ -7,10 +7,10 @@ class RobotomyRequestForm : public AForm
 private:
 	const std::string _target;
 	RobotomyRequestForm();
+	RobotomyRequestForm(const RobotomyRequestForm& orign);
 	RobotomyRequestForm& operator=(const RobotomyRequestForm& origin);
 public:
 	RobotomyRequestForm(const std::string target);
-	RobotomyRequestForm(const RobotomyRequestForm& orign);
 	virtual ~RobotomyRequestForm() throw();
 
 	const std::string& getTarget() const;
