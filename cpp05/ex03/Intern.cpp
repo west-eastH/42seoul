@@ -22,7 +22,19 @@ AForm *Intern::makeForm(const std::string name, const std::string target)
 	for (int i = 0; i < 3; i++)
 	{
 		if (name == Forms[i])
+		{
+			std::cout << "Intern creates " << name << std::endl;
 			return (this->*func[i])(target);
+		}
 	}
-	throw AForm::GradeTooHighException("tt");
+	throw Intern::NoExistException("This form does not exist");
+}
+
+Intern::NoExistException::NoExistException(const std::string msg) : _msg(msg) {}
+
+Intern::NoExistException::~NoExistException() throw(){}
+
+const char* Intern::NoExistException::what() const throw()
+{
+	return this->_msg.c_str();
 }

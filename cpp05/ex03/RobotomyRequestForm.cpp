@@ -6,9 +6,7 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string target) : AForm("Robo
 
 RobotomyRequestForm::~RobotomyRequestForm() throw() {}
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& origin) : AForm(origin.getName(), origin.getSignGrade(), origin.getExecuteGrade()), _target(origin.getTarget())
-{
-}
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& origin) : AForm(origin.getName(), origin.getSignGrade(), origin.getExecuteGrade()), _target(origin.getTarget()) {}
 
 RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& origin)
 {

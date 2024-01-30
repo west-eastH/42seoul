@@ -1,8 +1,6 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
-Bureaucrat::Bureaucrat() : _name("default"), _grade(150)
-{
-}
+Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {}
 
 Bureaucrat::Bureaucrat(std::string const name, int grade) : _name(name)
 {
@@ -13,13 +11,9 @@ Bureaucrat::Bureaucrat(std::string const name, int grade) : _name(name)
 	this->_grade = grade;
 }
 
-Bureaucrat::~Bureaucrat() throw()
-{
-}
+Bureaucrat::~Bureaucrat() throw() {}
 
-Bureaucrat::Bureaucrat(const Bureaucrat& origin) : _name(origin._name), _grade(origin._grade)
-{
-}
+Bureaucrat::Bureaucrat(const Bureaucrat& origin) : _name(origin._name), _grade(origin._grade) {}
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& origin)
 {

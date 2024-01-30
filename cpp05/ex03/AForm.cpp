@@ -1,8 +1,6 @@
 #include "AForm.hpp"
 
-AForm::AForm() : _name("default"), _isSigned(0), _signGrade(100), _executeGrade(100)
-{
-}
+AForm::AForm() : _name("default"), _isSigned(0), _signGrade(100), _executeGrade(100) {}
 
 AForm::AForm(std::string const name, int signGrade, int executeGrade) : _name(name), _isSigned(0), _signGrade(signGrade), _executeGrade(executeGrade)
 {
@@ -12,9 +10,7 @@ AForm::AForm(std::string const name, int signGrade, int executeGrade) : _name(na
 		throw AForm::GradeTooLowException(this->_name + " form's grade is too Low");
 }
 
-AForm::~AForm() throw()
-{
-}
+AForm::~AForm() throw() {}
 
 AForm::AForm(const AForm& origin) : _name(origin._name), _signGrade(origin._signGrade), _executeGrade(origin._executeGrade)
 {
@@ -60,22 +56,13 @@ void AForm::beSigned(const Bureaucrat& Bureaucrat)
 	setIsSigned(1);
 }
 
-
-AForm::GradeTooLowException::GradeTooLowException(const std::string msg) : _msg(msg)
-{
-}
-
-AForm::GradeTooHighException::GradeTooHighException(const std::string msg) : _msg(msg)
-{
-}
-
+AForm::GradeTooLowException::GradeTooLowException(const std::string msg) : _msg(msg) {}
+AForm::GradeTooHighException::GradeTooHighException(const std::string msg) : _msg(msg) {}
 AForm::GradeTooLowException::~GradeTooLowException() throw(){}
 AForm::GradeTooHighException::~GradeTooHighException() throw(){}
 const char* AForm::GradeTooHighException::what() const throw()
 {
-	std::string test = "ttt";
-	std::string ss = _msg + test;
-	return ss.c_str();
+	return this->_msg.c_str();
 }
 const char* AForm::GradeTooLowException::what() const throw()
 {

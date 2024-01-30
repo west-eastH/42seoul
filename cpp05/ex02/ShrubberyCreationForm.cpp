@@ -6,9 +6,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string target) : AForm("
 
 ShrubberyCreationForm::~ShrubberyCreationForm() throw() {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& origin) : AForm(origin.getName(), origin.getSignGrade(), origin.getExecuteGrade()), _target(origin.getTarget())
-{
-}
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& origin) : AForm(origin.getName(), origin.getSignGrade(), origin.getExecuteGrade()), _target(origin.getTarget()) {}
 
 ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& origin)
 {

@@ -3,6 +3,9 @@
 
 int main ()
 {
+	AForm *sc = NULL;
+	AForm *rr = NULL;
+	AForm *pp = NULL;
 	try
 	{
 		srand(time(NULL));
@@ -10,9 +13,9 @@ int main ()
 		Bureaucrat b1("test1", 136);
 		Bureaucrat b2("test2", 30);
 		Bureaucrat b3("test3", 1);
-		AForm *sc = someRandomIntern.makeForm("shrubbery creation", "Bender");
-		AForm *rr = someRandomIntern.makeForm("robotomy request", "Bender");
-		AForm *pp = someRandomIntern.makeForm("presidential pardon", "Bender");
+		sc = someRandomIntern.makeForm("shrubbery creation", "Bender");
+		rr = someRandomIntern.makeForm("robotomy request", "Bender");
+		pp = someRandomIntern.makeForm("presidential pardon", "Bender");
 		
 		std::cout << "=========================================" << std::endl << std::endl;
 		b1.executeForm(*sc);
@@ -27,12 +30,39 @@ int main ()
 		b3.executeForm(*rr);
 		b3.executeForm(*pp);
 		std::cout << std::endl << "=========================================" << std::endl;
-		delete sc;
-		delete rr;
-		delete pp;
+		if (sc)
+		{
+			delete sc;
+			sc = NULL;
+		}
+		if (rr)
+		{
+			delete rr;
+			rr = NULL;
+		}
+		if (pp)
+		{
+			delete pp;
+			pp = NULL;
+		}
 	}
 	catch(const std::exception& e)
 	{
+		if (sc)
+		{
+			delete sc;
+			sc = NULL;
+		}
+		if (rr)
+		{
+			delete rr;
+			rr = NULL;
+		}
+		if (pp)
+		{
+			delete pp;
+			pp = NULL;
+		}
 		std::cerr << RED << e.what() << RESET << std::endl;
 	}
 	return 0;

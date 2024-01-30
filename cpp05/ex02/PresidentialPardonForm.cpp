@@ -6,9 +6,7 @@ PresidentialPardonForm::PresidentialPardonForm(const std::string target) : AForm
 
 PresidentialPardonForm::~PresidentialPardonForm() throw() {}
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& origin) : AForm(origin.getName(), origin.getSignGrade(), origin.getExecuteGrade()), _target(origin.getTarget())
-{
-}
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& origin) : AForm(origin.getName(), origin.getSignGrade(), origin.getExecuteGrade()), _target(origin.getTarget()) {}
 
 PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm& origin)
 {
