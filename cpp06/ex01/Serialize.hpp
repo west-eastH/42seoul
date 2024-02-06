@@ -11,7 +11,7 @@ struct Data
 class  Serialize
 {
 private:
-	Serialize(/* args */);
+	Serialize();
 	~ Serialize();
 	Serialize(const Serialize& origin);
 	Serialize& operator=(const Serialize& origin);

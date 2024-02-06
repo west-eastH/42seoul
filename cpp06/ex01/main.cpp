@@ -1,13 +1,7 @@
 #include "Serialize.hpp"
-/* 
-void a()
-{
-	system("leaks a.out");
-} */
 
 int main ()
 {
-	//atexit(a);
 	Data *d1 = new Data();
 	d1->name = "dongseo";
 	d1->age = 26;
