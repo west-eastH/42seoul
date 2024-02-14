@@ -61,10 +61,12 @@ void countPoint(std::string& literal)
 {
 	int count = 0;
 
+	if (literal.back() == '.')
+			throw (1);
 	for (size_t i = 0; (i = literal.find('.', i)) != std::string::npos; i++)
 	{
         count++;
-		if (count > 1 || literal.back() == '.')
+		if (count > 1 || literal[i + 1] < '0' || literal[i + 1] > '9')
 			throw (1);
     }
 }
