@@ -1,0 +1,9 @@
+data : 2011-01-03 value : 3
+data : 2011-01-03 value : .2
+Error: bad input => 1..
+Error: bad input => 1.2.1
+data : 2011-01-09 value : 1
+Error: not a positive number.
+Error: bad input => 2001-42-42
+data : 2012-01-11 value : 1
+Error: too large a number.
