@@ -8,12 +8,14 @@
 
 #define DATA 0
 #define INPUT 1
-typedef std::pair<std::string, std::string> p;
+typedef std::pair<std::string, std::string> sp;
+typedef std::pair<int, float> np;
 
 class BitcoinExchange
 {
-	std::vector<p> _data;
-	std::vector<p> _input;
+	std::vector<sp> _input;
+	std::vector<sp> _stringData;
+	std::vector<np> _numberData;
 
 	private:		
 		BitcoinExchange();
@@ -23,9 +25,10 @@ class BitcoinExchange
 		~BitcoinExchange();
 		BitcoinExchange(int argc, char *argv[]);
 		void makeVector(std::string fileName, bool flag);
-		std::pair<std::string, std::string> splitLine(std::string& line, std::string sep);
+		void splitLine(std::string& line, bool flag);
 		void start();
-		void exchange();
+		void exchange(std::string& stringDate, std::string& stringVal);
+		void dataToNumber();
 		bool isValidDate(std::string date);
 		bool isValidValue(std::string val);
 		bool isValidDay(std::vector<int>& dateVector);

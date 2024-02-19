@@ -57,7 +57,6 @@ void identify(Base& p)
 	
 }
 
-
 std::ostream &operator<<(std::ostream &out, const A &ref)
 {
 	(void)ref;

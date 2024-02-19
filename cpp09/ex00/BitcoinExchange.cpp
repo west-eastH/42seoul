@@ -1,15 +1,44 @@
 #include "BitcoinExchange.hpp"
 
+BitcoinExchange::BitcoinExchange(int argc, char *argv[])
+{
+	if (argc != 2)
+		throw std::invalid_argument("Error: could not open file.");
+	makeVector("data.csv", DATA);
+	makeVector(argv[1], INPUT);
+	dataToNumber();
+	start();
+}
+
 BitcoinExchange::~BitcoinExchange() {}
 
-std::pair<std::string, std::string> BitcoinExchange::splitLine(std::string& line, std::string sep)
+void BitcoinExchange::splitLine(std::string& line, bool flag)
 {
+	std::vector<sp>* vec;
+	std::string sep;
+	if (flag == DATA)
+	{
+		if (line == "date,exchange_rate")
+			return ;
+		vec = &_stringData;
+		sep = ",";
+	}
+	else
+	{
+		vec = &_input;
+		sep = " | ";
+	}
+	if (line == "")
+		return ;
 	size_t pos = line.find(sep);
 	if (pos == std::string::npos)
-		return make_pair(line, "");
+	{
+		vec->push_back(make_pair(line, ""));
+		return ;
+	}
 	std::string date = line.substr(0, pos);
 	std::string val = line.substr(pos + sep.length());
-	return make_pair(date, val);
+	vec->push_back(make_pair(date, val));
 }
 
 void BitcoinExchange::makeVector(std::string fileName, bool flag)
@@ -21,10 +50,7 @@ void BitcoinExchange::makeVector(std::string fileName, bool flag)
 		while (!file.eof())
 		{
 			getline(file, line);
-			if (flag == DATA)
-				_data.push_back(splitLine(line, ","));
-			else
-				_input.push_back(splitLine(line, " | "));
+			splitLine(line, flag);
 		}
 		file.close();
 		return ;
@@ -32,29 +58,59 @@ void BitcoinExchange::makeVector(std::string fileName, bool flag)
 	throw std::invalid_argument("Error: could not open file.");
 }
 
-void testPrint(std::vector<p> vec)
-{
-	for (size_t i = 0; i < vec.size(); i++)
-		std::cout << "date : " << vec[i].first <<  " value : " << vec[i].second << std::endl;
-}
-
 void BitcoinExchange::start()
 {
 	for (size_t i = 0; i < _input.size(); i++)
 	{
-		if (_input[i].first != "date" && _input[i].second != "value")
+		if (!(_input[i].first == "date" && _input[i].second == "value"))
 		{
 			if (isValidDate(_input[i].first) && isValidValue(_input[i].second))
-				std::cout << "data : " << _input[i].first << " value : " << _input[i].second << std::endl;
+				exchange(_input[i].first, _input[i].second);
 		}
 	}
 	
 }
 
-// Error: not a positive number.
-// Error: bad input => 2001-42-42
-// 2012-01-11 => 1 = 7.1
-// Error: too large a number.
+void BitcoinExchange::exchange(std::string &stringDate, std::string &stringVal)
+{
+	std::string temp = stringDate;
+	size_t pos = temp.find("-");
+	while (pos != std::string::npos)
+	{
+		temp.erase(pos, 1);
+		pos = temp.find("-");
+	}
+	int date = std::atoi(temp.c_str());
+	char* pEnd;
+	double val = std::strtod(stringVal.c_str(), &pEnd);
+	for (size_t i = _numberData.size() - 1; i >= 0; i--)
+	{
+		if (_numberData[i].first <= date)
+		{
+			std::cout << stringDate << " => " << stringVal << " = " << _numberData[i].second * val << std::endl;
+			return ;
+		}
+	}
+	std::cout << stringDate << " => " << stringVal << " = 0.0" << std::endl;
+}
+
+void BitcoinExchange::dataToNumber()
+{
+	for (size_t i = 0; i < _stringData.size(); i++)
+	{
+		std::string temp = _stringData[i].first;
+		size_t pos = temp.find("-");
+		while (pos != std::string::npos)
+		{
+			temp.erase(pos, 1);
+			pos = temp.find("-");
+		}
+		int date = std::atoi(temp.c_str());
+		char* pEnd;
+		double val = std::strtod(_stringData[i].second.c_str(), &pEnd);
+		_numberData.push_back(std::make_pair(date, static_cast<float>(val)));
+	}
+}
 
 bool BitcoinExchange::isValidDate(std::string date)
 {
@@ -104,6 +160,11 @@ bool BitcoinExchange::isValidValue(std::string val)
 		std::cout << "Error: not a positive number." << std::endl;
 		return false;
 	}
+	else if (val.front() == '.')
+	{
+		std::cout << "Error: bad input => " << val << std::endl;
+		return false;
+	}
 	size_t cnt = 0;
 	for (size_t i = 0; i < val.length(); i++)
 	{
@@ -124,17 +185,6 @@ bool BitcoinExchange::isValidValue(std::string val)
 		return false;
 	}
 	return true;
-}
-
-BitcoinExchange::BitcoinExchange(int argc, char *argv[])
-{
-	if (argc != 2)
-		throw std::invalid_argument("Error: could not open file.");
-	makeVector("data.csv", DATA);
-	makeVector(argv[1], INPUT);
-	start();
-	// testPrint(_data);
-	// testPrint(_input);
 }
 
 bool BitcoinExchange::isValidDay(std::vector<int>& dateVector)
