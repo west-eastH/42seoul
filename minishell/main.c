@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yusekim <yusekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:28:01 by yusekim           #+#    #+#             */
-/*   Updated: 2024/01/08 18:06:15 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/09/10 12:18:22 by yusekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*ft_readline(t_package *pack)
 			executor(simple_cmds, pack, 0);
 		signal(SIGINT, handler);
 	}
+	system("leaks minishell");
 	return (str);
 }
 

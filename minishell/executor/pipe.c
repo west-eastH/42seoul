@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yusekim <yusekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 14:12:41 by dongseo           #+#    #+#             */
-/*   Updated: 2023/09/11 10:40:54 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/09/09 14:52:41 by yusekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ void	ft_execve(char **cmd, t_package *pack, char **envp)
 	if (access(cmd[0], X_OK) == 0)
 		execve(cmd[0], cmd, envp);
 	path = set_path(pack);
-	if (path == NULL)
-	{
-		if (execve(cmd[0], cmd, envp) < 0)
-			ft_perror(cmd[0], 127);
-	}
 	split = ft_split(path, ':');
 	i = 0;
 	while (split[i])

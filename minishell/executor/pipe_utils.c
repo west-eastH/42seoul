@@ -6,7 +6,7 @@
 /*   By: dongseo <dongseo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 10:25:53 by dongseo           #+#    #+#             */
-/*   Updated: 2023/09/11 10:39:51 by dongseo          ###   ########.fr       */
+/*   Updated: 2023/09/06 13:11:37 by dongseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ char	*set_path(t_package *pack)
 	env = pack->origin_head;
 	while (env && (ft_strncmp(env->name, "PATH", 5)))
 		env = env->origin_next;
-	if (!env)
-		return (0);
 	result = ft_strdup(env->value);
 	if (!result)
 		ft_perror("malloc", 1);
