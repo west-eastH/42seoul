@@ -5,7 +5,8 @@
 template<typename T>
 void ft_print(const T data)
 {
-	std::cout << data << std::end}
+	std::cout << data << std::endl;
+}
 
 template<typename T>
 void ft_double(T& data)
