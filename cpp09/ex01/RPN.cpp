@@ -37,9 +37,9 @@ bool RPN::checkStack(char op)
 		std::cout << "Error" << std::endl;
 		return true;
 	}
-	int b = _stack.top();
+	float b = _stack.top();
 	_stack.pop();
-	int a = _stack.top();
+	float a = _stack.top();
 	_stack.pop();
 	switch (op)
 	{

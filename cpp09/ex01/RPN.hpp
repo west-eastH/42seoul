@@ -9,7 +9,7 @@ class RPN
 	private:
 		std::string _exp;
 		std::vector<char> _vec;
-		std::stack<int> _stack;
+		std::stack<float> _stack;
 		RPN();
 		RPN(const RPN& origin);
 		RPN& operator=(const RPN& origin);
