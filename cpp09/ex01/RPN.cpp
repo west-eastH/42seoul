@@ -50,6 +50,11 @@ bool RPN::checkStack(char op)
 			_stack.push(a - b);
 			break ;
 		case '/' :
+			if (b == 0)
+			{
+				std::cout << "Not divisible by zero" << std::endl;
+				return true;
+			}
 			_stack.push(a / b);
 			break ;
 		case '*' :

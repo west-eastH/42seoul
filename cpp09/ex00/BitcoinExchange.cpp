@@ -47,6 +47,12 @@ void BitcoinExchange::makeVector(std::string fileName, bool flag)
 	if (file.is_open())
 	{
 		std::string line;
+		if (flag == INPUT)
+		{
+			getline(file, line);
+			if (line != "date | value")
+				throw std::invalid_argument("Error: invalid format.");
+		}
 		while (!file.eof())
 		{
 			getline(file, line);
@@ -62,11 +68,8 @@ void BitcoinExchange::start()
 {
 	for (size_t i = 0; i < _input.size(); i++)
 	{
-		if (!(_input[i].first == "date" && _input[i].second == "value"))
-		{
-			if (isValidDate(_input[i].first) && isValidValue(_input[i].second))
-				exchange(_input[i].first, _input[i].second);
-		}
+		if (isValidDate(_input[i].first) && isValidValue(_input[i].second))
+			exchange(_input[i].first, _input[i].second);
 	}
 	
 }
