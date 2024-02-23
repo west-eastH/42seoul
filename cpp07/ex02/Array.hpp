@@ -74,7 +74,7 @@ unsigned int Array<T>::size() const
 template<typename T>
 T& Array<T>::operator[](unsigned int n)
 {
-	if (n < 0 || n > _size)
+	if (n < 0 || n >= _size)
 		throw std::out_of_range("out of range!!");
 	return _data[n];
 }
@@ -82,7 +82,7 @@ T& Array<T>::operator[](unsigned int n)
 template<typename T>
 const T& Array<T>::operator[](unsigned int n) const
 {
-	if (n < 0 || n > _size)
+	if (n < 0 || n >= _size)
 		throw std::out_of_range("out of range!!");
 	return _data[n];
 }
