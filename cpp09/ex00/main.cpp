@@ -5,7 +5,6 @@ int main (int argc, char *argv[])
 	try
 	{
 		BitcoinExchange btc(argc, argv);
-		//btc.start();
 	}
 	catch(const std::exception& e)
 	{

@@ -8,7 +8,6 @@ class RPN
 {
 	private:
 		std::string _exp;
-		std::vector<char> _vec;
 		std::stack<float> _stack;
 		RPN();
 		RPN(const RPN& origin);

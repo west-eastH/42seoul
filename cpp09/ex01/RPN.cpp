@@ -25,7 +25,6 @@ bool RPN::isValidExpression()
 		if (flag == true)
 			return false;
 		flag = true;
-		_vec.push_back(_exp[i]);
 	}
 	return true;
 }
@@ -69,14 +68,16 @@ bool RPN::checkStack(char op)
 
 void RPN::calculate()
 {
-	for (size_t i = 0; i < _vec.size(); i++)
+	for (size_t i = 0; i < _exp.length(); i++)
 	{
-		if (_vec[i] >= '0' && _vec[i] <= '9')
+		if (_exp[i] == ' ')
+			continue ;
+		if (_exp[i] >= '0' && _exp[i] <= '9')
 		{
-			_stack.push(_vec[i] - '0');
+			_stack.push(_exp[i] - '0');
 			continue;
 		}
-		if (checkStack(_vec[i]))
+		if (checkStack(_exp[i]))
 			return ;
 	}
 	if (_stack.size() != 1)
