@@ -21,11 +21,11 @@ class Span
 		int shortestSpan();
 		int longestSpan();
 		template<typename T>
-		void insertRange(T& container);
+		void insertRange(const T& container);
 };
 
 template<typename T>
-void Span::insertRange(T& container)
+void Span::insertRange(const T& container)
 {
 	if (_vec.size() + container.size() > _max)
 		throw std::out_of_range("N elements are already stored!");
