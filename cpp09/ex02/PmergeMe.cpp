@@ -10,6 +10,14 @@ void PmergeMe::printList()
 	std::cout << std::endl;
 }
 
+void PmergeMe::printMainChain()
+{
+	std::cout << "after : ";
+	for (size_t i = 0; i < _mainChain.size(); i++)
+		std::cout << getListValue(_mainChain, i) << " ";
+	std::cout << std::endl;
+}
+
 PmergeMe::PmergeMe(int argc, char *argv[])
 {
 	if (!isValidArg(argc, argv))
@@ -43,11 +51,12 @@ bool PmergeMe::isValidArg(int argc, char *argv[])
 void PmergeMe::start()
 {
 	setJacobsthal();
-	int isOdd = makePairList();
-	std::cout << "isOdd = " << isOdd << std::endl;
+	makePairList();
 	mergeSort(_pairList, 0, _pairList.size() - 1);
 	setMainChain();
 	insertionSort();
+	printMainChain();
+
 }
 
 void PmergeMe::setMainChain()
@@ -57,27 +66,60 @@ void PmergeMe::setMainChain()
 		_mainChain.push_back(getListValue(_pairList, i, FIRST));
 		_pendingChain.push_back(getListValue(_pairList, i, SECOND));
 	}
-	std::cout << "mainChain : ";
-	for (size_t i = 0; i < _mainChain.size(); i++)
-		std::cout << getListValue(_mainChain, i) << " ";
-	std::cout << std::endl;
-	std::cout << "pendingChain : ";
-	for (size_t i = 0; i < _pendingChain.size(); i++)
-		std::cout << getListValue(_pendingChain, i) << " ";
 }
 
 void PmergeMe::insertionSort()
 {
-	_mainChain.insert(_mainChain.begin(), getListValue(_pendingChain, 0));
-	
+    _mainChain.push_front(getListValue(_pendingChain, 0));
+
+    for (size_t i = 2; i < _jacobsthal.size(); i++)
+    {
+        size_t index = _jacobsthal[i];
+        if (index >= _pendingChain.size())
+            break;
+        int value = getListValue(_pendingChain, index);
+
+        std::list<int>::iterator it = _mainChain.begin();
+        while (it != _mainChain.end() && *it < value)
+        {
+            ++it;
+        }
+        _mainChain.insert(it, value);
+    }
+
+    for (size_t i = 1; i < _pendingChain.size(); i++)
+    {
+        if (std::find(_jacobsthal.begin(), _jacobsthal.end(), i) == _jacobsthal.end())
+        {
+            int value = getListValue(_pendingChain, i);
+
+            std::list<int>::iterator it = _mainChain.begin();
+            while (it != _mainChain.end() && *it < value)
+            {
+                ++it;
+            }
+            _mainChain.insert(it, value);
+        }
+    }
+
+    if (_isOdd != -1)
+    {
+        std::list<int>::iterator it = _mainChain.begin();
+        while (it != _mainChain.end() && *it < _isOdd)
+        {
+            ++it;
+        }
+        _mainChain.insert(it, _isOdd);
+    }
 }
 
-int PmergeMe::makePairList()
+
+void PmergeMe::makePairList()
 {
-	int isOdd = -1;
+	_isOdd = -1;
 	if (_before.size() % 2 == 1)
 	{
-		isOdd = _before[_before.size() - 1];
+		_isOdd = _before[_before.size() - 1];
 		_before.pop_back();
 	}
 	for (size_t i = 0; i < _before.size(); i+=2)
@@ -87,7 +129,6 @@ int PmergeMe::makePairList()
 		else
 			_pairList.push_back(std::make_pair(_before[i + 1], _before[i]));
 	}
-	return isOdd;
 }
 
 int PmergeMe::getListValue(std::list<p>& list, int idx, bool flag)
@@ -169,20 +210,21 @@ std::pair<int, int>& PmergeMe::getListPair(std::list<p>& list, int idx)
 
 void PmergeMe::setJacobsthal()
 {
-	int n1 = 0;
-	int n2 = 0;
-	int temp = 1;
-	_jacobsthal.push_back(n1);
-	while (_jacobsthal.size() < 33)
-	{
-		n1 = n2;
-		n2 = temp - n1;
-		_jacobsthal.push_back(n2);
-		temp *= 2;
-	}
-	_jacobsthal.push_back(2147483647);
-}
+    int n1 = 0;
+    int n2 = 1;
+    _jacobsthal.push_back(n1);
+    _jacobsthal.push_back(n2);
 
+    while (_jacobsthal.size() < 33)
+    {
+        int temp = n2 + 2 * n1;
+        _jacobsthal.push_back(temp);
+        n1 = n2;
+        n2 = temp;
+    }
+
+    _jacobsthal.push_back(2147483647);
+}
 void PmergeMe::changeListPair(std::list<p>& origin, std::list<p> ref, int begin, int end)
 {
 	int j = 0;

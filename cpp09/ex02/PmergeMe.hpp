@@ -17,6 +17,7 @@ private:
 	std::list<p> _pairList;
 	std::list<int> _mainChain;
 	std::list<int> _pendingChain;
+	int _isOdd;
 
 	PmergeMe();
 	PmergeMe(const PmergeMe& origin);
@@ -29,7 +30,8 @@ public:
 
 	void setJacobsthal();
 	void printList();
-	int makePairList();
+	void printMainChain();
+	void makePairList();
 	int getListValue(std::list<p>& list, int idx, bool flag);
 	int getListValue(std::list<int>& list, int idx);
 	void changeListPair(std::list<p>& origin, std::list<p> ref, int begin, int end);
