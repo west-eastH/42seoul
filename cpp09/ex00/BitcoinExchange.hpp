@@ -2,34 +2,36 @@
 
 #include <iostream>
 #include <exception>
-#include <vector>
 #include <fstream>
+#include <map>
 #include <sstream>
 
 #define DATA 0
 #define INPUT 1
-typedef std::pair<std::string, std::string> sp;
-typedef std::pair<int, float> np;
 
 class BitcoinExchange
 {
-	std::vector<sp> _input;
-	std::vector<sp> _stringData;
-	std::vector<np> _numberData;
+	std::map<int, float> _numberData;
+	std::map<std::string, std::string> _stringData;
 
-	private:		
+	private:
 		BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange& origin);
 		BitcoinExchange& operator=(const BitcoinExchange& origin);
 	public:
 		~BitcoinExchange();
-		BitcoinExchange(int argc, char *argv[]);
-		void makeVector(std::string fileName, bool flag);
-		void splitLine(std::string& line, bool flag);
-		void start();
-		void exchange(std::string& stringDate, std::string& stringVal);
+		BitcoinExchange(int argc);
+		void init();
+		void splitInput(std::string& line);
+		void splitData(std::string& line);
+		void readInput(std::string fileName, bool flag);
 		void dataToNumber();
+		void start(std::string filename);
 		bool isValidDate(std::string date);
 		bool isValidValue(std::string val);
-		bool isValidDay(std::vector<int>& dateVector);
+		bool isValidDay(int* dateVector);
+		void exchange(std::string stringDate, std::string stringVal);
+
+
+		void printTest();
 };

@@ -1,62 +1,40 @@
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange(int argc, char *argv[])
+void BitcoinExchange::printTest()
+{
+	std::cout << "string data" << std::endl;
+	for (std::map<std::string, std::string>::iterator it = _stringData.begin(); it != _stringData.end(); ++it)
+		std::cout << it->first << "    " << it->second << std::endl;
+
+
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	for (std::map<int, float>::iterator it = _numberData.begin(); it != _numberData.end(); ++it)
+		std::cout << "number data" << it->first << "    " << it->second << std::endl;
+}
+
+BitcoinExchange::BitcoinExchange(int argc)
 {
 	if (argc != 2)
 		throw std::invalid_argument("Error: could not open file.");
-	makeVector("data.csv", DATA);
-	makeVector(argv[1], INPUT);
+	init();
 	dataToNumber();
-	start();
 }
 
 BitcoinExchange::~BitcoinExchange() {}
 
-void BitcoinExchange::splitLine(std::string& line, bool flag)
+void BitcoinExchange::init()
 {
-	std::vector<sp>* vec;
-	std::string sep;
-	if (flag == DATA)
-	{
-		if (line == "date,exchange_rate")
-			return ;
-		vec = &_stringData;
-		sep = ",";
-	}
-	else
-	{
-		vec = &_input;
-		sep = " | ";
-	}
-	if (line == "")
-		return ;
-	size_t pos = line.find(sep);
-	if (pos == std::string::npos)
-	{
-		vec->push_back(make_pair(line, ""));
-		return ;
-	}
-	std::string date = line.substr(0, pos);
-	std::string val = line.substr(pos + sep.length());
-	vec->push_back(make_pair(date, val));
-}
+	std::ifstream file("data.csv");
 
-void BitcoinExchange::makeVector(std::string fileName, bool flag)
-{
-	std::ifstream file(fileName);
 	if (file.is_open())
 	{
 		std::string line;
-		if (flag == INPUT)
-		{
-			getline(file, line);
-			if (line != "date | value")
-				throw std::invalid_argument("Error: invalid format.");
-		}
 		while (!file.eof())
 		{
 			getline(file, line);
-			splitLine(line, flag);
+			splitData(line);
 		}
 		file.close();
 		return ;
@@ -64,44 +42,33 @@ void BitcoinExchange::makeVector(std::string fileName, bool flag)
 	throw std::invalid_argument("Error: could not open file.");
 }
 
-void BitcoinExchange::start()
+void BitcoinExchange::splitData(std::string& line)
 {
-	for (size_t i = 0; i < _input.size(); i++)
-	{
-		if (isValidDate(_input[i].first) && isValidValue(_input[i].second))
-			exchange(_input[i].first, _input[i].second);
-	}
-	
-}
+	std::map<std::string, std::string>* my_map;
+	std::string sep;
 
-void BitcoinExchange::exchange(std::string &stringDate, std::string &stringVal)
-{
-	std::string temp = stringDate;
-	size_t pos = temp.find("-");
-	while (pos != std::string::npos)
+	if (line == "date,exchange_rate")
+		return ;
+	my_map = &_stringData;
+	sep = ",";
+	if (line == "")
+		return ;
+	size_t pos = line.find(sep);
+	if (pos == std::string::npos)
 	{
-		temp.erase(pos, 1);
-		pos = temp.find("-");
+		my_map->insert(make_pair(line, ""));
+		return ;
 	}
-	int date = std::atoi(temp.c_str());
-	char* pEnd;
-	double val = std::strtod(stringVal.c_str(), &pEnd);
-	for (size_t i = _numberData.size() - 1; i >= 0; i--)
-	{
-		if (_numberData[i].first <= date)
-		{
-			std::cout << stringDate << " => " << stringVal << " = " << _numberData[i].second * val << std::endl;
-			return ;
-		}
-	}
-	std::cout << stringDate << " => " << stringVal << " = 0.0" << std::endl;
+	std::string date = line.substr(0, pos);
+	std::string val = line.substr(pos + sep.length());
+	my_map->insert(std::make_pair(date, val));
 }
 
 void BitcoinExchange::dataToNumber()
 {
-	for (size_t i = 0; i < _stringData.size(); i++)
+	for (std::map<std::string, std::string>::iterator it = _stringData.begin(); it != _stringData.end(); ++it)
 	{
-		std::string temp = _stringData[i].first;
+		std::string temp = it->first;
 		size_t pos = temp.find("-");
 		while (pos != std::string::npos)
 		{
@@ -110,14 +77,55 @@ void BitcoinExchange::dataToNumber()
 		}
 		int date = std::atoi(temp.c_str());
 		char* pEnd;
-		double val = std::strtod(_stringData[i].second.c_str(), &pEnd);
-		_numberData.push_back(std::make_pair(date, static_cast<float>(val)));
+		double val = std::strtod(it->second.c_str(), &pEnd);
+		_numberData.insert(std::make_pair(date, static_cast<float>(val)));
 	}
+}
+
+void BitcoinExchange::splitInput(std::string& line)
+{
+	std::string sep;
+
+	sep = " | ";
+	if (line == "")
+		return ;
+	size_t pos = line.find(sep);
+	if (pos == std::string::npos)
+	{
+		std::cout << "Error: bad input => " << line << std::endl;
+		return ;
+	}
+	std::string date = line.substr(0, pos);
+	std::string val = line.substr(pos + sep.length());
+
+	if (isValidDate(date) && isValidValue(val))
+		exchange(date, val);
+}
+
+void BitcoinExchange::start(std::string filename)
+{
+	std::ifstream file(filename);
+	if (file.is_open())
+	{
+		std::string line;
+		getline(file, line);
+		if (line != "date | value")
+			throw std::invalid_argument("Error: invalid format.");
+		while (!file.eof())
+		{
+			getline(file, line);
+			// std::cout << "line = " << line << std::endl;
+			splitInput(line);
+		}
+		file.close();
+		return ;
+	}
+	throw std::invalid_argument("Error: could not open file.");
 }
 
 bool BitcoinExchange::isValidDate(std::string date)
 {
-	std::vector<int>dateVector;
+	int dateVector[3];
     std::stringstream ss(date);
     std::string temp;
 	if (date.front() == '-')
@@ -139,6 +147,7 @@ bool BitcoinExchange::isValidDate(std::string date)
 			return false;
 		}
 	}
+	int i = 0;
     while (getline(ss, temp, '-'))
 	{
 		if (temp.length() == 0)
@@ -146,7 +155,7 @@ bool BitcoinExchange::isValidDate(std::string date)
 			std::cout << "Error: bad input => " << date << std::endl;
 			return false;
 		}
-        dateVector.push_back(std::atoi(temp.c_str()));
+        dateVector[i++] = (std::atoi(temp.c_str()));
     }
 	if (!isValidDay(dateVector))
 	{
@@ -190,11 +199,10 @@ bool BitcoinExchange::isValidValue(std::string val)
 	return true;
 }
 
-bool BitcoinExchange::isValidDay(std::vector<int>& dateVector)
+bool BitcoinExchange::isValidDay(int* dateVector)
 {
 	int month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-	if (dateVector.size() != 3)
-		return false;
+
 	if (dateVector[1] > 12 || dateVector[2] > month[dateVector[1] - 1])
 	{
 		if (dateVector[1] == 2 && dateVector[2] == 29)
@@ -214,4 +222,28 @@ bool BitcoinExchange::isValidDay(std::vector<int>& dateVector)
 		return false;
 	}
 	return true;
+}
+
+void BitcoinExchange::exchange(std::string stringDate, std::string stringVal)
+{
+	std::string temp = stringDate;
+	size_t pos = temp.find("-");
+	while (pos != std::string::npos)
+	{
+		temp.erase(pos, 1);
+		pos = temp.find("-");
+	}
+	int date = std::atoi(temp.c_str());
+
+	char* pEnd;
+	double val = std::strtod(stringVal.c_str(), &pEnd);
+	for (std::map<int, float>::reverse_iterator it = _numberData.rbegin(); it != _numberData.rend(); ++it)
+	{
+		if (it->first <= date)
+		{
+			std::cout << stringDate << " => " << stringVal << " = " << it->second * val << std::endl;
+			return ;
+		}
+	}
+	std::cout << stringDate << " => " << stringVal << " = 0.0" << std::endl;
 }
