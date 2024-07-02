@@ -2,64 +2,45 @@
 #define PMERGEME_HPP
 
 #include <iostream>
-#include <list>
+#include <vector>
 #include <deque>
 #include <algorithm>
 #include <sys/time.h>
 
-#define FIRST   0
-#define SECOND  1
-
-typedef std::pair<int, int> p;
+typedef std::vector< std::vector<int> > vv;
 
 class PmergeMe
 {
-private:
-    int _isOdd;
-    std::list<p> _pairList;
-    std::list<int> _before_list;
-    std::list<int> _jacobsthal_list;
-    std::list<int> _mainChain_list;
-    std::list<int> _pendingChain_list;
+	private:
+		std::vector<int> _before_vector;
+		std::vector<int> _jacobsthal_vector;
+		PmergeMe();
+		PmergeMe(const PmergeMe& origin);
+		PmergeMe& operator=(const PmergeMe& origin);
 
-    std::deque<p> _pairDeque;
-    std::deque<int> _before_deque;
-    std::deque<int> _jacobsthal_deque;
-    std::deque<int> _mainChain_deque;
-    std::deque<int> _pendingChain_deque;
+	public:
+		PmergeMe(int argc, char *argv[]);
+		~PmergeMe();
+		bool isValidArg(int argc, char *argv[]);
+		void start();
+		void printBefore();
+		void printAfter(double duration_list, double duration_deque);
+		double getTimeUS();
 
-    PmergeMe();
-    PmergeMe(const PmergeMe& origin);
-    PmergeMe& operator=(const PmergeMe& origin);
 
-public:
-    PmergeMe(int argc, char *argv[]);
-    ~PmergeMe();
-    bool isValidArg(int argc, char *argv[]);
-    void start();
-    void printBefore();
-    void printAfter(double duration_list, double duration_deque);
-	double getTimeUS();
-
-    int getListValue(std::list<p>& list, int idx, bool flag);
-    int getListValue(std::list<int>& list, int idx);
-    std::pair<int, int>& getListPair(std::list<p>& list, int idx);
-    void setJacobsthal_list();
-    void makePair_list();
-    void mergeSort_list(std::list<p>& list, int low, int high);
-    void sortPair_list(std::list<p>& list, int low, int high);
-    void setMainChain_list();
-    void insertionSort_list();
-	void insertValue_list(int value);
-    void changeListPair(std::list<p>& origin, std::list<p> ref, int begin, int end);
-    
-	void setJacobsthal_deque();
-    void makePair_deque();
-    void mergeSort_deque(std::deque<p>& deque, int low, int high);
-    void sortPair_deque(std::deque<p>& deque, int low, int high);
-    void setMainChain_deque();
-    void insertionSort_deque();
-	void insertValue_deque(int value);
+		//vector
+		void setJacobsthal_vector();
+		void mergeSortStart_vector(std::vector<int> &vec);
+		void mergeSort_vector(vv& vec, size_t depth);
+		std::vector<int> merge_vec(std::vector<int>& v1, std::vector<int>& v2, size_t depth);
 };
-
 #endif
+
+// before = 5 2 1 9 2 6 2 3 5 8 3 size = 11
+// 5 2 1 9 2 6 2 3 5 8  // 나머지 : 3 --- 1레벨
+// (5 2) (9 1) (6 2) (3 2) // 나머지 : (8 5) --- 2레벨
+// (9 1 5 2) (6 2 3 2) // --- 3레벨
+// (9 1 5 2 6 2 3 2) // --- 4레벨
+// (6 2 3 2) (9 1 5 2) // --- 3레벨
+// (3 2) (5 2) (6 2) (8 5) (9 1) // --- 2레벨
+// 1 2 2 2 3 3 5 5 6 8 9		// --- 1레벨
