@@ -8,12 +8,15 @@
 #include <sys/time.h>
 
 typedef std::vector< std::vector<int> > vv;
+typedef std::deque< std::deque<int> > dd;
 
 class PmergeMe
 {
 	private:
 		std::vector<int> _before_vector;
 		std::vector<int> _jacobsthal_vector;
+		std::deque<int> _before_deque;
+		std::deque<int> _jacobsthal_deque;
 		PmergeMe();
 		PmergeMe(const PmergeMe& origin);
 		PmergeMe& operator=(const PmergeMe& origin);
@@ -21,27 +24,29 @@ class PmergeMe
 	public:
 		PmergeMe(int argc, char *argv[]);
 		~PmergeMe();
-		bool isValidArg(int argc, char *argv[]);
-		void start();
 		void printBefore();
-		void printAfter(double duration_list, double duration_deque);
+		bool isValidArg(int argc, char *argv[]);
+		void printAfter(double duration_list, double duration_deque, std::vector<int> vec);
 		double getTimeUS();
+		void start();
 
 
 		//vector
 		void setJacobsthal_vector();
-		void mergeSortStart_vector(std::vector<int> &vec);
-		vv mergeSort_vector(vv& vec, size_t depth);
-		std::vector<int> merge_vec(std::vector<int>& v1, std::vector<int>& v2, size_t depth, vv& mainChain, vv& pendingChain);
+		std::vector<int> mergeSortStart_vector(std::vector<int> &vec);
+		int binaryInsertValue_vector(vv& mainChain, int left, int right, std::vector<int>& target);
+		std::vector<int> merge_vector(std::vector<int>& v1, std::vector<int>& v2, size_t cnt, vv& mainChain, vv& pendingChain);
+		vv mergeSort_vector(vv& vec, size_t cnt);
+		void insertRemainValue_vector(int prev, vv& mainChain, vv& pendingChain);
+		vv insertionSort_vector(vv& mainChain, vv& pendingChain);
 
+		//deque
+		void setJacobsthal_deque();
+		std::deque<int> mergeSortStart_deque(std::deque<int> &vec);
+		int binaryInsertValue_deque(dd& mainChain, int left, int right, std::deque<int>& target);
+		std::deque<int> merge_deque(std::deque<int>& v1, std::deque<int>& v2, size_t cnt, dd& mainChain, dd& pendingChain);
+		dd mergeSort_deque(dd& vec, size_t cnt);
+		void insertRemainValue_deque(int prev, dd& mainChain, dd& pendingChain);
+		dd insertionSort_deque(dd& mainChain, dd& pendingChain);
 };
 #endif
-
-// before = 5 2 1 9 2 6 2 3 5 8 3 size = 11
-// 5 2 1 9 2 6 2 3 5 8  // 나머지 : 3 --- 1레벨
-// (5 2) (9 1) (6 2) (3 2) // 나머지 : (8 5) --- 2레벨
-// (9 1 5 2) (6 2 3 2) // --- 3레벨
-// (9 1 5 2 6 2 3 2) // --- 4레벨
-// (6 2 3 2) (9 1 5 2) // --- 3레벨
-// (3 2) (5 2) (6 2) (8 5) (9 1) // --- 2레벨
-// 1 2 2 2 3 3 5 5 6 8 9		// --- 1레벨
