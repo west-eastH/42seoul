@@ -347,9 +347,9 @@ vv PmergeMe::insertionSort_vector(vv& mainChain, vv& pendingChain)
 		}
 		for (int i = index; i > prev; i--)
 		{
-			std::vector<int> target = pendingChain[index - 1];
-			int idx = binaryInsertValue_vector(mainChain, 0, mainChain.size() - 1, target);
-			mainChain.insert(mainChain.begin() + idx, target);
+			std::vector<int> target = pendingChain[i - 1];
+			int insertIdx = binaryInsertValue_vector(mainChain, 0, mainChain.size() - 1, target);
+			mainChain.insert(mainChain.begin() + insertIdx, target);
 		}
 		prev = *jacob_it;
     }
