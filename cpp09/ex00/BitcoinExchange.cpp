@@ -100,7 +100,6 @@ void BitcoinExchange::start(std::string filename)
 		while (!file.eof())
 		{
 			getline(file, line);
-			// std::cout << "line = " << line << std::endl;
 			splitInput(line);
 		}
 		file.close();
@@ -204,6 +203,8 @@ bool BitcoinExchange::isValidDay(int* dateArray)
 {
 	int month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
+	if (dateArray[0] < 2009 || (dateArray[0] == 2009 && dateArray[1] == 1 && dateArray[2] == 1))
+		return false;
 	if (dateArray[1] < 1 || dateArray[1] > 12)
 		return false;
 	else

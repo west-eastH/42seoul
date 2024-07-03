@@ -372,9 +372,9 @@ dd PmergeMe::insertionSort_deque(dd& mainChain, dd& pendingChain)
 		}
 		for (int i = index; i > prev; i--)
 		{
-			std::deque<int> target = pendingChain[index - 1];
-			int idx = binaryInsertValue_deque(mainChain, 0, mainChain.size() - 1, target);
-			mainChain.insert(mainChain.begin() + idx, target);
+			std::deque<int> target = pendingChain[i - 1];
+			int insertIdx = binaryInsertValue_deque(mainChain, 0, mainChain.size() - 1, target);
+			mainChain.insert(mainChain.begin() + insertIdx, target);
 		}
 		prev = *jacob_it;
     }
