@@ -31,7 +31,6 @@ class PmergeMe
 		void start();
 
 
-		//vector
 		void setJacobsthal_vector();
 		std::vector<int> mergeSortStart_vector(std::vector<int> &vec);
 		int binaryInsertValue_vector(vv& mainChain, int left, int right, std::vector<int>& target);
@@ -40,7 +39,6 @@ class PmergeMe
 		void insertRemainValue_vector(int prev, vv& mainChain, vv& pendingChain);
 		vv insertionSort_vector(vv& mainChain, vv& pendingChain);
 
-		//deque
 		void setJacobsthal_deque();
 		std::deque<int> mergeSortStart_deque(std::deque<int> &vec);
 		int binaryInsertValue_deque(dd& mainChain, int left, int right, std::deque<int>& target);
