@@ -31,8 +31,9 @@ class PmergeMe
 		//vector
 		void setJacobsthal_vector();
 		void mergeSortStart_vector(std::vector<int> &vec);
-		void mergeSort_vector(vv& vec, size_t depth);
-		std::vector<int> merge_vec(std::vector<int>& v1, std::vector<int>& v2, size_t depth);
+		vv mergeSort_vector(vv& vec, size_t depth);
+		std::vector<int> merge_vec(std::vector<int>& v1, std::vector<int>& v2, size_t depth, vv& mainChain, vv& pendingChain);
+
 };
 #endif
 

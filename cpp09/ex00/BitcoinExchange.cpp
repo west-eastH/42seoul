@@ -1,19 +1,5 @@
 #include "BitcoinExchange.hpp"
 
-void BitcoinExchange::printTest()
-{
-	std::cout << "string data" << std::endl;
-	for (std::map<std::string, std::string>::iterator it = _stringData.begin(); it != _stringData.end(); ++it)
-		std::cout << it->first << "    " << it->second << std::endl;
-
-
-	std::cout << std::endl;
-	std::cout << std::endl;
-
-	for (std::map<int, float>::iterator it = _numberData.begin(); it != _numberData.end(); ++it)
-		std::cout << "number data" << it->first << "    " << it->second << std::endl;
-}
-
 BitcoinExchange::BitcoinExchange(int argc)
 {
 	if (argc != 2)
@@ -125,7 +111,7 @@ void BitcoinExchange::start(std::string filename)
 
 bool BitcoinExchange::isValidDate(std::string date)
 {
-	int dateVector[3];
+	int dateArray[3];
     std::stringstream ss(date);
     std::string temp;
 	if (date.front() == '-')
@@ -150,14 +136,14 @@ bool BitcoinExchange::isValidDate(std::string date)
 	int i = 0;
     while (getline(ss, temp, '-'))
 	{
-		if (temp.length() == 0)
+		if (temp.length() == 0 || (i != 0 && temp.length() != 2))
 		{
 			std::cout << "Error: bad input => " << date << std::endl;
 			return false;
 		}
-        dateVector[i++] = (std::atoi(temp.c_str()));
+        dateArray[i++] = (std::atoi(temp.c_str()));
     }
-	if (!isValidDay(dateVector))
+	if (!isValidDay(dateArray))
 	{
 		std::cout << "Error: bad input => " << date << std::endl;
 		return false;
@@ -199,29 +185,37 @@ bool BitcoinExchange::isValidValue(std::string val)
 	return true;
 }
 
-bool BitcoinExchange::isValidDay(int* dateVector)
+bool BitcoinExchange::isLeapYear(int year)
+{
+    if (year % 4 == 0)
+    {
+        if (year % 100 == 0)
+        {
+            if (year % 400 == 0)
+                return true;
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+bool BitcoinExchange::isValidDay(int* dateArray)
 {
 	int month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-	if (dateVector[1] > 12 || dateVector[2] > month[dateVector[1] - 1])
+	if (dateArray[1] < 1 || dateArray[1] > 12)
+		return false;
+	else
 	{
-		if (dateVector[1] == 2 && dateVector[2] == 29)
+		if (dateArray[2] > month[dateArray[1] - 1])
 		{
-			if (dateVector[0] % 4 == 0)
-			{
-				if (dateVector[0] % 100 == 0)
-				{
-					if (dateVector[0] % 400 == 0)
-						return true;
-					return false;
-				}
+			if (dateArray[1] == 2 && dateArray[2] == 29 && isLeapYear(dateArray[0]))
 				return true;
-			}
 			return false;
 		}
-		return false;
+		return true;
 	}
-	return true;
 }
 
 void BitcoinExchange::exchange(std::string stringDate, std::string stringVal)

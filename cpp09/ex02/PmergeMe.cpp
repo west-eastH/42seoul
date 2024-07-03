@@ -78,7 +78,7 @@ void PmergeMe::mergeSortStart_vector(std::vector<int> &vec)
 	mergeSort_vector(start_vector, 1);
 }
 
-std::vector<int> PmergeMe::merge_vec(std::vector<int>& v1, std::vector<int>& v2, size_t depth)
+std::vector<int> PmergeMe::merge_vec(std::vector<int>& v1, std::vector<int>& v2, size_t depth, vv&mainChain, vv&pendingChain)
 {
 	std::vector<int> result;
 
@@ -88,6 +88,8 @@ std::vector<int> PmergeMe::merge_vec(std::vector<int>& v1, std::vector<int>& v2,
 			result.push_back(v1[i]);
 		for (size_t i = 0; i < depth; i++)
 			result.push_back(v2[i]);
+		mainChain.push_back(v1);
+		pendingChain.push_back(v2);
 		// result.insert(result.end(), v1.begin(), v1.end());
 		// result.insert(result.end(), v2.begin(), v2.end());
 	}
@@ -97,6 +99,8 @@ std::vector<int> PmergeMe::merge_vec(std::vector<int>& v1, std::vector<int>& v2,
 			result.push_back(v2[i]);
 		for (size_t i = 0; i < depth; i++)
 			result.push_back(v1[i]);
+		mainChain.push_back(v2);
+		pendingChain.push_back(v1);
 		// result.insert(result.end(), v2.begin(), v2.end());
 		// result.insert(result.end(), v1.begin(), v1.end());
 	}
@@ -111,40 +115,73 @@ std::vector<int> PmergeMe::merge_vec(std::vector<int>& v1, std::vector<int>& v2,
 // (3 2) (5 2) (6 2) (8 5) (9 1) // --- 2레벨
 // 1 2 2 2 3 3 5 5 6 8 9		// --- 1레벨
 
-void PmergeMe::mergeSort_vector(vv& vec, size_t depth)
+vv PmergeMe::mergeSort_vector(vv& vec, size_t depth)
 {
 	vv isOdd;
 	vv temp;
 	vv sorted;
+	vv mainChain;
+	vv pendingChain;
 	size_t size = vec.size();
 
 	if (vec.size() == 1)
 	{
-		for (size_t i = 0; i < vec[0].size(); i++)
-		{
-			std::cout << vec[0][i] << " ";
-		}
-		std::cout << std::endl;
-		return ;
+		// for (size_t i = 0; i < vec[0].size(); i++)
+		// {
+		// 	std::cout << vec[0][i] << " ";
+		// }
+		// std::cout << std::endl;
+		return vec;
 		
 	}
-
+// before = 5 2 1 9 2 6 2 3 5 8 3 size = 11
+// 5 2 1 9 2 6 2 3 5 8  // 나머지 : 3 --- 1레벨
+// (5 2) (9 1) (6 2) (3 2) // 나머지 : (8 5) --- 2레벨
+// (9 1 5 2) (6 2 3 2) // --- 3레벨
+// (9 1 5 2 6 2 3 2) // --- 4레벨
+// (6 2 3 2) (9 1 5 2) // --- 3레벨
+// (3 2) (5 2) (6 2) (8 5) (9 1) // --- 2레벨
+// 1 2 2 2 3 3 5 5 6 8 9		// --- 1레벨
 	if (size % 2 != 0)
 	{
 		isOdd.push_back(vec.back());
 		vec.pop_back();
 	}
 	for (size_t i = 0; i < size - 1; i+=2)
-		temp.push_back(merge_vec(vec[i], vec[i + 1], depth));
-	mergeSort_vector(temp, depth * 2);
-	my_sort(temp);
-}
-
-void PmergeMe::my_sort(vv vec)
-{
-	for (size_t i = 0; i < count; i++)
+		temp.push_back(merge_vec(vec[i], vec[i + 1], depth, mainChain, pendingChain));
+	sorted = mergeSort_vector(temp, depth * 2);
+	if (!isOdd.empty())
+		pendingChain.push_back(isOdd[0]);
+	std::cout << "main chain=======" << std::endl;
+	for (size_t i = 0; i < mainChain.size(); i++)
 	{
-		/* code */
+		for (size_t j = 0; j < mainChain[i].size(); j++)
+		{
+			std::cout << mainChain[i][j] << " ";
+		}
+		std::cout << "		";
 	}
-	
+	std::cout << std::endl;
+	std::cout << "pending chain=======" << std::endl;
+	for (size_t i = 0; i < pendingChain.size(); i++)
+	{
+		for (size_t j = 0; j < pendingChain[i].size(); j++)
+		{
+			std::cout << pendingChain[i][j] << " ";
+		}
+		std::cout << "		";
+	}
+	std::cout << std::endl;
+	std::cout << "temp chain=======" << std::endl;
+	for (size_t i = 0; i < temp.size(); i++)
+	{
+		for (size_t j = 0; j < temp[i].size(); j++)
+		{
+			std::cout << temp[i][j] << " ";
+		}
+		std::cout << "		";
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+	return sorted;
 }

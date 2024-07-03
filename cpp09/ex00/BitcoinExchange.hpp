@@ -30,8 +30,6 @@ class BitcoinExchange
 		bool isValidDate(std::string date);
 		bool isValidValue(std::string val);
 		bool isValidDay(int* dateVector);
+		bool isLeapYear(int year);
 		void exchange(std::string stringDate, std::string stringVal);
-
-
-		void printTest();
 };
