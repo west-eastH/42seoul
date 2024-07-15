@@ -49,7 +49,6 @@ void PmergeMe::printAfter(double duration_vector, double duration_deque, std::ve
     for (size_t i = 0; i < vec.size(); i++)
         std::cout << vec[i] << " ";
     std::cout << std::endl;
-
 	std::cout << "Time to process a range of " << _before_vector.size() << " elements with std::vector: " << duration_vector << " us" << std::endl;
     std::cout << "Time to process a range of " << _before_deque.size() << " elements with std::deque: " << duration_deque << " us" << std::endl;
 }
@@ -69,14 +68,14 @@ void PmergeMe::start()
 	std::vector<int> result_vector;
 	std::deque<int> result_deque;
 
-	start_vector = getTimeUS();
 	setJacobsthal_vector();
+	start_vector = getTimeUS();
 	result_vector = mergeSortStart_vector(_before_vector);
 	end_vector = getTimeUS();
 	duration_vector = end_vector - start_vector;
 
-	start_deque = getTimeUS();
 	setJacobsthal_deque();
+	start_deque = getTimeUS();
 	result_deque = mergeSortStart_deque(_before_deque);
 	end_deque = getTimeUS();
 	duration_deque = end_deque - start_deque;
@@ -184,25 +183,15 @@ int PmergeMe::binaryInsertValue_deque(dd& mainChain, int left, int right, std::d
 	return left;
 }
 
-std::vector<int> PmergeMe::merge_vector(std::vector<int>& v1, std::vector<int>& v2, size_t cnt, vv&mainChain, vv&pendingChain)
+std::vector<int> PmergeMe::merge_vector(std::vector<int>& v1, std::vector<int>& v2, size_t cnt)
 {
 	std::vector<int> result;
-
 	if (v1.front() > v2.front())
 	{
 		for (size_t i = 0; i < cnt; i++)
 			result.push_back(v1[i]);
 		for (size_t i = 0; i < cnt; i++)
 			result.push_back(v2[i]);
-		if (mainChain.size() == 0)
-		{
-			mainChain.push_back(v1);
-			pendingChain.push_back(v2);
-			return result;
-		}
-		int idx = binaryInsertValue_vector(mainChain, 0, mainChain.size() - 1, v1);
-		mainChain.insert(mainChain.begin() + idx, v1);
-		pendingChain.insert(pendingChain.begin() + idx, v2);
 	}
 	else
 	{
@@ -210,20 +199,11 @@ std::vector<int> PmergeMe::merge_vector(std::vector<int>& v1, std::vector<int>& 
 			result.push_back(v2[i]);
 		for (size_t i = 0; i < cnt; i++)
 			result.push_back(v1[i]);
-		if (mainChain.size() == 0)
-		{
-			mainChain.push_back(v2);
-			pendingChain.push_back(v1);
-			return result;
-		}
-		int idx = binaryInsertValue_vector(mainChain, 0, mainChain.size() - 1, v2);
-		mainChain.insert(mainChain.begin() + idx, v2);
-		pendingChain.insert(pendingChain.begin() + idx, v1);
 	}
 	return result;
 }
 
-std::deque<int> PmergeMe::merge_deque(std::deque<int>& d1, std::deque<int>& d2, size_t cnt, dd& mainChain, dd& pendingChain)
+std::deque<int> PmergeMe::merge_deque(std::deque<int>& d1, std::deque<int>& d2, size_t cnt)
 {
 	std::deque<int> result;
 
@@ -233,15 +213,6 @@ std::deque<int> PmergeMe::merge_deque(std::deque<int>& d1, std::deque<int>& d2, 
 			result.push_back(d1[i]);
 		for (size_t i = 0; i < cnt; i++)
 			result.push_back(d2[i]);
-		if (mainChain.size() == 0)
-		{
-			mainChain.push_back(d1);
-			pendingChain.push_back(d2);
-			return result;
-		}
-		int idx = binaryInsertValue_deque(mainChain, 0, mainChain.size() - 1, d1);
-		mainChain.insert(mainChain.begin() + idx, d1);
-		pendingChain.insert(pendingChain.begin() + idx, d2);
 	}
 	else
 	{
@@ -249,18 +220,52 @@ std::deque<int> PmergeMe::merge_deque(std::deque<int>& d1, std::deque<int>& d2, 
 			result.push_back(d2[i]);
 		for (size_t i = 0; i < cnt; i++)
 			result.push_back(d1[i]);
-		if (mainChain.size() == 0)
-		{
-			mainChain.push_back(d2);
-			pendingChain.push_back(d1);
-			return result;
-		}
-		int idx = binaryInsertValue_deque(mainChain, 0, mainChain.size() - 1, d2);
-		mainChain.insert(mainChain.begin() + idx, d2);
-		pendingChain.insert(pendingChain.begin() + idx, d1);
 	}
 	return result;
 }
+
+void PmergeMe::makeSorted_vector(vv& sorted, vv& mainChain, vv& pendingChain, size_t cnt)
+{
+	std::vector<int> temp;
+	for (size_t i = 0; i < sorted.size(); i++)
+	{
+		temp.clear();
+		for (size_t j = 0; j < cnt; j++)
+			temp.push_back(sorted[i][j]);
+		mainChain.push_back(temp);
+
+		temp.clear();
+		for (size_t j = cnt; j < sorted[i].size(); j++)
+			temp.push_back(sorted[i][j]);
+		pendingChain.push_back(temp);
+	}
+}
+
+void PmergeMe::makeSorted_deque(dd& sorted, dd& mainChain, dd& pendingChain, size_t cnt)
+{
+	std::deque<int> temp;
+	for (size_t i = 0; i < sorted.size(); i++)
+	{
+		temp.clear();
+		for (size_t j = 0; j < cnt; j++)
+			temp.push_back(sorted[i][j]);
+		mainChain.push_back(temp);
+
+		temp.clear();
+		for (size_t j = cnt; j < sorted[i].size(); j++)
+			temp.push_back(sorted[i][j]);
+		pendingChain.push_back(temp);
+	}
+}
+
+// before = 5 2 1 9 2 6 2 3 5 8 3 size = 11
+// 5 2 1 9 2 6 2 3 5 8  // 나머지 : 3 --- 1레벨
+// (5 2) (9 1) (6 2) (3 2) // 나머지 : (8 5) --- 2레벨
+// (9 1 5 2) (6 2 3 2) // --- 3레벨
+// (9 1 5 2 6 2 3 2) // --- 4레벨
+// (6 2 3 2) (9 1 5 2) // --- 3레벨
+// (3 2) (5 2) (6 2) (8 5) (9 1) // --- 2레벨
+// 1 2 2 2 3 3 5 5 6 8 9		// --- 1레벨
 
 vv PmergeMe::mergeSort_vector(vv& vec, size_t cnt)
 {
@@ -268,6 +273,7 @@ vv PmergeMe::mergeSort_vector(vv& vec, size_t cnt)
 	vv temp;
 	vv mainChain;
 	vv pendingChain;
+	vv sorted;
 	size_t size = vec.size();
 
 	if (vec.size() == 1)
@@ -279,11 +285,13 @@ vv PmergeMe::mergeSort_vector(vv& vec, size_t cnt)
 		vec.pop_back();
 	}
 	for (size_t i = 0; i < size - 1; i+=2)
-		temp.push_back(merge_vector(vec[i], vec[i + 1], cnt, mainChain, pendingChain));
-	mergeSort_vector(temp, cnt * 2);
+		temp.push_back(merge_vector(vec[i], vec[i + 1], cnt));
+	
+	sorted = mergeSort_vector(temp, cnt * 2);
+	makeSorted_vector(sorted, mainChain, pendingChain, cnt);
+	
 	if (!isOdd.empty())
 		pendingChain.push_back(isOdd[0]);
-
 	return insertionSort_vector(mainChain, pendingChain);
 }
 
@@ -293,6 +301,7 @@ dd PmergeMe::mergeSort_deque(dd& deq, size_t cnt)
 	dd temp;
 	dd mainChain;
 	dd pendingChain;
+	dd sorted;
 	size_t size = deq.size();
 
 	if (deq.size() == 1)
@@ -304,8 +313,10 @@ dd PmergeMe::mergeSort_deque(dd& deq, size_t cnt)
 		deq.pop_back();
 	}
 	for (size_t i = 0; i < size - 1; i+=2)
-		temp.push_back(merge_deque(deq[i], deq[i + 1], cnt, mainChain, pendingChain));
-	mergeSort_deque(temp, cnt * 2);
+		temp.push_back(merge_deque(deq[i], deq[i + 1], cnt));
+	sorted = mergeSort_deque(temp, cnt * 2);
+	makeSorted_deque(sorted, mainChain, pendingChain, cnt);
+	
 	if (!isOdd.empty())
 		pendingChain.push_back(isOdd[0]);
 	return insertionSort_deque(mainChain, pendingChain);

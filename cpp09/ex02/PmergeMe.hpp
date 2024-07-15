@@ -34,17 +34,19 @@ class PmergeMe
 		void setJacobsthal_vector();
 		std::vector<int> mergeSortStart_vector(std::vector<int> &vec);
 		int binaryInsertValue_vector(vv& mainChain, int left, int right, std::vector<int>& target);
-		std::vector<int> merge_vector(std::vector<int>& v1, std::vector<int>& v2, size_t cnt, vv& mainChain, vv& pendingChain);
+		std::vector<int> merge_vector(std::vector<int>& v1, std::vector<int>& v2, size_t cnt);
 		vv mergeSort_vector(vv& vec, size_t cnt);
 		void insertRemainValue_vector(int prev, vv& mainChain, vv& pendingChain);
 		vv insertionSort_vector(vv& mainChain, vv& pendingChain);
+		void makeSorted_vector(vv& sorted, vv& mainChain, vv& pendingChain, size_t cnt);
 
 		void setJacobsthal_deque();
 		std::deque<int> mergeSortStart_deque(std::deque<int> &vec);
 		int binaryInsertValue_deque(dd& mainChain, int left, int right, std::deque<int>& target);
-		std::deque<int> merge_deque(std::deque<int>& v1, std::deque<int>& v2, size_t cnt, dd& mainChain, dd& pendingChain);
+		std::deque<int> merge_deque(std::deque<int>& v1, std::deque<int>& v2, size_t cnt);
 		dd mergeSort_deque(dd& vec, size_t cnt);
 		void insertRemainValue_deque(int prev, dd& mainChain, dd& pendingChain);
 		dd insertionSort_deque(dd& mainChain, dd& pendingChain);
+		void makeSorted_deque(dd& sorted, dd& mainChain, dd& pendingChain, size_t cnt);
 };
 #endif
